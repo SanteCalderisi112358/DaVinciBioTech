@@ -34,4 +34,11 @@ public class Donazione {
 		return "Donazione [id=" + id + ", importo=" + importo + ", data=" + data + ", utente=" + utente + "]";
 	}
 
+	public Donazione(BigDecimal importo, LocalDate data, Utente utente) {
+		super();
+		this.importo = importo;
+		this.data = data;
+		this.utente = utente;
+	}
+
 }

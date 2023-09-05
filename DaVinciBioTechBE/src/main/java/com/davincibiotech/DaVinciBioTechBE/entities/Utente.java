@@ -47,9 +47,19 @@ public class Utente implements UserDetails {
 		this.cognome = cognome;
 		this.email = email;
 		this.password = password;
+		this.ruolo = TipoUtente.USER;
 		// this.creditCard = creditCard;
 	}
 
+
+	public Utente(String nome, String cognome, String email, String password, TipoUtente ruolo) {
+
+		this.nome = nome;
+		this.cognome = cognome;
+		this.email = email;
+		this.password = password;
+		this.ruolo = ruolo;
+	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority(ruolo.name()));
@@ -96,6 +106,7 @@ public class Utente implements UserDetails {
 		return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email + ", password="
 				+ password + ", ruolo=" + ruolo + "]";
 	}
+
 
 }
 
