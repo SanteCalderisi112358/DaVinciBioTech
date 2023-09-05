@@ -30,6 +30,7 @@ public class ExceptionsHandler {
 		return new ErrorsPayload(e.getMessage(), new Date());
 	}
 
+
 	@ExceptionHandler(UnauthorizedException.class)
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	public ErrorsPayload handleUnauthorized(UnauthorizedException e) {

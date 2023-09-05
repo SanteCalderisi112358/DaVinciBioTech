@@ -2,6 +2,7 @@ package com.davincibiotech.DaVinciBioTechBE.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
+import com.davincibiotech.DaVinciBioTechBE.exceptions.NotFoundException;
 import com.davincibiotech.DaVinciBioTechBE.exceptions.UnauthorizedException;
 import com.davincibiotech.DaVinciBioTechBE.payloads.LoginSuccessfullPayload;
 import com.davincibiotech.DaVinciBioTechBE.payloads.UtenteLoginPayload;
@@ -29,7 +31,7 @@ public class AuthController {
 	@Autowired
 	PasswordEncoder bcrypt;
 
-	@PostMapping("/register")
+	@PostMapping("/registrazione")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Utente saveUser(@RequestBody @Validated UtenteRequestBody body) {
 		body.setPassword(bcrypt.encode(body.getPassword()));
@@ -39,24 +41,42 @@ public class AuthController {
 		return created;
 	}
 
+	// @PreAuthorize("hasAuthority('ADMIN')")
+	@PostMapping("/registrazione-admin")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Utente saveAdmin(@RequestBody @Validated UtenteRequestBody body) {
+		body.setPassword(bcrypt.encode(body.getPassword()));
+		// body.setCreditCard("1234123412341234");
+		Utente created = usersService.createAdmin(body);
+
+		return created;
+	}
+
 	@PostMapping("/login")
-	public LoginSuccessfullPayload login(@RequestBody UtenteLoginPayload body) {
-		// 1. Verifichiamo che l'email dell'utente sia presente nel db
+	public ResponseEntity<LoginSuccessfullPayload> login(@RequestBody UtenteLoginPayload body)
+			throws UnauthorizedException, NotFoundException {
+		System.err.println("Email: " + body.getEmail());
+		System.err.println("Password: " + body.getPassword());
+		Utente user = usersService.findByEmail(body.getEmail());
+		System.err.println(user.toString());
+		System.err.println(user.getPassword());
+		if (user == null) {
 
-		Utente utente = usersService.findByEmail(body.getEmail());
+			throw new NotFoundException("Utente non trovato");
+		} else {
+			if (bcrypt.matches(body.getPassword(), user.getPassword())) {
 
-		// 2. In caso affermativo, devo verificare che la pw corrisponda a quella
-		// trovata nel db
-		if (bcrypt.matches(body.getPassword(), utente.getPassword())) {
+			String token = jwtTools.createToken(user);
 
-			// 3. Se le credenziali sono OK --> genero un JWT e lo invio come risposta
-			String token = jwtTools.createToken(utente);
-			return new LoginSuccessfullPayload(token);
+			LoginSuccessfullPayload loginAvvenuto = new LoginSuccessfullPayload(token);
+			return new ResponseEntity<>(loginAvvenuto, HttpStatus.OK);
 
 		} else {
-			// 4. Se le credenziali NON sono OK --> 401
+
 			throw new UnauthorizedException("Credenziali non valide!");
 		}
+	}
+
 	}
 
 }

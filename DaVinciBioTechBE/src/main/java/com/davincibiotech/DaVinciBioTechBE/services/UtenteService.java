@@ -21,6 +21,7 @@ import com.davincibiotech.DaVinciBioTechBE.repositories.UtenteRepository;
 public class UtenteService {
 	private final UtenteRepository usersRepo;
 
+
 	@Autowired
 	public UtenteService(UtenteRepository usersRepo) {
 		this.usersRepo = usersRepo;
@@ -31,6 +32,7 @@ public class UtenteService {
 		usersRepo.findByEmail(body.getEmail()).ifPresent(user -> {
 			throw new BadRequestException("L'email è già stata utilizzata");
 		});
+
 		Utente newUser = new Utente(body.getNome(), body.getCognome(), body.getEmail(), body.getPassword());
 		return usersRepo.save(newUser);
 

@@ -13,42 +13,37 @@ import lombok.Setter;
 
 public class UtenteRequestBody {
 
-	@NotNull(message = "Il nome è obbligatorio")
+	// @NotNull(message = "Il nome è obbligatorio")
 	private String nome;
-	@NotNull(message = "Il cognome è obbligatorio")
+	// @NotNull(message = "Il cognome è obbligatorio")
 	private String cognome;
-	@NotNull(message = "L'email è obbligatoria")
-	@Email(message = "L'email inserita è in un formato valido")
+//	@NotNull(message = "L'email è obbligatoria")
+//	@Email(message = "L'email inserita è in un formato non valido")
 	private String email;
-	@NotNull(message = "La password è obbligatoria")
-	@Size(min = 3, max = 30, message = "La password deve avere minimo 8 caratteri, massimo 30")
+//	@NotNull(message = "La password è obbligatoria")
+//	@Size(min = 3, max = 30, message = "La password deve avere minimo 8 caratteri, massimo 30")
 	private String password;
 	private TipoUtente ruolo;
 
-	public UtenteRequestBody(@NotNull(message = "Il nome è obbligatorio") String nome,
-			@NotNull(message = "Il cognome è obbligatorio") String cognome,
-			@NotNull(message = "L'email è obbligatoria") @Email(message = "L'email inserita è in un formato valido") String email,
-			@NotNull(message = "La password è obbligatoria") @Size(min = 3, max = 30, message = "La password deve avere minimo 8 caratteri, massimo 30") String password) {
+	public UtenteRequestBody(
+			 @NotNull(message = "Il nome è obbligatorio")
+			String nome,
+			@NotNull(message = "Il cognome è obbligatorio")
+			String cognome,
+			@NotNull(message = "L'email è obbligatoria") @Email(message = "L'email inserita è in un formato valido")
+			String email,
+			@NotNull(message = "La password è obbligatoria") @Size(min = 3, max = 30,
+			 message = "La password deve avere minimo 8 caratteri, massimo 30")
+			String password) {
 
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
 		this.password = password;
-		this.ruolo = TipoUtente.USER;
+
 	}
 
-	public UtenteRequestBody(@NotNull(message = "Il nome è obbligatorio") String nome,
-			@NotNull(message = "Il cognome è obbligatorio") String cognome,
-			@NotNull(message = "L'email è obbligatoria") @Email(message = "L'email inserita è in un formato valido") String email,
-			@NotNull(message = "La password è obbligatoria") @Size(min = 3, max = 30, message = "La password deve avere minimo 8 caratteri, massimo 30") String password,
-			TipoUtente ruolo) {
-		super();
-		this.nome = nome;
-		this.cognome = cognome;
-		this.email = email;
-		this.password = password;
-		this.ruolo = ruolo;
-	}
+
 
 	@Override
 	public String toString() {

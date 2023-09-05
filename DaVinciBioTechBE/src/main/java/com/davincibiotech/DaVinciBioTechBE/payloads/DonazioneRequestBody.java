@@ -11,6 +11,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
+
 public class DonazioneRequestBody {
 	@NotNull(message = "Importo obbligatorio")
 	private BigDecimal importo;
@@ -19,6 +20,9 @@ public class DonazioneRequestBody {
 	@NotNull(message = "Utente obbligatorio")
 	private Utente utente;
 
+	public DonazioneRequestBody() {
+
+	}
 	public DonazioneRequestBody(@NotNull(message = "Importo obbligatorio") BigDecimal bigDecimal,
 			@NotNull(message = "Data obbligatoria") LocalDate data,
 			@NotNull(message = "Utente obbligatorio") Utente utente) {

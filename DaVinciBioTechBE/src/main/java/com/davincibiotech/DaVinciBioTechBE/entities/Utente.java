@@ -17,16 +17,13 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "utenti")
 @NoArgsConstructor
-@Getter
-@Setter
-@JsonIgnoreProperties({ "password", "accountNonExpired", "authorities", "credentialsNonExpired", "accountNonLocked" })
+@JsonIgnoreProperties({ "password", "accountNonExpired", "authorities", "credentialsNonExpired", "accountNonLocked",
+		"username", "enabled" })
 public class Utente implements UserDetails {
 	@Id
 	@GeneratedValue
@@ -60,6 +57,7 @@ public class Utente implements UserDetails {
 		this.password = password;
 		this.ruolo = ruolo;
 	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority(ruolo.name()));
@@ -67,8 +65,8 @@ public class Utente implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return this.password;
 	}
 
 	@Override
@@ -107,6 +105,50 @@ public class Utente implements UserDetails {
 				+ password + ", ruolo=" + ruolo + "]";
 	}
 
+
+	public UUID getId() {
+		return id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getCognome() {
+		return cognome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public TipoUtente getRuolo() {
+		return ruolo;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setRuolo(TipoUtente ruolo) {
+		this.ruolo = ruolo;
+	}
 
 }
 

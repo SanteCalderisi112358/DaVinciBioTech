@@ -14,8 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity // mi permette di dichiarare su ogni singolo endpoint i permessi di accesso in
-						// base al ruolo dell'utente (preAuthorize annotation)
+@EnableMethodSecurity
 public class SecurityConfig {
 	@Autowired
 	JWTAuthFilter jwtFilter;
@@ -24,15 +23,16 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		// http.cors(c -> c.disable());
+		http.cors(c -> c.disable());
 
 		http.csrf(c -> c.disable());
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/tavole-leonardo/**").permitAll());
 
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/donazioni/**").authenticated());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/tavole/**").permitAll());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
+
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		// http.addFilterBefore(corsFilter, JWTAuthFilter.class);
 
@@ -41,9 +41,7 @@ public class SecurityConfig {
 
 	@Bean
 	PasswordEncoder encoder() {
-		return new BCryptPasswordEncoder(11); // 11 è il cosiddetto numero di ROUNDS ovvero quante volte viene eseguito
-												// l'algoritmo. In pratica ci serve per settare la velocità di
-												// esecuzione dell'algoritmo (+ è alto il numero, + lento l'algoritmo)
+		return new BCryptPasswordEncoder(11);
 	}
 
 }

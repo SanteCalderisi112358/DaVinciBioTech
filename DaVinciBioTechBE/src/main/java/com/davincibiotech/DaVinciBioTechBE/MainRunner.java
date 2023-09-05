@@ -5,13 +5,14 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.davincibiotech.DaVinciBioTechBE.entities.TipoUtente;
 import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
 import com.davincibiotech.DaVinciBioTechBE.payloads.DonazioneRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.payloads.TavolaRequestBody;
@@ -29,12 +30,14 @@ public class MainRunner implements CommandLineRunner {
 	TavolaService tavolaSrv;
 	@Autowired
 	DonazioneService donazioneSrv;
+	@Autowired
+	PasswordEncoder bcrypt;
 	@Override
 	public void run(String... args) throws Exception {
 		Faker faker = new Faker(Locale.ITALIAN);
 
 		/* CREAZIONE 10 UTENTI USER */
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 5; i++) {
 			UtenteRequestBody nuovoUtenteUSER = new UtenteRequestBody(faker.name().firstName(), faker.name().lastName(),
 					faker.internet().emailAddress(), "1234");
 			// utenteSrv.createUser(nuovoUtenteUSER);
@@ -42,7 +45,7 @@ public class MainRunner implements CommandLineRunner {
 		/* CREAZIONE 1 UTENTE ADMIN */
 
 		UtenteRequestBody nuovoUtenteADMIN = new UtenteRequestBody("Sante", "Calderisi", "santecalderisi@gmail.com",
-				"epicode", TipoUtente.ADMIN);
+				"epicode");
 		// utenteSrv.createAdmin(nuovoUtenteADMIN);
 
 		/* CREAZIONE 15 TAVOLE LEONARDO */
@@ -56,7 +59,7 @@ public class MainRunner implements CommandLineRunner {
 
 		List<Utente> utentiDB = new ArrayList<Utente>();
 		utentiDB = utenteSrv.findNoPage();
-		utentiDB.forEach(ut -> System.err.println(ut.toString()));
+		// utentiDB.forEach(ut -> System.err.println(ut.toString()));
 
 		/* CREAZIONE 20 DONAZIONI */
 		for (int i = 0; i < 20; i++) {
@@ -66,8 +69,11 @@ public class MainRunner implements CommandLineRunner {
 					utentiDB.get(faker.number().numberBetween(0, utentiDB.size() - 1))
 			);
 
-			donazioneSrv.create(nuovaDonazione);
+			// donazioneSrv.create(nuovaDonazione);
 		}
+
+		Utente utente = utenteSrv.findById(UUID.fromString("462cecc5-b139-40e1-bbcc-84203cbcc3e2"));
+		System.err.println(bcrypt.matches("1234", utente.getPassword()));
 
 
 	}
