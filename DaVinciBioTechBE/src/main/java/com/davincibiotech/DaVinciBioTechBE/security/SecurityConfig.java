@@ -28,8 +28,8 @@ public class SecurityConfig {
 		http.csrf(c -> c.disable());
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll());
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/tavole-leonardo/**").permitAll());
-
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/home/**").permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/tavole-leonardo/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/utenti/**").authenticated());
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/donazioni/**").authenticated());
 

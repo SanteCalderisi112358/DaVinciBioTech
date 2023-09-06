@@ -12,13 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.davincibiotech.DaVinciBioTechBE.entities.Donazione;
 import com.davincibiotech.DaVinciBioTechBE.payloads.DonazioneRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.services.DonazioneService;
 
+@RestController
+@RequestMapping("/donazioni")
 public class DonazioneController {
 	private final DonazioneService donazioneSrv;
 
@@ -45,6 +49,7 @@ public class DonazioneController {
 	public Donazione createDonazione(@RequestBody DonazioneRequestBody body) {
 		return donazioneSrv.create(body);
 	}
+
 	@PutMapping("/{donazioneId}")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public Donazione updateDonazione(@PathVariable UUID donazioneId, @RequestBody DonazioneRequestBody body) {

@@ -1,5 +1,7 @@
 package com.davincibiotech.DaVinciBioTechBE.payloads;
 
+import com.davincibiotech.DaVinciBioTechBE.entities.TipoUtente;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,5 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginSuccessfullPayload {
-	String accessToken;
+	private String accessToken;
+	private TipoUtente ruolo;
 }

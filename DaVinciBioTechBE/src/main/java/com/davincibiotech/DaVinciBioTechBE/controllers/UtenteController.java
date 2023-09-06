@@ -38,6 +38,7 @@ public class UtenteController {
 	}
 
 	@GetMapping("/{userId}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public Utente findById(@PathVariable UUID userId) {
 		return utenteSrv.findById(userId);
 
@@ -45,12 +46,14 @@ public class UtenteController {
 
 
 	@PutMapping("/{userId}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public Utente updateUtente(@PathVariable UUID userId, @RequestBody UtenteRequestBody body) {
 		return utenteSrv.findByIdAndUpdate(userId, body);
 	}
 
 	@DeleteMapping("/{userId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public void deleteUtente(@PathVariable UUID userId) {
 		utenteSrv.findByIdAndDelete(userId);
 	}

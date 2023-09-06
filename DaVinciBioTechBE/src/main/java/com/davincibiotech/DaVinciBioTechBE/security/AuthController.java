@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.davincibiotech.DaVinciBioTechBE.entities.TipoUtente;
 import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
 import com.davincibiotech.DaVinciBioTechBE.exceptions.NotFoundException;
 import com.davincibiotech.DaVinciBioTechBE.exceptions.UnauthorizedException;
@@ -67,8 +68,9 @@ public class AuthController {
 			if (bcrypt.matches(body.getPassword(), user.getPassword())) {
 
 			String token = jwtTools.createToken(user);
+			TipoUtente ruolo = user.getRuolo();
 
-			LoginSuccessfullPayload loginAvvenuto = new LoginSuccessfullPayload(token);
+			LoginSuccessfullPayload loginAvvenuto = new LoginSuccessfullPayload(token, ruolo);
 			return new ResponseEntity<>(loginAvvenuto, HttpStatus.OK);
 
 		} else {

@@ -35,12 +35,15 @@ public class TavoleController {
 	// @PreAuthorize("hasAuthority('ADMIN')")
 	public Page<Tavola> getTavole(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
+		System.err.println("Sto vedendo le tavole");
 		return tavolaSrv.find(page, size, sortBy);
 	}
 
 	@GetMapping("/{tavolaId}")
 	public Tavola findById(@PathVariable UUID tavolaId) {
+		System.err.println("Sto vedendo la tavola con id: " + tavolaId);
 		return tavolaSrv.findById(tavolaId);
+
 
 	}
 
@@ -59,6 +62,7 @@ public class TavoleController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public void deleteTavola(@PathVariable UUID tavolaId) {
+		System.err.println("Elimina tavola con id: " + tavolaId);
 		tavolaSrv.findByIdAndDelete(tavolaId);
 	}
 
