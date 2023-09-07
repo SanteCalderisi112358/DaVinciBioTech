@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.davincibiotech.DaVinciBioTechBE.entities.Donazione;
 import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
 import com.davincibiotech.DaVinciBioTechBE.exceptions.BadRequestException;
 import com.davincibiotech.DaVinciBioTechBE.payloads.UtenteRequestBody;
@@ -71,6 +72,21 @@ public class UtenteController {
 			throw new BadRequestException("Nessun utente ha effettuato donazioni");
 		}
 		return ResponseEntity.ok(utentiConDonazioni);
+	}
+
+	@GetMapping("/{userId}/donazioni")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public ResponseEntity<List<Donazione>> getDonazioniByUtente(@PathVariable UUID userId) {
+		List<Donazione> donazioni = utenteSrv.getDonazioniByUtenteId(userId);
+		Utente utente = utenteSrv.findById(userId);
+		if (!donazioni.isEmpty()) {
+			return ResponseEntity.ok(donazioni);
+
+		} else {
+			throw new BadRequestException("L'utente " + utente.getNome() + " " + utente.getCognome()
+					+ " non ha effettuato nessuna donazione");
+
+		}
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.davincibiotech.DaVinciBioTechBE.entities.Donazione;
 import com.davincibiotech.DaVinciBioTechBE.entities.TipoUtente;
 import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
 import com.davincibiotech.DaVinciBioTechBE.exceptions.BadRequestException;
@@ -85,6 +86,11 @@ public class UtenteService {
 	/* METODI PER ADMIN */
 	public List<Utente> getUtentiConDonazioni() {
 		return usersRepo.getUtentiDonatori();
+	}
+
+	public List<Donazione> getDonazioniByUtenteId(UUID userId) {
+		this.findById(userId);
+		return usersRepo.getDonazioniByUtenteId(userId);
 	}
 
 }
