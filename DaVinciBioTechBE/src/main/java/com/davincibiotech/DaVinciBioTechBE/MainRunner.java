@@ -16,6 +16,7 @@ import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
 import com.davincibiotech.DaVinciBioTechBE.payloads.DonazioneRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.payloads.TavolaRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.payloads.UtenteRequestBody;
+import com.davincibiotech.DaVinciBioTechBE.repositories.UtenteRepository;
 import com.davincibiotech.DaVinciBioTechBE.services.DonazioneService;
 import com.davincibiotech.DaVinciBioTechBE.services.TavolaService;
 import com.davincibiotech.DaVinciBioTechBE.services.UtenteService;
@@ -23,6 +24,8 @@ import com.github.javafaker.Faker;
 
 @Component
 public class MainRunner implements CommandLineRunner {
+	@Autowired
+	UtenteRepository utenteRepo;
 	@Autowired
 	UtenteService utenteSrv;
 	@Autowired
@@ -75,7 +78,9 @@ public class MainRunner implements CommandLineRunner {
 			// donazioneSrv.create(nuovaDonazione);
 		}
 
-
+		List<Utente> lista = utenteSrv.getUtentiConDonazioni();
+		lista.forEach(ut -> System.err.println(ut));
+		System.err.println(lista.size());
 
 
 	}

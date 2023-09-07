@@ -1,10 +1,12 @@
 package com.davincibiotech.DaVinciBioTechBE.controllers;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
+import com.davincibiotech.DaVinciBioTechBE.exceptions.BadRequestException;
 import com.davincibiotech.DaVinciBioTechBE.payloads.UtenteRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.services.UtenteService;
 
@@ -56,6 +59,18 @@ public class UtenteController {
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public void deleteUtente(@PathVariable UUID userId) {
 		utenteSrv.findByIdAndDelete(userId);
+	}
+
+	/* METODI PER ADMIN */
+	@GetMapping("/utenti-con-donazioni")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public ResponseEntity<List<Utente>> getUtentiConDonazioni() {
+		List<Utente> utentiConDonazioni = utenteSrv.getUtentiConDonazioni();
+
+		if (utentiConDonazioni.isEmpty()) {
+			throw new BadRequestException("Nessun utente ha effettuato donazioni");
+		}
+		return ResponseEntity.ok(utentiConDonazioni);
 	}
 
 }

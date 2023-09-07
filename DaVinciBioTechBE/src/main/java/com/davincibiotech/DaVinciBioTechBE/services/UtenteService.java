@@ -81,4 +81,10 @@ public class UtenteService {
 		return usersRepo.findByEmail(email)
 				.orElseThrow(() -> new NotFoundException("Utente con email " + email + " non trovato"));
 	}
+
+	/* METODI PER ADMIN */
+	public List<Utente> getUtentiConDonazioni() {
+		return usersRepo.getUtentiDonatori();
+	}
+
 }
