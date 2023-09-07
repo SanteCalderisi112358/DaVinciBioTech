@@ -40,7 +40,7 @@ public class ExceptionsHandler {
 	@ExceptionHandler(AccessDeniedException.class)
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ErrorsPayload handleForbidden(AccessDeniedException e) {
-		return new ErrorsPayload("Non hai accesso a questo endpoint", new Date());
+		return new ErrorsPayload("Non sei autorizzato ad eseguire questa operazione", new Date());
 	}
 
 	@ExceptionHandler(NotFoundException.class)

@@ -1,5 +1,7 @@
 package com.davincibiotech.DaVinciBioTechBE.services;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,13 @@ public class DonazioneService {
 	public void findByIdAndDelete(UUID id) throws NotFoundException {
 		Donazione found = this.findById(id);
 		donazioneRepo.delete(found);
+	}
+
+	/* METODI CUSTOM BACK-OFFICE ADMIN */
+	public BigDecimal getSommaDonazioniPerPeriodo(LocalDate dataInizio, LocalDate dataFine) {
+		// Esegui la query per calcolare la somma degli importi per il periodo
+		// specificato
+		return donazioneRepo.getSommaDonazioniPerPeriodo(dataInizio, dataFine);
 	}
 
 }
