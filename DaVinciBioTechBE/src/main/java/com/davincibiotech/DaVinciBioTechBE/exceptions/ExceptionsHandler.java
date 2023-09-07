@@ -21,7 +21,7 @@ public class ExceptionsHandler {
 		List<String> errors = e.getBindingResult().getFieldErrors().stream().map(error -> error.getDefaultMessage())
 				.toList();
 
-		return new ErrorsPayloadWithList("Ci sono errori nel payload", new Date(), 13212, errors);
+		return new ErrorsPayloadWithList(new Date(), errors);
 	}
 
 	@ExceptionHandler(BadRequestException.class)

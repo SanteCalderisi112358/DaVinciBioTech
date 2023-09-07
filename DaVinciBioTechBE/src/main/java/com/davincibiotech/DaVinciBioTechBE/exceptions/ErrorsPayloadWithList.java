@@ -11,8 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ErrorsPayloadWithList {
-	private String message;
+
 	private Date timestamp;
-	private int internalCode;
 	private List<String> errorsList;
 }

@@ -1,12 +1,8 @@
 package com.davincibiotech.DaVinciBioTechBE;
 
-import java.math.BigDecimal;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
-import com.davincibiotech.DaVinciBioTechBE.payloads.DonazioneRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.payloads.TavolaRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.payloads.UtenteRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.services.DonazioneService;
@@ -39,13 +34,18 @@ public class MainRunner implements CommandLineRunner {
 		/* CREAZIONE 10 UTENTI USER */
 		for (int i = 0; i < 5; i++) {
 			UtenteRequestBody nuovoUtenteUSER = new UtenteRequestBody(faker.name().firstName(), faker.name().lastName(),
-					faker.internet().emailAddress(), "1234");
+					faker.internet().emailAddress(), bcrypt.encode("1234"));
 			// utenteSrv.createUser(nuovoUtenteUSER);
 		}
-		/* CREAZIONE 1 UTENTE ADMIN */
+		/* CREAZIONE UTENTE ADMIN */
 
-		UtenteRequestBody nuovoUtenteADMIN = new UtenteRequestBody("Sante", "Calderisi", "santecalderisi@gmail.com",
-				"epicode");
+		UtenteRequestBody nuovoUtenteADMIN = new UtenteRequestBody();
+		nuovoUtenteADMIN.setNome("Sante");
+		nuovoUtenteADMIN.setCognome("Calderisi");
+		nuovoUtenteADMIN.setEmail("santecalderisi@gmail.it");
+		String password = "epicode";
+		String passwordEncode = bcrypt.encode(password);
+		nuovoUtenteADMIN.setPassword(passwordEncode);
 		// utenteSrv.createAdmin(nuovoUtenteADMIN);
 
 		/* CREAZIONE 15 TAVOLE LEONARDO */
@@ -62,21 +62,18 @@ public class MainRunner implements CommandLineRunner {
 		// utentiDB.forEach(ut -> System.err.println(ut.toString()));
 
 		/* CREAZIONE 20 DONAZIONI */
-		for (int i = 0; i < 20; i++) {
-			double randomAmount = Math.floor(faker.number().numberBetween(10, 200)) / 2.0;
-			DonazioneRequestBody nuovaDonazione = new DonazioneRequestBody(BigDecimal.valueOf(randomAmount),
-					faker.date().past(30, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-					utentiDB.get(faker.number().numberBetween(0, utentiDB.size() - 1))
-			);
+//		for (int i = 0; i < 20; i++) {
+//			double randomAmount = Math.floor(faker.number().numberBetween(10, 200)) / 2.0;
+//			DonazioneRequestBody nuovaDonazione = new DonazioneRequestBody(BigDecimal.valueOf(randomAmount),
+//					faker.date().past(30, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+//					utentiDB.get(faker.number().numberBetween(0, utentiDB.size() - 1))
+//			);
 
 			// donazioneSrv.create(nuovaDonazione);
 		}
 
-		Utente utente = utenteSrv.findById(UUID.fromString("462cecc5-b139-40e1-bbcc-84203cbcc3e2"));
-		System.err.println(bcrypt.matches("1234", utente.getPassword()));
 
 
-	}
 
 }
 

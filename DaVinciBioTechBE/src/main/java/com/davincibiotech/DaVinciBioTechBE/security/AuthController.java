@@ -43,15 +43,15 @@ public class AuthController {
 	}
 
 	// @PreAuthorize("hasAuthority('ADMIN')")
-	@PostMapping("/registrazione-admin")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Utente saveAdmin(@RequestBody @Validated UtenteRequestBody body) {
-		body.setPassword(bcrypt.encode(body.getPassword()));
-		// body.setCreditCard("1234123412341234");
-		Utente created = usersService.createAdmin(body);
-
-		return created;
-	}
+//	@PostMapping("/registrazione-admin")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public Utente saveAdmin(@RequestBody @Validated UtenteRequestBody body) {
+//		body.setPassword(bcrypt.encode(body.getPassword()));
+//		// body.setCreditCard("1234123412341234");
+//		Utente created = usersService.createAdmin(body);
+//
+//		return created;
+//	}
 
 	@PostMapping("/login")
 	public ResponseEntity<LoginSuccessfullPayload> login(@RequestBody UtenteLoginPayload body)
