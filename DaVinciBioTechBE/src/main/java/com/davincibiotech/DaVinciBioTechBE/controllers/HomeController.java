@@ -24,7 +24,6 @@ public class HomeController {
 	}
 
 	@GetMapping
-	// @PreAuthorize("hasAuthority('ADMIN')")
 	public Page<Tavola> getTavole(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
 		System.err.println("Sto vedendo le tavole");
