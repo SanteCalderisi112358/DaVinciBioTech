@@ -1,5 +1,5 @@
-package com.davincibiotech.DaVinciBioTechBE.config;
-
-public class EmailController {
-
-}
+//package com.davincibiotech.DaVinciBioTechBE.config;
+//
+//public class EmailController {
+//
+//}

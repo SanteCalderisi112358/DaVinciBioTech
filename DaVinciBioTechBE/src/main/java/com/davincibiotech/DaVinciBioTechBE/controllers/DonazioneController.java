@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -38,8 +39,9 @@ import com.sendgrid.helpers.mail.objects.Email;
 @RestController
 @RequestMapping("/donazioni")
 public class DonazioneController {
-	@Autowired
-	private SendGrid sendGrid;
+
+	@Value("${sendgrid.key}")
+	private String key;
 
 	private final DonazioneService donazioneSrv;
 
@@ -65,12 +67,14 @@ public class DonazioneController {
 	@PostMapping
 	public Donazione createDonazione(@RequestBody @Validated DonazioneRequestBody body) throws IOException {
 		body.setData(LocalDate.now());
+		
+		
 		Utente donatore = body.getUtente();
 		Email from = new Email("santecalderisi@gmail.com");
 		String subject = "Grazie per la tua donazione, " + donatore.getNome();
-		Email to = new Email("santecalderisi@gmail.com");
-		Content content = new Content("text/plain", "Gentile " + donatore.getNome() + "\r\n" + "\r\n"
-				+ "Grazie di cuore per il tuo generoso contributo a DaVinciBioTech! La tua donazione di "
+		Email to = new Email(donatore.getEmail());
+		Content content = new Content("text/plain", "Gentile " + donatore.getNome() + ",\r\n" + "\r\n"
+				+ "grazie di cuore per il tuo generoso contributo a DaVinciBioTech! La tua donazione di "
 				+ body.getImporto()
 				+ " € è un passo fondamentale per la conservazione e il restauro delle preziose tavole di Leonardo da Vinci.\r\n"
 				+ "\r\n"
@@ -81,8 +85,8 @@ public class DonazioneController {
 				+ "Grazie ancora per essere parte della nostra missione. Senza il tuo supporto, non sarebbe possibile.\r\n"
 				+ "\r\n" + "Con gratitudine,\r\n" + "Sante Calderisi\r\n" + "Fondatore, DaVinciBioTech\r\n" + "");
 		Mail mail = new Mail(from, subject, to, content);
-		String key = "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";
-		SendGrid sg = new SendGrid(key);
+		//String key = "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";
+		SendGrid sg = new SendGrid(this.key);
 		Request request = new Request();
 		try {
 			request.setMethod(Method.POST);
