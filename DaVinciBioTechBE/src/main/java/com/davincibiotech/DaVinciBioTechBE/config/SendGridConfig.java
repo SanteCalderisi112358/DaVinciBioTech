@@ -8,7 +8,7 @@ import com.sendgrid.SendGrid;
 
 @Configuration
 public class SendGridConfig {
-	@Value("${SENDGRID_API_KEY}")
+	@Value("${sendgrid.key}")
 	private String key;
 
 	@Bean
