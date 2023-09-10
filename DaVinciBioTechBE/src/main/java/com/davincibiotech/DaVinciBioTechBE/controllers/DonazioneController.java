@@ -79,13 +79,10 @@ public class DonazioneController {
 				+ " € è un passo fondamentale per la conservazione e il restauro delle preziose tavole di Leonardo da Vinci.\r\n"
 				+ "\r\n"
 				+ "Il tuo sostegno ci permette di preservare non solo l'eredità artistica di Leonardo, ma anche la sua visione pionieristica nel campo delle artoprotesi e degli strumenti biomedici. È grazie a persone come te che possiamo rendere omaggio al genio di Leonardo e contribuire al progresso della scienza e della medicina.\r\n"
-//				+ "\r\n"
-//				+ "Per ringraziarti per la tua generosità, abbiamo preparato un PDF personalizzato che contiene una dedica speciale. Lo troverai in allegato a questa email.\r\n"
 				+ "\r\n"
 				+ "Grazie ancora per essere parte della nostra missione. Senza il tuo supporto, non sarebbe possibile.\r\n"
 				+ "\r\n" + "Con gratitudine,\r\n" + "Sante Calderisi\r\n" + "Fondatore, DaVinciBioTech\r\n" + "");
 		Mail mail = new Mail(from, subject, to, content);
-		//String key = "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";
 		SendGrid sg = new SendGrid(this.key);
 		Request request = new Request();
 		try {
