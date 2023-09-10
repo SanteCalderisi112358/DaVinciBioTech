@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### SENDGRID ###
-DaVinciBioTechBE/env_capstone.properties
+env_capstone.properties
