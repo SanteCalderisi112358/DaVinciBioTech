@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### SENDGRID ###
-env_capstone.properties
+env.properties
