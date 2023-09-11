@@ -1,1 +1,10 @@
-<p>home works!</p>
+
+<div class="container">
+  <div *ngFor="let tavola of tavole; let i = index">
+    <div [ngClass]="i % 2 === 0 ? 'card left-card' : 'card right-card'" style="width: 15rem;">
+      <img src="{{ tavola.url }}" class="card-img-top" alt="...">
+    </div>
+  </div>
+</div>
+
+

@@ -1,5 +1,6 @@
 package com.davincibiotech.DaVinciBioTechBE.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,10 @@ public class TavolaService {
 	public Page<Tavola> find(int page, int size, String sort) {
 		Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
 		return tavolaRepo.findAll(pageable);
+	}
+
+	public List<Tavola> findNoPage() {
+		return tavolaRepo.findAll();
 	}
 
 	public Tavola findById(UUID id) throws NotFoundException {
