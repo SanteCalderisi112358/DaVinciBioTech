@@ -18,8 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 	@Autowired
 	JWTAuthFilter jwtFilter;
-//	@Autowired
-//	CorsFilter corsFilter;
+	@Autowired
+	CorsFilter corsFilter;
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -34,7 +34,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/donazioni/**").authenticated());
 
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-		// http.addFilterBefore(corsFilter, JWTAuthFilter.class);
+		http.addFilterBefore(corsFilter, JWTAuthFilter.class);
 
 		return http.build();
 	}

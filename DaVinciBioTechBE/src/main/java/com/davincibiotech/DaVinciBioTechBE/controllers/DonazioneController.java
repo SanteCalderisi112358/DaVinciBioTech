@@ -83,7 +83,7 @@ public class DonazioneController {
 				+ "            <td style=\"padding: 20px;\">\r\n"
 				+ "                <h1>Grazie per la tua donazione, {NOME_UTENTE}</h1>\r\n"
 				+ "                <p>La tua donazione di {IMPORTO_DONAZIONE} € è un passo fondamentale per la conservazione e il restauro delle preziose tavole di Leonardo da Vinci.</p>\r\n"
-				+ "                <!-- Altri segnaposto per i dati dell'utente -->\r\n"
+				+ "                <p>Il tuo sostegno ci permette di preservare non solo l'eredità artistica di Leonardo, ma anche la sua visione pionieristica nel campo delle artoprotesi e degli strumenti biomedici. È grazie a persone come te che possiamo rendere omaggio al genio di Leonardo e contribuire al progresso della scienza e della medicina.</p>"
 				+ "                <p>Grazie ancora per essere parte della nostra missione. Senza il tuo supporto, non sarebbe possibile.</p>\r\n"
 				+ "                <p>Con gratitudine,<br>Sante Calderisi<br>Fondatore, DaVinciBioTech</p>\r\n"
 				+ "            </td>\r\n" + "        </tr>\r\n" + "        <tr>\r\n"

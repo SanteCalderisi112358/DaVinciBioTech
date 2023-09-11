@@ -25,7 +25,7 @@ public class TavolaService {
 
 	public Tavola create(TavolaRequestBody body) {
 
-		Tavola nuovaTavola = new Tavola(body.getDescrizione(), body.getAnno(), body.getTecnica(), body.getUrl());
+		Tavola nuovaTavola = new Tavola(body.getDescrizione(), body.getAnno(), body.getUrl(), body.getTitolo());
 		return tavolaRepo.save(nuovaTavola);
 	}
 
@@ -43,7 +43,6 @@ public class TavolaService {
 		Tavola found = this.findById(id);
 		found.setAnno(body.getAnno());;
 		found.setDescrizione(body.getDescrizione());;
-		found.setTecnica(body.getTecnica());
 		found.setUrl(body.getUrl());
 
 		return tavolaRepo.save(found);

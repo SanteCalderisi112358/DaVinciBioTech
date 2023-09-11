@@ -22,25 +22,27 @@ public class Tavola {
 	@Id
 	@GeneratedValue
 	private UUID id;
-	@Column(length = 255)
+	private String titolo;
+	@Column(columnDefinition = "TEXT")
 	private String descrizione;
 	private int anno;
-	private String tecnica;
 	private String url;
 
-	@Override
-	public String toString() {
-		return "Tavola [id=" + id + ", descrizione=" + descrizione + ", anno=" + anno + ", tecnica=" + tecnica
-				+ ", url=" + url + "]";
-	}
 
 
-	public Tavola(String descrizione, int anno, String tecnica, String url) {
+
+	public Tavola(String descrizione, int anno, String url, String titolo) {
 
 		this.descrizione = descrizione;
 		this.anno = anno;
-		this.tecnica = tecnica;
 		this.url = url;
+		this.titolo = titolo;
+	}
+
+	@Override
+	public String toString() {
+		return "Tavola [id=" + id + ", titolo=" + titolo + ", descrizione=" + descrizione + ", anno=" + anno + ", url="
+				+ url + "]";
 	}
 
 }
