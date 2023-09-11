@@ -3,7 +3,7 @@ id?: string;
 titolo: string;
 descrizione: string;
 anno: number;
-url:string
+url:string;
 
 
 }

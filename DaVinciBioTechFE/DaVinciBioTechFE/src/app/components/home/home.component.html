@@ -1,10 +1,40 @@
 
-<div class="container">
-  <div *ngFor="let tavola of tavole; let i = index">
-    <div [ngClass]="i % 2 === 0 ? 'card left-card' : 'card right-card'" style="width: 15rem;">
-      <img src="{{ tavola.url }}" class="card-img-top" alt="...">
+<main>
+
+  <div class="container-fluid">
+  <h1 class="mt-5">La vita di <br> <span id="leonardo">Leonardo da Vinci</span></h1>
+  </div>
+  <div id="hero">
+  <!-- Tuo contenuto precedente qui -->
+  <div class="container-fluid mt-5 pt-5">
+    <h2 class="parole-animazione me-2">
+      <span id="pittore"class="me-2">Pittore</span>
+      <span class="me-2">Scultore</span>
+      <span class="me-2">Ingegnere</span>
+      <span class="me-2">Musicista</span>
+      <span class="me-2">Inventore</span>
+      <span class="me-2">Scenografo</span>
+      <span class="me-2">Architetto</span>
+    </h2>
+  </div>
+
+</div>
+<div class="container-fluid" id="text">
+<p class="mt-5 mb-5">La sapienza è figlia dell'<b>esperienza</b></p>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 bg-primary">
+      <!-- Qui inserisci il codice per la tavola casuale -->
+      <div class="card" style="width: 15rem;" *ngIf="tavolaCasuale">
+        <img [src]="tavolaCasuale.url" class="card-img-top" alt="...">
+      </div>
     </div>
+    <div class="col-md-8 bg-danger"></div>
+    <div class="col-md-2 bg-primary"></div>
   </div>
 </div>
+</main>
 
 

@@ -1,5 +1,43 @@
 
+main{
+  color: #323232;
+  #leonardo{
+    font-size: 100px;
+    font-weight: bolder;
+  }
+  #paroleAnimazione .parola {
+    display: none;
+  }
 
+}
 
+#hero {
+  position: relative;
+  height: 500px;
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-11+233133.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+h2 {
+  font-family: "Montserrat Medium";
+  text-align: center;
+  transform: scale(0.94);
+  animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
+}
 
+#text{
+  font-size: 50px;
+
+}
+@keyframes scale {
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+span .parole-animazione{
+  display: inline-block;
+  opacity: 0;
+
+}
 

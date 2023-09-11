@@ -15,6 +15,8 @@ import { ProfileUserComponent } from './components/profile-user/profile-user.com
 import { DonazioniComponent } from './components/donazioni/donazioni.component';
 import { TavoleLeonardoComponent } from './components/tavole-leonardo/tavole-leonardo.component';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 //import { AuthGuard } from './auth/auth.guard';
 //import { TokenInterceptor } from './auth/token.interceptor';
 
@@ -79,7 +81,8 @@ redirectTo:'',
    DonazioniComponent,
    TavoleLeonardoComponent,
    NavbarComponent,
-   FooterComponent
+   FooterComponent,
+
 
   ],
   imports: [
