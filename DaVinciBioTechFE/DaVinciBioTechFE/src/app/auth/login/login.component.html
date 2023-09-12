@@ -1,1 +1,27 @@
-<p>login works!</p>
+<body>
+  <main>
+    <div class="container"></div>
+    <h1 class="text-center">Accedi</h1>
+    <p class="text-center">Inserisci le tue credenziali o <a class="nav-link" style="text-decoration: underline;" [routerLink]="['/registrazione']" routerLinkActive="active">registrati</a> se non hai ancora un account.</p>
+    <form #form="ngForm" (ngSubmit)="access(form)">
+      <div class="form-group">
+        <label for="email">Indirizzo e-mail</label>
+        <input type="email" id="email" class="form-control" name="email" required ngModel>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control" required ngModel>
+      </div>
+      <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Accedi</button>
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"></span>
+      <div *ngIf="erroreLogin" class="alert alert-danger">
+        <ul>
+          <li>{{ errore }}</li>
+        </ul>
+      </div>
+    </form>
+  </main>
+
+
+
+</body>

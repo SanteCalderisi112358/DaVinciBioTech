@@ -11,7 +11,7 @@ export class TavolaService {
 
 
 
-  getAllTavole(page: number, size: number) {
-    return this.http.get<Tavola[]>(`${this.baseUrl}home?page=${page}&size=${size}`);
+  getAllTavole() {
+    return this.http.get<Tavola[]>(`${this.baseUrl}home`);
   }
 }

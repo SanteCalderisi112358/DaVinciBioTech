@@ -1,1 +1,21 @@
-<p>tavole-leonardo works!</p>
+<body>
+  <main class="container">
+<h1 class="mb-5">
+  Gli schemi di Ingegneria Biomedica di <b>Leonardo</b>
+</h1>
+<div id="tavole">
+  <div *ngFor="let tavola of tavole; let i = index">
+    <div class="card rounded m-2" style="background-image: url('{{ tavola.url }}');">
+      <div class="card-body d-flex flex-column justify-content-between">
+        <div>
+          <h3 class="card-title text-center">{{ tavola.titolo }}</h3>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  </main>
+</body>

@@ -1,43 +1,89 @@
-
+body{
+  background-color: #EDEBE4;
+}
 main{
   color: #323232;
   #leonardo{
     font-size: 100px;
     font-weight: bolder;
   }
-  #paroleAnimazione .parola {
-    display: none;
-  }
+
 
 }
 
-#hero {
-  position: relative;
-  height: 500px;
-  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-11+233133.png');
-  background-repeat: no-repeat;
-  background-size: cover;
+h1{
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 h2 {
+  color: #333;
+  font-family: tahoma;
+  font-size: 3rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+  width: 550px;
   font-family: "Montserrat Medium";
   text-align: center;
-  transform: scale(0.94);
+  transform: scale(0.8);
   animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
 }
 
-#text{
-  font-size: 50px;
+
+#hero {
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-11+233133.png');
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 30px;
+  height: 30px;
+  background-color: #323232;
+  border-radius: 50%;
 
 }
+
+
+
+
+
+
+#text{
+  font-size: 50px;
+  display: flex;
+  margin-top: 30px;
+
+}
+
+a{
+  color: black;
+}
+
+#sommario-vita{
+  height: 200px;
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  margin-bottom: 150px;
+  #sommario{
+    margin-top: 30px;
+    margin-right: 30px;
+p span{
+  font-weight: bolder;
+}
+  }
+
+}
+
+
 @keyframes scale {
   100% {
-    transform: scale(1.2);
+    transform: scale(1);
   }
 }
 
-span .parole-animazione{
-  display: inline-block;
-  opacity: 0;
 
-}
+
 

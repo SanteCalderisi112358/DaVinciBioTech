@@ -24,7 +24,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(data: Utente) {
-    return this.http.post<AuthData>(`${this.baseUrl}login`, data).pipe(
+    return this.http.post<AuthData>(`${this.baseUrl}auth/login`, data).pipe(
       tap((data) => {
         console.log(data);
         this.router.navigate(['/']);
@@ -59,7 +59,7 @@ export class AuthService {
     email: string;
     password: string;
   }) {
-    return this.http.post(`${this.baseUrl}registrazione`, data);
+    return this.http.post(`${this.baseUrl}auth/registrazione`, data);
   }
 
   logout() {
