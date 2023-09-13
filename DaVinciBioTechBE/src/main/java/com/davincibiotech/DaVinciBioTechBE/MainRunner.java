@@ -114,7 +114,7 @@ public class MainRunner implements CommandLineRunner {
 
 		List<Utente> utentiDB = new ArrayList<Utente>();
 		utentiDB = utenteSrv.findNoPage();
-		// utentiDB.forEach(ut -> System.err.println(ut.toString()));
+		utentiDB.forEach(ut -> System.err.println(ut.toString()));
 
 		/* CREAZIONE 20 DONAZIONI */
 		for (int i = 0; i < 10; i++) {
@@ -127,8 +127,8 @@ public class MainRunner implements CommandLineRunner {
 		}
 
 		List<Utente> lista = utenteSrv.getUtentiConDonazioni();
-		lista.forEach(ut -> System.err.println(ut));
-		System.err.println(lista.size());
+		// lista.forEach(ut -> System.err.println(ut));
+		System.err.println(utentiDB.size());
 
 
 	}

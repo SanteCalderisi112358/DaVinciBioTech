@@ -18,13 +18,58 @@
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/donazioni']" routerLinkActive="active">Fai una Donazione</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!user">
           <a class="nav-link" [routerLink]="['/registrazione']" routerLinkActive="active">Registrati</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!user">
           <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Accedi</a>
         </li>
+        <div id="user" class="d-flex align-items-center">
 
+          <div class="dropdown rounded-circle"
+          *ngIf="user && user.utente.ruolo === 'USER'"
+
+          >
+            <div class="rounded-circle d-flex justify-content-center align-items-center dropdown-toggle"
+              id="user-div" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="rounded-circle ms-1"></span>
+              <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active">
+                 {{user.utente.nome}}
+                </a>
+              </li>
+
+            </div>
+            <ul class="dropdown-menu" >
+              <li><a class="dropdown-item" [routerLink]="['/profile-user']" routerLinkActive="active">Profilo<i
+                    class="bi bi-person ms-3"></i></a></li>
+              <li><a class="dropdown-item" type="button" (click)="logout()">Logout<i
+                    class="bi bi-box-arrow-right ms-3"></i></a></li>
+
+            </ul>
+          </div>
+
+          <div class="dropdown rounded-circle" *ngIf="user && user.utente.ruolo === 'ADMIN'">
+            <div class="rounded-circle d-flex justify-content-center align-items-center dropdown-toggle"
+              id="user-div" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="rounded-circle ms-1"></span>
+              <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active">
+                 {{user.utente.nome}} ADMIN
+                </a>
+              </li>
+
+            </div>
+            <ul class="dropdown-menu" >
+              <li><a class="dropdown-item" [routerLink]="['/profile-admin']" routerLinkActive="active">Profilo<i
+                    class="bi bi-person ms-3"></i></a></li>
+              <li><a class="dropdown-item" type="button" (click)="logout()">Logout<i
+                    class="bi bi-box-arrow-right ms-3"></i></a></li>
+
+            </ul>
+          </div>
+
+        </div>
       </ul>
 
     </div>
