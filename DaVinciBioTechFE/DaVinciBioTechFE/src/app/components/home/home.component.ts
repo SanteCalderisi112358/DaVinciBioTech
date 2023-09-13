@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Utente } from 'src/app/models/utente.interface';
 import { AuthService } from 'src/app/auth/auth.service';
-import { TavolaService } from 'src/app/services/tavole.service';
+import { DvbtService } from 'src/app/services/dvbt.service';
 import { Tavola } from 'src/app/models/tavola.interface';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -23,11 +23,11 @@ utente!: Utente;
   tavolaCasuale: Tavola | undefined;
 
 
-  constructor(private tavolaSrv: TavolaService, private authSrv: AuthService) { }
+  constructor(private dvbtSrv: DvbtService, private authSrv: AuthService) { }
 
 
   ngOnInit(): void {
-    this.subTavole = this.tavolaSrv.getAllTavole().subscribe((response) => {
+    this.subTavole = this.dvbtSrv.getAllTavole().subscribe((response) => {
       this.tavole = response;
       console.log(this.tavole);
       this.selezionaTavolaCasuale();

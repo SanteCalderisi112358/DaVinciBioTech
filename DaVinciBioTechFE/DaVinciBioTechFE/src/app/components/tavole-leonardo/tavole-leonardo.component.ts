@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Tavola } from 'src/app/models/tavola.interface';
-import { TavolaService } from 'src/app/services/tavole.service';
+import { DvbtService } from 'src/app/services/dvbt.service';
 @Component({
   selector: 'app-tavole-leonardo',
   templateUrl: './tavole-leonardo.component.html',
@@ -13,11 +13,11 @@ export class TavoleLeonardoComponent implements OnInit {
   subTavole!: Subscription;
   tavole: Tavola[] = [];
 tavolaSingola:Tavola | undefined;
-  constructor(private tavolaSrv: TavolaService) { }
+  constructor(private dvbtSrv: DvbtService) { }
 
 
   ngOnInit(): void {
-    this.subTavole = this.tavolaSrv.getAllTavole().subscribe((response) => {
+    this.subTavole = this.dvbtSrv.getAllTavole().subscribe((response) => {
       this.tavole = response;
       console.log("Tavole in tavole.component")
       console.log(this.tavole);
