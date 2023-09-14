@@ -39,19 +39,18 @@ export class AuthService {
   }
 
   restore() {
-    const user = localStorage.getItem('utente');
-    if (!user) {
-      return;
-    } else {
-      const userData: AuthData = JSON.parse(user);
-      if (this.jwtHelper.isTokenExpired(userData.accessToken)) {
+    const utenteLoggato = localStorage.getItem('utente');
+    if (!utenteLoggato) {
         return;
-      }
-      this.authSubj.next(userData);
-      this.autologout(userData);
-      this.userProfile = userData.utente;
     }
-  }
+
+    const datiUtente: AuthData = JSON.parse(utenteLoggato);
+    if (this.jwtHelper.isTokenExpired(datiUtente.accessToken)) {
+        return;
+    }
+    this.authSubj.next(datiUtente);
+    this.autologout(datiUtente);
+}
 
   signup(data: {
     nome: string;

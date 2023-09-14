@@ -84,8 +84,10 @@ public class UtenteService {
 	}
 
 	/* METODI PER ADMIN */
-	public List<Utente> getUtentiConDonazioni() {
-		return usersRepo.getUtentiDonatori();
+	public Page<Utente> getUtentiConDonazioni(int page, int size, String sort) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+
+		return (Page<Utente>) usersRepo.getUtentiDonatori(pageable);
 	}
 
 	public List<Donazione> getDonazioniByUtenteId(UUID userId) {

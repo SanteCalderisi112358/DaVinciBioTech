@@ -1,15 +1,37 @@
-<body>
+
+
+
+
+<!--<body>
   <main>
     <div class="container">
-      <div class="d-flex flex-column" style="height:max-content">
-        <div style="background-color: aqua;">
+      <div class="d-flex flex-column">
+        <div class="d-flex justify-content-center mt-2 mb-2">
+     <div style="background-color: aqua;  height: 400px;">
 <p>Totale Donazioni</p>
 </div>
-<div style="background-color:brown;">
+        </div>
+
+<div class="d-flex justify-content-center mt-2 mb-2">
+  <div  style="background-color:brown; height: 400px;">
 <p>ALTRE STATISTICHE</p>
 </div>
-<div >
-        <h1>Utenti</h1>
+</div>
+
+<div class="d-flex justify-content-center ">
+  <div id="utenti">
+    <div class="d-flex justify-content-end">
+      <div id="checkDonatori">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pageDonatoriRadio1" id="pageDonatoriRadio1" value="all">
+          <label class="form-check-label" for="pageDonatoriRadio1">Tutti gli utenti</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pageDonatoriRadio2" id="pageDonatoriRadio2" value="donatori">
+          <label class="form-check-label" for="pageDonatoriRadio2">Donatori</label>
+        </div>
+      </div>
+    </div>
       <table class="table">
         <thead>
           <tr>
@@ -48,16 +70,13 @@
       </nav>
         </div>
         <div class="d-flex justify-content-between">
-          <div>
-            <p class="me-3">Utenti per pagina</p>
-          </div>
-          <div id="check">
+          <div id="checkSize">
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pageSizeRadio" id="pageSizeRadio1" value="5" (change)="setPageSize(5)" [checked]="pageSize === 5">
+              <input class="form-check-input" type="radio" name="pageSizeRadio1" id="pageSizeRadio1" value="5" (change)="setPageSize(5)" [checked]="pageSize === 5">
               <label class="form-check-label" for="pageSizeRadio1">5</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pageSizeRadio" id="pageSizeRadio2" value="10" (change)="setPageSize(10)" [checked]="pageSize === 10">
+              <input class="form-check-input" type="radio" name="pageSizeRadio2" id="pageSizeRadio2" value="10" (change)="setPageSize(10)" [checked]="pageSize === 10">
               <label class="form-check-label" for="pageSizeRadio2">10</label>
             </div>
           </div>
@@ -70,6 +89,8 @@
 
       </div>
       </div>
+</div>
+
       </div>
 
 
@@ -78,4 +99,187 @@
 
     </div>
   </main>
+</body>-->
+
+
+<body>
+  <main>
+    <div class="container">
+      <div class="d-flex flex-column">
+        <div class="d-flex justify-content-center mt-2 mb-2">
+     <div style="background-color: aqua;  height: 400px;">
+<p>Totale Donazioni</p>
+</div>
+        </div>
+
+<div class="d-flex justify-content-center mt-2 mb-2">
+  <div  style="background-color:brown; height: 400px;">
+<p>ALTRE STATISTICHE</p>
+</div>
+</div>
+
+<div class="d-flex justify-content-center">
+  <div id="utenti">
+    <div class="d-flex justify-content-end">
+      <div id="checkDonatori" class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="donatoriCheckbox"
+          [(ngModel)]="isDonatoriSelected"
+          (ngModelChange)="toggleDonatoriSelection()"
+        />
+        <label class="form-check-label" for="donatoriCheckbox">Donatori</label>
+      </div>
+    </div>
+    <!--TABELLA PER TUTTI I DONATORI-->
+  <div *ngIf="isDonatoriSelected">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let donatore of donatori" (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">
+            <td>{{ donatore.nome }}</td>
+            <td>{{ donatore.cognome }}</td>
+            <td>{{ donatore.email }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+ <div class="d-flex justify-content-between">
+        <div id="paginazione">
+          <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" (click)="previousPageD()" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item" *ngFor="let pageNumberD of totalPagesArrayD">
+            <a class="page-link" (click)="setPageD(pageNumberD)">{{ pageNumberD }}</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" (click)="nextPageD()" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div id="checkSize">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pageSizeRadioD1" id="pageSizeRadioD1" value="5" (change)="setPageSizeD(5)" [checked]="pageSizeD === 5">
+              <label class="form-check-label" for="pageSizeRadioD1">5</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pageSizeRadioD2" id="pageSizeRadioD2" value="10" (change)="setPageSizeD(10)" [checked]="pageSizeD === 10">
+              <label class="form-check-label" for="pageSizeRadioD2">10</label>
+            </div>
+          </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+      </div>
+      <!--TABELLA PER TUTTI GLI UTENTI-->
+     <div *ngIf="!isDonatoriSelected">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Cognome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let utente of utenti">
+              <td>{{ utente.nome }}</td>
+              <td>{{ utente.cognome }}</td>
+              <td>{{ utente.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+   <div class="d-flex justify-content-between">
+          <div id="paginazione">
+            <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" (click)="previousPage()" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item" *ngFor="let pageNumber of totalPagesArray">
+              <a class="page-link" (click)="setPage(pageNumber)">{{ pageNumber }}</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" (click)="nextPage()" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div id="checkSize">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="pageSizeRadio1" id="pageSizeRadio1" value="5" (change)="setPageSize(5)" [checked]="pageSize === 5">
+                <label class="form-check-label" for="pageSizeRadio1">5</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="pageSizeRadio2" id="pageSizeRadio2" value="10" (change)="setPageSize(10)" [checked]="pageSize === 10">
+                <label class="form-check-label" for="pageSizeRadio2">10</label>
+              </div>
+            </div>
+
+
+          </div>
+
+      </div>
+
+
+
+
+
+        </div>
+      </div>
+</div>
+
+</div>
+
+
+    </div>
+  </main>
+  <!-- Modale per il Donatore scelto -->
+<div class="modal" *ngIf="isModaleDonatore">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Donazioni di {{ donatore?.nome }} {{donatore?.cognome}}</h5>
+              <button type="button" class="btn-close" (click)="chiudiModaleDonatore()"></button>
+          </div>
+
+          <div class="modal-body">
+
+              <ul>
+                  <li *ngFor="let donazione of donazioniDonatore">
+                      {{ donazione.data }} - {{ donazione.importo }}
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
 </body>

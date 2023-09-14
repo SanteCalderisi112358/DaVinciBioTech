@@ -126,7 +126,7 @@ public class MainRunner implements CommandLineRunner {
 			// donazioneSrv.create(nuovaDonazione);
 		}
 
-		List<Utente> lista = utenteSrv.getUtentiConDonazioni();
+		// List<Utente> lista = utenteSrv.getUtentiConDonazioni();
 		// lista.forEach(ut -> System.err.println(ut));
 		System.err.println(utentiDB.size());
 

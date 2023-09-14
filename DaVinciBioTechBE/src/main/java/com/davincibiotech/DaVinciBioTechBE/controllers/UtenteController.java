@@ -65,13 +65,14 @@ public class UtenteController {
 	/* METODI PER ADMIN */
 	@GetMapping("/utenti-con-donazioni")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public ResponseEntity<List<Utente>> getUtentiConDonazioni() {
-		List<Utente> utentiConDonazioni = utenteSrv.getUtentiConDonazioni();
+	public Page<Utente> getUtentiConDonazioni(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
+		Page<Utente> utentiConDonazioni = utenteSrv.getUtentiConDonazioni(page, size, sortBy);
 
 		if (utentiConDonazioni.isEmpty()) {
 			throw new BadRequestException("Nessun utente ha effettuato donazioni");
 		}
-		return ResponseEntity.ok(utentiConDonazioni);
+		return utentiConDonazioni;
 	}
 
 	@GetMapping("/{userId}/donazioni")

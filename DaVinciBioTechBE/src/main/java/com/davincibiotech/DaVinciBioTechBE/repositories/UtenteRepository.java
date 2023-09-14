@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +20,7 @@ public interface UtenteRepository extends JpaRepository<Utente, UUID> {
 
 	/* METODI PER ADMIN */
 	@Query("SELECT DISTINCT u FROM Utente u JOIN Donazione d ON u.id = d.utente.id")
-	List<Utente> getUtentiDonatori();
+	Page<Utente> getUtentiDonatori(Pageable pageable);
 
 	@Query("SELECT d FROM Donazione d JOIN d.utente u WHERE u.id = :userId")
 	List<Donazione> getDonazioniByUtenteId(@Param("userId") UUID userId);
