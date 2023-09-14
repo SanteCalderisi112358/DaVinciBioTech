@@ -54,6 +54,7 @@ this.loadPage(1)
 
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Donazione } from 'src/app/models/donazione.interface';
 import { Utente } from 'src/app/models/utente.interface';
 import { DvbtService } from 'src/app/services/dvbt.service';
@@ -71,19 +72,17 @@ export class ProfileAdminComponent implements OnInit {
   currentPageD: number = 1;
   totalPagesArray: number[] = [];
   totalPagesArrayD:number[] =[]
-  isDonatoriSelected: boolean = false; // Aggiungi questa variabile
+  isDonatoriSelected: boolean = false;
   pageSize: number = 10;
   pageSizeD: number = 10;
   donatore:Utente | undefined;
   idDonatore:string | undefined;
-  isModaleDonatore:boolean=false;
   donazioniDonatore:Donazione[]=[];
-  constructor(private dvbtSrv: DvbtService) {}
+  constructor(private dvbtSrv: DvbtService, private authSrv: AuthService) {}
 
   ngOnInit(): void {
     console.log(this.isDonatoriSelected)
     this.loadPage(this.currentPage);
-    console.log("isModaleDonatore: "+this.isModaleDonatore)
   }
 
   loadPage(page: number): void {
@@ -161,24 +160,34 @@ this.loadPage(1)
   }
 
   apriModaleDonatore(donatore:Utente){
-    this.isModaleDonatore=true;
-    console.log("isModaleDonatore: "+this.isModaleDonatore)
-    this.idDonatore = donatore.id;
-    if(!this.idDonatore){
-    console.log("Non esiste questo id")
-  }else{
-  this.donatore = donatore;
-  console.log(this.donatore)
-  this.subDonazioni = this.dvbtSrv.getAllDonazioniByIdUtente(this.idDonatore).subscribe((response) => {
-  this.donazioniDonatore = response;
-  console.log(this.donazioniDonatore)
+    this.authSrv.restore();
+    const modal = document.getElementById('modaleDonatore');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
+      this.idDonatore = donatore.id;
+      if(!this.idDonatore){
+      console.log("Non esiste questo id")
+      }else{
+      this.donatore = donatore;
+      this.subDonazioni = this.dvbtSrv.getAllDonazioniByIdUtente(this.idDonatore).subscribe((response) => {
+      this.donazioniDonatore = response;
 });
+
+    }
+
 }
 
   }
 
-  chiudiModaleDonatore(){
-    this.isModaleDonatore=false;
+  chiudiModaleDonatore(): void {
+    const modal = document.getElementById('modaleDonatore');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+
+
+    }
   }
 }
 
