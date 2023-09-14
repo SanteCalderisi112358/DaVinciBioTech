@@ -53,7 +53,7 @@ this.loadPage(1)
 }*/
 
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Donazione } from 'src/app/models/donazione.interface';
 import { Utente } from 'src/app/models/utente.interface';
@@ -77,7 +77,9 @@ export class ProfileAdminComponent implements OnInit {
   pageSizeD: number = 10;
   donatore:Utente | undefined;
   idDonatore:string | undefined;
+  isErroreUguale:boolean = false;
   donazioniDonatore:Donazione[]=[];
+  errore: string | undefined;
   constructor(private dvbtSrv: DvbtService, private authSrv: AuthService) {}
 
   ngOnInit(): void {
@@ -170,9 +172,18 @@ this.loadPage(1)
       console.log("Non esiste questo id")
       }else{
       this.donatore = donatore;
-      this.subDonazioni = this.dvbtSrv.getAllDonazioniByIdUtente(this.idDonatore).subscribe((response) => {
-      this.donazioniDonatore = response;
-});
+
+      this.subDonazioni = this.dvbtSrv.getAllDonazioniByIdUtente(this.idDonatore).subscribe(
+        (response) => {
+          this.donazioniDonatore = response;
+          console.log(this.donazioniDonatore);
+        },
+        (error:any)=>{
+          this.errore = error.error.message
+        }
+      );
+
+
 
     }
 
@@ -186,8 +197,52 @@ this.loadPage(1)
       modal.classList.remove('show');
       modal.style.display = 'none';
 
+    }
+
+  this.donazioniDonatore = [];
+  this.errore = "";
+  }
+
+
+  deleteUtente(utente: Utente) {
+    this.errore = ""
+    console.log(utente);
+    this.idDonatore = utente.id;
+    console.log(this.idDonatore);
+    const modal = document.getElementById('modaleDelete');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
+      if (this.idDonatore) {
+      this.dvbtSrv.deleteUtenteStepOne(this.idDonatore).subscribe(
+        () => {
+          console.log('Richiesta HTTP DELETE inviata con successo');
+        },
+        (error:any) => {
+          this.errore = error.error.message;
+          console.log(this.errore)
+          if(this.errore===`L'utente ${utente.nome} ${utente.cognome} ha eseguito delle donazioni. Vuoi eliminare anche le sue donazioni?`){
+this.isErroreUguale=true;
+console.log(this.isErroreUguale)
+          }
+        }
+      );
+    }
+    }
+
+
+  }
+
+
+  chiudiModaleElimina(): void {
+    this.isErroreUguale = false;
+    const modal = document.getElementById('modaleDelete');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
 
     }
+  this.errore = "";
   }
 }
 

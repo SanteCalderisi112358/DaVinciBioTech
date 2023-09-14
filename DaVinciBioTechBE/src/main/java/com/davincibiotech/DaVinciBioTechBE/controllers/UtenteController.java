@@ -22,11 +22,14 @@ import com.davincibiotech.DaVinciBioTechBE.entities.Donazione;
 import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
 import com.davincibiotech.DaVinciBioTechBE.exceptions.BadRequestException;
 import com.davincibiotech.DaVinciBioTechBE.payloads.UtenteRequestBody;
+import com.davincibiotech.DaVinciBioTechBE.services.DonazioneService;
 import com.davincibiotech.DaVinciBioTechBE.services.UtenteService;
 
 @RestController
 @RequestMapping("/utenti")
 public class UtenteController {
+	@Autowired
+	DonazioneService donazioneSrv;
 	private final UtenteService utenteSrv;
 
 	@Autowired
@@ -58,8 +61,58 @@ public class UtenteController {
 	@DeleteMapping("/{userId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public void deleteUtente(@PathVariable UUID userId) {
-		utenteSrv.findByIdAndDelete(userId);
+	public void delete(@PathVariable UUID userId) throws BadRequestException {
+		System.err.println(userId);
+		Utente donatore = utenteSrv.findById(userId);
+		List<Donazione> donazioniUtente = utenteSrv.getDonazioniByUtenteId(userId);
+		if (donazioniUtente.isEmpty()) {
+			utenteSrv.findByIdAndDelete(userId);
+			throw new BadRequestException(
+					"L'utente " + donatore.getNome() + " " + donatore.getCognome() + " è stato eliminato");
+		} else {
+			throw new BadRequestException(
+					"L'utente " + donatore.getNome() + " " + donatore.getCognome()
+							+ " ha eseguito delle donazioni. Vuoi eliminare anche le sue donazioni?");
+		}
+
+	}
+
+	@DeleteMapping("/only-utente/{userId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public void deleteJustUtente(@PathVariable UUID userId) throws BadRequestException {
+		Utente donatore = utenteSrv.findById(userId);
+		List<Donazione> donazioniUtente = utenteSrv.getDonazioniByUtenteId(userId);
+		if (!donazioniUtente.isEmpty()) {
+			donazioniUtente.forEach(donazione -> {
+				donazione.setUtente(null);
+			});
+			utenteSrv.findByIdAndDelete(userId);
+			throw new BadRequestException(
+					"L'utente " + donatore.getNome() + " " + donatore.getCognome()
+							+ " è stato eliminato. Le sue donazioni no.");
+		}
+
+	}
+
+	@DeleteMapping("/utente-and-donazioni/{userId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public void deleteUtenteAndDonazioni(@PathVariable UUID userId) throws BadRequestException {
+		Utente donatore = utenteSrv.findById(userId);
+		List<Donazione> donazioniUtente = utenteSrv.getDonazioniByUtenteId(userId);
+		if (!donazioniUtente.isEmpty()) {
+			donazioniUtente.forEach(donazione -> {
+				UUID donazioneId = donazione.getId();
+				donazione.setUtente(null);
+				donazioneSrv.findById(donazioneId);
+
+			});
+			utenteSrv.findByIdAndDelete(userId);
+			throw new BadRequestException("L'utente " + donatore.getNome() + " " + donatore.getCognome()
+					+ "e le sue donazioni sono stati eliminati.");
+		}
+
 	}
 
 	/* METODI PER ADMIN */

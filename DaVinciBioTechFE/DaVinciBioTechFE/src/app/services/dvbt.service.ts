@@ -29,4 +29,8 @@ export class DvbtService {
     return this.http.get<Donazione[]>(`${this.baseUrl}utenti/${idUtente}/donazioni`);
 
   }
+
+  deleteUtenteStepOne(idUtente:string){
+    return this.http.delete<string>(`${this.baseUrl}utenti/${idUtente}`)
+  }
 }

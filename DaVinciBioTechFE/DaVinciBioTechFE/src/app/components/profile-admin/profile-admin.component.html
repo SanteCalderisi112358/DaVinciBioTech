@@ -36,15 +36,23 @@
             <th>Nome</th>
             <th>Cognome</th>
             <th>Email</th>
+            <th>Modifica</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let donatore of donatori" (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">
-            <td>{{ donatore.nome }}</td>
-            <td>{{ donatore.cognome }}</td>
-            <td>{{ donatore.email }}</td>
+          <tr *ngFor="let donatore of donatori">
+            <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.nome }}</td>
+            <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.cognome }}</td>
+            <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.email }}</td>
+            <td>
+              <div class="d-flex justify-content-between">
+                <div><i class="bi bi-pencil"></i></div>
+                <div (click)="deleteUtente(donatore)" style="cursor: pointer;">❌</div>
+              </div>
+            </td>
           </tr>
         </tbody>
+
       </table>
 
  <div class="d-flex justify-content-between">
@@ -92,15 +100,23 @@
               <th>Nome</th>
               <th>Cognome</th>
               <th>Email</th>
+              <th>Modifica</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let utente of utenti">
-              <td>{{ utente.nome }}</td>
-              <td>{{ utente.cognome }}</td>
-              <td>{{ utente.email }}</td>
+              <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.nome }}</td>
+              <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.cognome }}</td>
+              <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.email }}</td>
+              <td>
+                <div class="d-flex justify-content-between">
+                  <div><i class="bi bi-pencil"></i></div>
+                  <div (click)="deleteUtente(utente)" style="cursor: pointer;">❌</div>
+                </div>
+              </td>
             </tr>
           </tbody>
+
         </table>
 
    <div class="d-flex justify-content-between">
@@ -156,8 +172,11 @@
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
+
+
         <div class="modal-header">
-          <h5 class="modal-title">Donazioni di {{ donatore?.nome }} {{donatore?.cognome}}</h5>
+          <h5 *ngIf="!errore" class="modal-title">Donazioni di {{ donatore?.nome }} {{donatore?.cognome}}</h5>
+          <h5 *ngIf="errore" class="modal-title alert alert-danger">{{errore}}</h5>
           <a type="button" class="btn btn-primary rounded-circle mb-3" (click)="chiudiModaleDonatore()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </a>
@@ -170,6 +189,51 @@
             </li>
         </ul>
     </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="trailerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 *ngIf="errore" class="modal-title alert alert-danger">{{errore}}</h5>
+
+      <div *ngIf="errore">
+        <div class="modal-footer d-flex justify-content-between">
+         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">SI</button>
+        <button type="button" class="btn btn-primary">NO</button>
+        </div>
+
+      </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal" id="modaleDelete" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 *ngIf="errore" class="modal-title alert alert-danger">{{errore}}</h5>
+          <a type="button" class="btn btn-primary rounded-circle mb-3" (click)="chiudiModaleElimina()"  aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </a>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div *ngIf="isErroreUguale">
+          <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">SI</button>
+          <button type="button" class="btn btn-primary">NO</button>
+        </div>
+        </div>
+
       </div>
     </div>
   </div>
