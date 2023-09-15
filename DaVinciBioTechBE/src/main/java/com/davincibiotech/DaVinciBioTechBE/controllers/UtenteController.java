@@ -110,7 +110,7 @@ public class UtenteController {
 			});
 			utenteSrv.findByIdAndDelete(userId);
 			throw new BadRequestException("L'utente " + donatore.getNome() + " " + donatore.getCognome()
-					+ "e le sue donazioni sono stati eliminati.");
+					+ " e le sue donazioni sono stati eliminati.");
 		}
 
 	}

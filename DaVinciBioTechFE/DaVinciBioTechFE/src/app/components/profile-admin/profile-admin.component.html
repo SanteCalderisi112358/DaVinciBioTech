@@ -47,7 +47,7 @@
             <td>
               <div class="d-flex justify-content-between">
                 <div><i class="bi bi-pencil"></i></div>
-                <div (click)="deleteUtente(donatore)" style="cursor: pointer;">❌</div>
+                <div (click)="apriModaleEliminaUtente(utente)" style="cursor: pointer;" > ❌</div>
               </div>
             </td>
           </tr>
@@ -111,7 +111,7 @@
               <td>
                 <div class="d-flex justify-content-between">
                   <div><i class="bi bi-pencil"></i></div>
-                  <div (click)="deleteUtente(utente)" style="cursor: pointer;">❌</div>
+                  <div (click)="apriModaleEliminaUtente(utente)" style="cursor: pointer;" > ❌</div>
                 </div>
               </td>
             </tr>
@@ -175,7 +175,7 @@
 
 
         <div class="modal-header">
-          <h5 *ngIf="!errore" class="modal-title">Donazioni di {{ donatore?.nome }} {{donatore?.cognome}}</h5>
+          <h5 *ngIf="!errore" class="modal-title">Donazioni di {{ utente.nome }} {{utente.cognome}}</h5>
           <h5 *ngIf="errore" class="modal-title alert alert-danger">{{errore}}</h5>
           <a type="button" class="btn btn-primary rounded-circle mb-3" (click)="chiudiModaleDonatore()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -194,49 +194,83 @@
   </div>
 
 
-  <div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="trailerModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 *ngIf="errore" class="modal-title alert alert-danger">{{errore}}</h5>
 
-      <div *ngIf="errore">
-        <div class="modal-footer d-flex justify-content-between">
-         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">SI</button>
-        <button type="button" class="btn btn-primary">NO</button>
-        </div>
-
-      </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
 
 
   <div class="modal" id="modaleDelete" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 *ngIf="errore" class="modal-title alert alert-danger">{{errore}}</h5>
-          <a type="button" class="btn btn-primary rounded-circle mb-3" (click)="chiudiModaleElimina()"  aria-label="Close">
+          <h5 class="modal-title alert alert-danger">Desideri eliminare l'utente {{utente.nome}} {{utente.cognome}}?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleEliminaUtenti()"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="errore" class="alert alert-danger">
+            <ul>
+              <li>{{ errore }}</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div *ngIf="!isUtenteEliminato">
+            <div *ngIf="!isErroreUguale">
+            <div class="modal-footer d-flex justify-content-between" >
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteUtente(utente)">SI</button>
+          <button type="button" class="btn btn-primary" (click)="chiudiModaleEliminaUtenti()">NO</button>
+        </div>
+          </div>
+<div *ngIf="isErroreUguale">
+          <div class="modal-footer d-flex justify-content-between" >
+         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteUtenteAndDonazioni(utente)">SI</button>
+         <button type="button" class="btn btn-primary" (click)="deleteJustUtente(utente)">NO</button>
+       </div>
+       </div>
+        </div>
+
+          </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal"  tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title "></h5>
+          <a type="button" class="btn btn-primary rounded-circle mb-3" (click)="chiudiModaleEliminaUtenti()"  aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </a>
         </div>
         <div class="modal-body">
 
         </div>
-        <div *ngIf="isErroreUguale">
-          <div class="modal-footer d-flex justify-content-between">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">SI</button>
-          <button type="button" class="btn btn-primary">NO</button>
+
         </div>
+        <div>
+          <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteUtente(utente)">SI o</button>
+          <button type="button" class="btn btn-primary" >NO</button>
         </div>
 
+        </div>
+           <!--<div *ngIf="isErroreUguale">
+          <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >SI</button>
+          <button type="button" class="btn btn-primary" (click)="chiudiModaleElimina()">NO</button>
+        </div>
+
+        </div>
+            <div *ngIf="errore" class="alert alert-danger">
+              <ul>
+                <li>{{ errore }}</li>
+              </ul>
+            </div>-->
       </div>
     </div>
-  </div>
+
   </main>
 
 </body>

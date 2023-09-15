@@ -33,4 +33,14 @@ export class DvbtService {
   deleteUtenteStepOne(idUtente:string){
     return this.http.delete<string>(`${this.baseUrl}utenti/${idUtente}`)
   }
+
+  deleteUtenteAndDonazioni(idUtente:string){
+    return this.http.delete<string>(`${this.baseUrl}utenti/utente-and-donazioni/${idUtente}`)
+
+  }
+
+  deleteJustUtente(idUtente:string){
+    return this.http.delete<string>(`${this.baseUrl}utenti/only-utente/${idUtente}`)
+
+  }
 }

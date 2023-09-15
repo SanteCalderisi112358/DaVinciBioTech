@@ -1,38 +1,277 @@
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
 body{
   background-color: #EDEBE4;
+  padding-top: 60px;
 }
+
 main{
   color: #323232;
-  #leonardo{
-    font-size: 100px;
-    font-weight: bolder;
+
+
+
+}
+h1 {
+  color: #333;
+  font-family: Tahoma, sans-serif;
+  font-size: 3rem;
+  font-weight: 100;
+  line-height: 1.5;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+h1 span {
+  font-size: 40px;
+  margin-left: 40px;
+}
+
+.message {
+  background-color: yellow;
+  color: #333;
+  display: block;
+  font-weight: 900;
+  overflow: hidden;
+  position: absolute;
+  top: 0.2rem;
+  left: 270px;
+  animation: openclose 10s ease-in-out infinite;
+}
+
+.word1,
+.word3 {
+  font-family: Tahoma, sans-serif;
+  font-weight: normal;
+    padding-left:10px;
+
+}
+
+.word2,
+.word5,
+.word7{
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+  font-style: italic;
+  padding-left:10px;
+}
+
+.word4,
+.word6 {
+  font-family: Tahoma, sans-serif;
+  font-weight: bold;
+    padding-left:10px;
+
+}
+
+@keyframes openclose {
+  /* PITTORE */
+  0% {
+    width: 0px;
+    top: 0rem;
+  }
+  5.5% {
+    width: 400px;
+    top: 0rem;
+  }
+  11% {
+    width: 0px;
+    top: 0rem;
+  }
+  /* SCULTORE */
+  16.5% {
+    width: 0px;
+    top: -4.2rem;
+  }
+  22% {
+    width: 400px;
+    top: -4.2rem;
+  }
+  27.5% {
+    width: 0px;
+    top: -4.2rem;
+  }
+  /* ARCHITETTO */
+  33% {
+    width: 0px;
+    top: -8.7rem;
+  }
+  38.5% {
+    width: 400px;
+    top: -8.7rem;
+  }
+  44% {
+    width: 0px;
+    top: -8.7rem;
+  }
+  /* INGEGNERE */
+  49.5% {
+    width: 0px;
+    top: -13.2rem;
+  }
+  55% {
+    width: 400px;
+    top: -13.2rem;
+  }
+  60.5% {
+    width: 0px;
+    top: -13.2rem;
+  }
+  /* MUSICISTA */
+  66% {
+    width: 0px;
+    top: -17.8rem;
+  }
+  71.5% {
+    width: 400px;
+    top: -17.8rem;
+  }
+  77% {
+    width: 0px;
+    top: -17.8rem;
+  }
+  /* INVENTORE */
+  82.5% {
+    width: 0px;
+    top: -22.2rem;
+  }
+  88% {
+    width: 400px;
+    top: -22.2rem;
+  }
+  94% {
+    width: 0px;
+    top: -22.2rem;
   }
 
 
+  100%{
+    width:0px;
+    top:0rem;
+  }
+
 }
 
-h1{
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
+
+
+
 h2 {
-  color: #333;
-  font-family: tahoma;
-  font-size: 3rem;
-  line-height: 1.5;
-  text-transform: uppercase;
-  width: 550px;
   font-family: "Montserrat Medium";
+  padding-bottom:40px;
+  padding-right:40px;
   text-align: center;
-  transform: scale(0.8);
+  transform: scale(0.4);
   animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
+  position: absolute; /* Imposta la posizione assoluta per h2 */
+  bottom: 0; /* Allinea il testo in basso */
+  right: 0; /* Allinea il testo a destra */
+  margin: 0; /* Rimuove il margine predefinito di h2 */
+}
+@keyframes scale {
+  100% {
+    transform: scale(1.5);
+  }
 }
 
+span {
+  display: inline-block;
+  opacity: 0;
+  margin-right: 5px;
+  filter: blur(4px);
+}
+
+span:nth-child(1) {
+  animation: fade-in 1s 0.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(2) {
+  animation: fade-in 1s 1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(3) {
+  animation: fade-in 1s 1.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(4) {
+  animation: fade-in 1s 2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(5) {
+  animation: fade-in 1s 2.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(6) {
+  animation: fade-in 1s 3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(7) {
+  animation: fade-in 1s 3.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(8) {
+  animation: fade-in 1s 4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(9) {
+  animation: fade-in 1s 4.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(10) {
+  animation: fade-in 1s 5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(11) {
+  animation: fade-in 1s 5.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(12) {
+  animation: fade-in 1s 6s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(13) {
+  animation: fade-in 1s 6.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(14) {
+  animation: fade-in 1s 7s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(15) {
+  animation: fade-in 1s 7.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(16) {
+  animation: fade-in 1s 8s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(17) {
+  animation: fade-in 1s 8.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(18) {
+  animation: fade-in 1s 9s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
 
 #hero {
   background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-11+233133.png');
   background-repeat: no-repeat;
   background-size:cover;
+  display: flex;
+  justify-content: flex-end; /* Allinea il contenuto a destra */
+  align-items: flex-end; /* Allinea il contenuto in basso */
+  height: 50vh; /* Imposta l'altezza del div per occupare l'intera altezza della viewport */
+  padding: 20px; /* Aggiunge uno spazio di riempimento per spostare il testo dal bordo */
+  position: relative;
 }
 
 

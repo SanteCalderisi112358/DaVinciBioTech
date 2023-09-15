@@ -56,6 +56,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription, catchError } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Donazione } from 'src/app/models/donazione.interface';
+import { TipoRuolo } from 'src/app/models/tipo-utente.enum';
 import { Utente } from 'src/app/models/utente.interface';
 import { DvbtService } from 'src/app/services/dvbt.service';
 
@@ -75,9 +76,18 @@ export class ProfileAdminComponent implements OnInit {
   isDonatoriSelected: boolean = false;
   pageSize: number = 10;
   pageSizeD: number = 10;
-  donatore:Utente | undefined;
+  utente:Utente ={
+
+
+    email:"",
+    nome:"",
+    cognome:"",
+    ruolo: TipoRuolo.User,
+    id:""
+  };
   idDonatore:string | undefined;
   isErroreUguale:boolean = false;
+  isUtenteEliminato:boolean = false;
   donazioniDonatore:Donazione[]=[];
   errore: string | undefined;
   constructor(private dvbtSrv: DvbtService, private authSrv: AuthService) {}
@@ -171,7 +181,7 @@ this.loadPage(1)
       if(!this.idDonatore){
       console.log("Non esiste questo id")
       }else{
-      this.donatore = donatore;
+      this.utente = donatore;
 
       this.subDonazioni = this.dvbtSrv.getAllDonazioniByIdUtente(this.idDonatore).subscribe(
         (response) => {
@@ -209,10 +219,7 @@ this.loadPage(1)
     console.log(utente);
     this.idDonatore = utente.id;
     console.log(this.idDonatore);
-    const modal = document.getElementById('modaleDelete');
-    if (modal) {
-      modal.classList.add('show');
-      modal.style.display = 'block';
+console.log("CIAO ELIMINAZIONE")
       if (this.idDonatore) {
       this.dvbtSrv.deleteUtenteStepOne(this.idDonatore).subscribe(
         () => {
@@ -228,13 +235,22 @@ console.log(this.isErroreUguale)
         }
       );
     }
-    }
+
 
 
   }
 
-
-  chiudiModaleElimina(): void {
+apriModaleEliminaUtente(utente:Utente){
+  this.utente = utente
+  console.log(utente)
+  this.errore = ""
+  const modal = document.getElementById('modaleDelete');
+  if (modal) {
+    modal.classList.add('show');
+    modal.style.display = 'block';
+  }
+}
+  chiudiModaleEliminaUtenti(): void {
     this.isErroreUguale = false;
     const modal = document.getElementById('modaleDelete');
     if (modal) {
@@ -243,7 +259,53 @@ console.log(this.isErroreUguale)
 
     }
   this.errore = "";
+  this.isUtenteEliminato = false;
   }
+
+
+  deleteUtenteAndDonazioni(utente:Utente){
+    this.utente = utente;
+    this.idDonatore = utente.id
+    console.log(utente)
+    console.log("Sto eliminando l'utente: "+this.utente.nome+" e le sue donazioni")
+    if (this.idDonatore) {
+      this.dvbtSrv.deleteUtenteAndDonazioni(this.idDonatore).subscribe(
+        () => {
+          console.log('Richiesta HTTP DELETE inviata con successo');
+        },
+        (error:any) => {
+          this.errore = error.error.message;
+          this.isUtenteEliminato = true;
+          console.log(this.errore)
+        }
+      );
+    }
+    this.isUtenteEliminato = false;
+
+
+  }
+
+
+  deleteJustUtente(utente:Utente){
+    this.utente = utente;
+    this.idDonatore = utente.id
+    console.log(utente)
+    console.log("Sto eliminando SOLO l'utente: "+this.utente)
+    if (this.idDonatore) {
+      this.dvbtSrv.deleteJustUtente(this.idDonatore).subscribe(
+        () => {
+          console.log('Richiesta HTTP DELETE inviata con successo');
+        },
+        (error:any) => {
+          this.errore = error.error.message;
+          this.isUtenteEliminato = true;
+          console.log(this.errore)
+        }
+      );
+    }
+    this.isUtenteEliminato = false;
+  }
+
 }
 
 
