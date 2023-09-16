@@ -1,62 +1,9 @@
-/*import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Utente } from 'src/app/models/utente.interface';
-import { DvbtService } from 'src/app/services/dvbt.service';
-
-@Component({
-  templateUrl: './profile-admin.component.html',
-  styleUrls: ['./profile-admin.component.scss']
-})
-export class ProfileAdminComponent implements OnInit {
-  subUtenti: Subscription | undefined;
-  utenti: Utente[] = [];
-  currentPage: number = 1;
-  totalPagesArray: number[] = [];
-  pageSize: number = 10;
-  constructor(private dvbtSrv: DvbtService) {}
-
-  ngOnInit(): void {
-    this.loadPage(this.currentPage);
-  }
-
-  loadPage(page: number): void {
-    this.subUtenti = this.dvbtSrv.getAllUtenti(page - 1, this.pageSize, "nome").subscribe((response: any) => {
-      this.utenti = response['content'];
-      this.totalPagesArray = Array.from({ length: response['totalPages'] }, (_, i) => i + 1);
-    });
-  }
-
-  setPage(page: number): void {
-    this.currentPage = page;
-    this.loadPage(this.currentPage);
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPagesArray.length) {
-      this.currentPage++;
-      this.loadPage(this.currentPage);
-    }
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.loadPage(this.currentPage);
-    }
-  }
-
-  setPageSize(size: number): void {
-    console.log(size)
-    this.pageSize = size;
-this.loadPage(1)
-  }
-}*/
-
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription, catchError } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Donazione } from 'src/app/models/donazione.interface';
+import { Tavola } from 'src/app/models/tavola.interface';
 import { TipoRuolo } from 'src/app/models/tipo-utente.enum';
 import { Utente } from 'src/app/models/utente.interface';
 import { UtenteModificato } from 'src/app/models/utenteModifica.interface';
@@ -103,18 +50,28 @@ export class ProfileAdminComponent implements OnInit {
     ruolo: TipoRuolo.USER,
 
   };
+
+  /*VARIABILI TAVOLE*/
+  tavole:Tavola[]=[];
+  subTavole: Subscription | undefined;
+  currentPageTavole:number = 1;
+  pageSizeTavole: number = 10;
+  totalElementsTavole:number=0;
+  totalPagesArrayTavole: number[] = [];
+
   constructor(private dvbtSrv: DvbtService, private authSrv: AuthService) {}
 
   ngOnInit(): void {
-    this.loadPage(this.currentPage);
+    this.loadPageUtenti(this.currentPage);
+    this.loadPageTavole(this.currentPageTavole);
 
   }
 
-  loadPage(page: number): void {
+  loadPageUtenti(page: number): void {
     if (this.isDonatoriSelected) {
       // Chiamata per ottenere solo i donatori
       console.log("Donatori")
-      this.subUtenti = this.dvbtSrv.getAllUtentiDonatori(page - 1, this.pageSizeD, "nome").subscribe((response: any) => {
+      this.subUtenti = this.dvbtSrv.getAllUtentiDonatori(page - 1, this.pageSizeD, "cognome").subscribe((response: any) => {
         this.donatori = response['content'];
         this.totalPagesArrayD = Array.from({ length: response['totalPages'] }, (_, i) => i + 1);
         this.totalElementsDonatori = response['totalElements']
@@ -125,7 +82,7 @@ export class ProfileAdminComponent implements OnInit {
     } else {
       // Chiamata per ottenere tutti gli utenti
       console.log("Utenti")
-      this.subUtenti = this.dvbtSrv.getAllUtenti(page - 1, this.pageSize, "nome").subscribe((response: any) => {
+      this.subUtenti = this.dvbtSrv.getAllUtenti(page - 1, this.pageSize, "cognome").subscribe((response: any) => {
         this.utenti = response['content'];
         console.log(this.utenti)
         this.totalPagesArray = Array.from({ length: response['totalPages'] }, (_, i) => i + 1);
@@ -138,55 +95,55 @@ export class ProfileAdminComponent implements OnInit {
 
   setPage(page: number): void {
     this.currentPage = page;
-    this.loadPage(this.currentPage);
+    this.loadPageUtenti(this.currentPage);
   }
 
   nextPage(): void {
     if (this.currentPage < this.totalPagesArray.length) {
       this.currentPage++;
-      this.loadPage(this.currentPage);
+      this.loadPageUtenti(this.currentPage);
     }
   }
 
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.loadPage(this.currentPage);
+      this.loadPageUtenti(this.currentPage);
     }
   }
   setPageSize(size: number): void {
     console.log(size)
     this.pageSize = size;
-this.loadPage(1)
+this.loadPageUtenti(1)
   }
 
   setPageD(page: number): void {
     this.currentPageD = page;
-    this.loadPage(this.currentPageD);
+    this.loadPageUtenti(this.currentPageD);
   }
 
   nextPageD(): void {
     if (this.currentPageD < this.totalPagesArrayD.length) {
       this.currentPageD++;
-      this.loadPage(this.currentPageD);
+      this.loadPageUtenti(this.currentPageD);
     }
   }
 
   previousPageD(): void {
     if (this.currentPageD > 1) {
       this.currentPageD--;
-      this.loadPage(this.currentPageD);
+      this.loadPageUtenti(this.currentPageD);
     }
   }
   setPageSizeD(size: number): void {
     console.log(size)
     this.pageSizeD = size;
-this.loadPage(1)
+this.loadPageUtenti(1)
   }
   toggleDonatoriSelection(): void {
     console.log(this.isDonatoriSelected)
     this.currentPage = 1;
-    this.loadPage(this.currentPage);
+    this.loadPageUtenti(this.currentPage);
     console.log(this.isDonatoriSelected)
   }
 
@@ -254,7 +211,7 @@ this.isUtenteEliminato = false;
 console.log("L'utente è stato eliminato?"+this.isUtenteEliminato)
 console.log("IsUtente uguale a `L'utente ${utente.nome} ${utente.cognome} ha eseguito delle donazioni. Vuoi eliminare anche le sue donazioni?`"+this.isErroreUguale)
           }else{
-            this.loadPage(this.currentPage);
+            this.loadPageUtenti(this.currentPage);
           this.isUtenteEliminato = true;
           this.isErroreUguale=true;
           console.log("IsUtente uguale a `L'utente ${utente.nome} ${utente.cognome} ha eseguito delle donazioni. Vuoi eliminare anche le sue donazioni?`?"+this.isErroreUguale)
@@ -310,7 +267,7 @@ apriModaleEliminaUtente(utente:Utente){
           this.errore = error.error.message;
           this.isUtenteEliminato = true;
           console.log(this.errore)
-          this.loadPage(this.currentPage);
+          this.loadPageUtenti(this.currentPage);
 
         }
       );
@@ -336,7 +293,7 @@ apriModaleEliminaUtente(utente:Utente){
           this.errore = error.error.message;
           this.isUtenteEliminato = true;
           console.log(this.errore)
-          this.loadPage(this.currentPage);
+          this.loadPageUtenti(this.currentPage);
 
         }
       );
@@ -384,11 +341,11 @@ if(this.idDonatore){
     console.log('Richiesta HTTP PUT inviata con successo');
     this.isUtenteModificato=true;
     console.log("isUtenteModificato: "+this.isUtenteModificato)
+
   },
   (error:any) => {
     this.errore = error.error.message;
     console.log(this.errore)
-    this.loadPage(this.currentPage);
 
   }
 );
@@ -410,10 +367,52 @@ if(this.idDonatore){
 console.log("isUtenteUser dopo chiusura:"+this.isUtenteUser)
 console.log("isUtenteModificatodopo chiusura:"+this.isUtenteModificato)
 this.isUtenteEliminato=false;
+this.loadPageUtenti(this.currentPage);
+
 
     }
 
   }
+/* LOGICA TAVOLE*/
+  loadPageTavole(page: number): void {
+
+      this.subTavole=this.dvbtSrv.getAllTavoleAdmin(page - 1, this.pageSizeTavole, "anno").subscribe((response: any) => {
+       this.tavole = response['content'];
+       this.totalPagesArrayTavole = Array.from({ length: response['totalPages'] }, (_, i) => i + 1);
+        this.totalElementsTavole = response['totalElements']
+       console.log("Tavole")
+       console.log(this.tavole)
+
+      });
+
+  }
+  setPageSizeTavole(size: number): void {
+    console.log(size)
+    this.pageSizeTavole = size;
+this.loadPageTavole(1)
+  }
+  setPageTavole(page: number): void {
+    this.currentPageTavole = page;
+    this.loadPageTavole(this.currentPageTavole);
+  }
+
+  nextPageTavole(): void {
+    if (this.currentPageTavole < this.totalPagesArrayTavole.length) {
+      this.currentPageTavole++;
+      this.loadPageTavole(this.currentPageTavole);
+    }
+  }
+
+  previousPageTavole(): void {
+    if (this.currentPageTavole > 1) {
+      this.currentPageTavole--;
+      this.loadPageUtenti(this.currentPageTavole);
+    }
+  }
+
+
+
+
 }
 
 

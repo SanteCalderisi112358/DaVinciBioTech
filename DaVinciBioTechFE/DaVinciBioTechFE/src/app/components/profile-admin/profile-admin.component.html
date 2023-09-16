@@ -3,38 +3,77 @@
     <div class="container">
       <div class="d-flex flex-column">
         <div class="d-flex justify-content-center mt-2 mb-2">
-          <!--TAVOLE-->
-     <div id="tavole-leonardo">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
-     </div>
+          <!--TABELLA TAVOLE-->
+     <div id="tavole-leonardo" class="d-flex justify-content-center w-25">
+      <div class="border rounded p-3 shadow-lg">
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+            <th scope="col">Titolo</th>
+            <th scope="col">Anno</th>
+            <th scope="col">Link</th>
+            <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let tavola of tavole; let i = index">
+                <th scope="row">{{ i + 1 + (currentPageTavole - 1) * pageSizeTavole }}</th>
+                <td style="cursor: pointer;">{{tavola.titolo}}</td>
+                <td style="cursor: pointer;">{{tavola.anno}}</td>
+                <td style="cursor: pointer;">{{tavola.url}}</td>
+                <td style="cursor: pointer;"><div class="d-flex justify-content-between"><i class="bi bi-pencil me-2" title="Modifica"></i><div class="me-2" title="Elimina">❌</div></div></td>
+              </tr>
+            </tbody>
+          </table>
+
+    <div class="d-flex justify-content-center">
+       <div>
+              <div class="paginazione">
+                <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" style="cursor: pointer;" (click)="previousPageTavole()" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" *ngFor="let pageNumber of totalPagesArrayTavole">
+                  <a class="page-link" style="cursor: pointer;" (click)="setPageTavole(pageNumber)">{{ pageNumber }}</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" style="cursor: pointer;" (click)="nextPageTavole()" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+              </div>
+              <div class="d-flex justify-content-center">
+                 <div class="d-flex justify-content-between">
+                <div id="checkSizeTavole">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pageSizeRadio1Tavole" id="pageSizeRadio1Tavole" value="5" (change)="setPageSizeTavole(5)" [checked]="pageSizeTavole === 5">
+                    <label class="form-check-label" for="pageSizeRadio1Tavole">5</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pageSizeRadio2Tavole" id="pageSizeRadio2Tavole" value="10" (change)="setPageSizeTavole(10)" [checked]="pageSizeTavole === 10">
+                    <label class="form-check-label" for="pageSizeRadio2Tavole">10</label>
+                  </div>
+                </div>
+              </div>
+
+
+
+              </div>
+
+          </div>
+    </div>
+
+
+            </div>
+          </div>
+    </div>
         </div>
 
 <div class="d-flex justify-content-center mt-2 mb-2">
@@ -43,10 +82,10 @@
 </div>
 </div>
 
-<div class="d-flex justify-content-center">
 
 
-  <div id="utenti">
+<div id="utenti" class="d-flex justify-content-center">
+  <div class="border rounded p-3 shadow-lg">
     <div class="d-flex justify-content-end">
       <div id="checkDonatori" class="form-check form-check-inline">
         <input
@@ -65,10 +104,10 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Nome</th>
           <th scope="col">Cognome</th>
+          <th scope="col">Nome</th>
           <th scope="col">Email</th>
-          <th scope="col">Modifica</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -79,8 +118,8 @@
           <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.email }}</td>
           <td>
             <div class="d-flex justify-content-between">
-              <div><i class="bi bi-pencil" (click)="apriModaleModificaUtente(donatore)" data-toggle="modal" data-target="#modificaUtenteModale"></i></div>
-              <div (click)="apriModaleEliminaUtente(donatore)" style="cursor: pointer;">❌</div>
+              <div><i class="bi bi-pencil" style="cursor: pointer;" (click)="apriModaleModificaUtente(donatore)" data-toggle="modal" data-target="#modificaUtenteModale" title="Modifica"></i></div>
+              <div (click)="apriModaleEliminaUtente(donatore)" style="cursor: pointer;" title="Elimina">❌</div>
             </div>
           </td>
         </tr>
@@ -88,8 +127,9 @@
     </table>
 
 
- <div class="d-flex justify-content-between">
-        <div id="paginazione">
+ <div class="d-flex justify-content-center">
+  <div >
+    <div class="paginazione">
           <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item">
@@ -108,7 +148,8 @@
         </ul>
       </nav>
         </div>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-between">
           <div id="checkSize">
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="pageSizeRadioD1" id="pageSizeRadioD1" value="5" (change)="setPageSizeD(5)" [checked]="pageSizeD === 5">
@@ -119,9 +160,12 @@
               <label class="form-check-label" for="pageSizeRadioD2">10</label>
             </div>
           </div>
-
-
         </div>
+
+
+
+        </div></div>
+
 
     </div>
       </div>
@@ -131,10 +175,10 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Nome</th>
             <th scope="col">Cognome</th>
+            <th scope="col">Nome</th>
             <th scope="col">Email</th>
-            <th scope="col">Modifica</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -145,17 +189,17 @@
             <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.email }}</td>
             <td>
               <div class="d-flex justify-content-between">
-                <div><i class="bi bi-pencil" (click)="apriModaleModificaUtente(utente)" data-toggle="modal" data-target="#modificaUtenteModale"></i></div>
-                <div (click)="apriModaleEliminaUtente(utente)" style="cursor: pointer;">❌</div>
+                <div><i class="bi bi-pencil" style="cursor: pointer;" (click)="apriModaleModificaUtente(utente)" data-toggle="modal" data-target="#modificaUtenteModale" title="Modifica"></i></div>
+                <div (click)="apriModaleEliminaUtente(utente)" style="cursor: pointer;" title="Elimina">❌</div>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
 
-
-   <div class="d-flex justify-content-between">
-          <div id="paginazione">
+<div class="d-flex justify-content-center">
+   <div>
+          <div class="paginazione">
             <nav aria-label="Page navigation example">
           <ul class="pagination">
             <li class="page-item">
@@ -174,7 +218,8 @@
           </ul>
         </nav>
           </div>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-center">
+             <div class="d-flex justify-content-between">
             <div id="checkSize">
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="pageSizeRadio1" id="pageSizeRadio1" value="5" (change)="setPageSize(5)" [checked]="pageSize === 5">
@@ -185,20 +230,26 @@
                 <label class="form-check-label" for="pageSizeRadio2">10</label>
               </div>
             </div>
+          </div>
+
 
 
           </div>
 
       </div>
+</div>
+
 
         </div>
       </div>
 </div>
 
+
+
 </div>
 
 
-    </div>
+
 
 
     <!-- MODALE DONATORE/UTENTE-->
@@ -234,7 +285,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title alert alert-danger">Desideri eliminare l'utente {{utente.nome}} {{utente.cognome}}?</h5>
+          <h5 *ngIf="!isUtenteEliminato||!isErroreUguale" class="modal-title alert alert-danger">Desideri eliminare l'utente {{utente.nome}} {{utente.cognome}}?</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleEliminaUtenti()"></button>
         </div>
         <div class="modal-body">

@@ -27,7 +27,7 @@ utente!: Utente;
 
 
   ngOnInit(): void {
-    this.subTavole = this.dvbtSrv.getAllTavole().subscribe((response) => {
+    this.subTavole = this.dvbtSrv.getAllTavoleHome().subscribe((response) => {
       this.tavole = response;
       console.log(this.tavole);
       this.selezionaTavolaCasuale();

@@ -14,9 +14,14 @@ export class DvbtService {
 
 
 
-  getAllTavole() {
+  getAllTavoleHome() {
     return this.http.get<Tavola[]>(`${this.baseUrl}home`);
   }
+getAllTavoleAdmin(page:number, size:number, sortBy:String){
+  return this.http.get<Tavola[]>(`${this.baseUrl}tavole-leonardo?page=${page}&size=${size}&sortBy=${sortBy}`);
+
+}
+
 
   getAllUtenti(page:number, size:number, sortBy:String){
     return this.http.get<Utente[]>(`${this.baseUrl}utenti?page=${page}&size=${size}&sortBy=${sortBy}`);

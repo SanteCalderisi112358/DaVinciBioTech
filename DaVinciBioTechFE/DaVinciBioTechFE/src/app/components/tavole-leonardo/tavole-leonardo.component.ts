@@ -17,7 +17,7 @@ tavolaSingola:Tavola | undefined;
 
 
   ngOnInit(): void {
-    this.subTavole = this.dvbtSrv.getAllTavole().subscribe((response) => {
+    this.subTavole = this.dvbtSrv.getAllTavoleHome().subscribe((response) => {
       this.tavole = response;
       console.log("Tavole in tavole.component")
       console.log(this.tavole);
