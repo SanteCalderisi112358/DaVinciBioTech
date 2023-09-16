@@ -1,4 +1,4 @@
 export enum TipoRuolo {
-  User = 'USER',
-  Admin = 'ADMIN'
+  USER ='USER',
+  ADMIN = 'ADMIN'
 }

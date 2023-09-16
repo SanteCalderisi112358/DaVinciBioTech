@@ -56,6 +56,7 @@ public class UtenteController {
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public Utente updateUtente(@PathVariable UUID userId, @RequestBody UtenteRequestBody body) {
 		return utenteSrv.findByIdAndUpdate(userId, body);
+
 	}
 
 	@DeleteMapping("/{userId}")

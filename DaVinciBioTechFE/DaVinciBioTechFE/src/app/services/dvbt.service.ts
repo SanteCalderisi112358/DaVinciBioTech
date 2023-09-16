@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Tavola } from '../models/tavola.interface';
 import { Utente } from '../models/utente.interface';
 import { Donazione } from '../models/donazione.interface';
+import { UtenteModificato } from '../models/utenteModifica.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -41,6 +42,11 @@ export class DvbtService {
 
   deleteJustUtente(idUtente:string){
     return this.http.delete<string>(`${this.baseUrl}utenti/only-utente/${idUtente}`)
+
+  }
+
+  putUtente(idUtente:string, utenteModificato:UtenteModificato){
+    return this.http.put<Utente>(`${this.baseUrl}utenti/${idUtente}`,utenteModificato)
 
   }
 }

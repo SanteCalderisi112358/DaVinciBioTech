@@ -3,9 +3,38 @@
     <div class="container">
       <div class="d-flex flex-column">
         <div class="d-flex justify-content-center mt-2 mb-2">
-     <div style="background-color: aqua;  height: 400px;">
-<p>Totale Donazioni</p>
-</div>
+          <!--TAVOLE-->
+     <div id="tavole-leonardo">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+     </div>
         </div>
 
 <div class="d-flex justify-content-center mt-2 mb-2">
@@ -15,6 +44,8 @@
 </div>
 
 <div class="d-flex justify-content-center">
+
+
   <div id="utenti">
     <div class="d-flex justify-content-end">
       <div id="checkDonatori" class="form-check form-check-inline">
@@ -30,30 +61,32 @@
     </div>
     <!--TABELLA PER TUTTI I DONATORI-->
   <div *ngIf="isDonatoriSelected">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Cognome</th>
-            <th>Email</th>
-            <th>Modifica</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let donatore of donatori">
-            <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.nome }}</td>
-            <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.cognome }}</td>
-            <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.email }}</td>
-            <td>
-              <div class="d-flex justify-content-between">
-                <div><i class="bi bi-pencil"></i></div>
-                <div (click)="apriModaleEliminaUtente(utente)" style="cursor: pointer;" > ❌</div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Cognome</th>
+          <th scope="col">Email</th>
+          <th scope="col">Modifica</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let donatore of donatori; let i = index">
+          <th scope="row">{{ i + 1 + (currentPageD - 1) * pageSizeD }}</th>
+          <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.nome }}</td>
+          <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.cognome }}</td>
+          <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.email }}</td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <div><i class="bi bi-pencil" (click)="apriModaleModificaUtente(donatore)" data-toggle="modal" data-target="#modificaUtenteModale"></i></div>
+              <div (click)="apriModaleEliminaUtente(donatore)" style="cursor: pointer;">❌</div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-      </table>
 
  <div class="d-flex justify-content-between">
         <div id="paginazione">
@@ -94,30 +127,32 @@
       </div>
       <!--TABELLA PER TUTTI GLI UTENTI-->
      <div *ngIf="!isDonatoriSelected">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Cognome</th>
-              <th>Email</th>
-              <th>Modifica</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let utente of utenti">
-              <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.nome }}</td>
-              <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.cognome }}</td>
-              <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.email }}</td>
-              <td>
-                <div class="d-flex justify-content-between">
-                  <div><i class="bi bi-pencil"></i></div>
-                  <div (click)="apriModaleEliminaUtente(utente)" style="cursor: pointer;" > ❌</div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Cognome</th>
+            <th scope="col">Email</th>
+            <th scope="col">Modifica</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let utente of utenti; let i = index">
+            <th scope="row">{{ i + 1 + (currentPage - 1) * pageSize }}</th>
+            <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.nome }}</td>
+            <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.cognome }}</td>
+            <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.email }}</td>
+            <td>
+              <div class="d-flex justify-content-between">
+                <div><i class="bi bi-pencil" (click)="apriModaleModificaUtente(utente)" data-toggle="modal" data-target="#modificaUtenteModale"></i></div>
+                <div (click)="apriModaleEliminaUtente(utente)" style="cursor: pointer;">❌</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-        </table>
 
    <div class="d-flex justify-content-between">
           <div id="paginazione">
@@ -156,10 +191,6 @@
 
       </div>
 
-
-
-
-
         </div>
       </div>
 </div>
@@ -168,12 +199,13 @@
 
 
     </div>
+
+
+    <!-- MODALE DONATORE/UTENTE-->
     <div class="modal fade" id="modaleDonatore" tabindex="-1" role="dialog" aria-labelledby="trailerModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-
-
         <div class="modal-header">
           <h5 *ngIf="!errore" class="modal-title">Donazioni di {{ utente.nome }} {{utente.cognome}}</h5>
           <h5 *ngIf="errore" class="modal-title alert alert-danger">{{errore}}</h5>
@@ -196,6 +228,7 @@
 
 
 
+    <!-- MODALE ELIMINAZIONE DONATORE/UTENTE-->
 
   <div class="modal" id="modaleDeleteUtente" tabindex="-1">
     <div class="modal-dialog">
@@ -234,42 +267,59 @@
     </div>
   </div>
 
-
-  <div class="modal"  tabindex="-1">
+<!-- MODALE MODIFICA UTENTE-->
+  <div class="modal" id="modaleModificaUtente" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title "></h5>
-          <a type="button" class="btn btn-primary rounded-circle mb-3" (click)="chiudiModaleEliminaUtenti()"  aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </a>
+        <div *ngIf="!isUtenteModificato" class="modal-header">
+          <h5 class="modal-title">Modifica l'utente {{utente.nome}} {{utente.cognome}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleModificaUtente()"></button>
         </div>
         <div class="modal-body">
+          <div *ngIf="!isUtenteModificato">
+             <form #form="ngForm" (ngSubmit)="modificaUtente(form)">
+            <div class="form-group">
+              <label for="nome">Nome</label>
+              <input type="text" class="form-control" id="nome" [(ngModel)]="utente.nome" name="nome" ngModel>
+            </div>
+            <div class="form-group">
+              <label for="cognome">Cognome</label>
+              <input type="text" class="form-control" id="cognome" [(ngModel)]="utente.cognome" name="cognome" ngModel>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="utente.email" name="email" ngModel>
+            </div>
+            <div class="form-group">
+              <div class="d-flex justify-content-between">
+                <label for="ruolo">Ruolo</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="ruolo" id="USER" [(ngModel)]="isUtenteUser" [value]="true">
+                  <label class="form-check-label" for="USER">User</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="ruolo" id="ADMIN" [(ngModel)]="isUtenteUser" [value]="false">
+                  <label class="form-check-label" for="ADMIN">Admin</label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+          </form>
+          </div>
+<div class="modal-body" *ngIf="isUtenteModificato">
+  <h5 class="modal-title alert alert-success">Utente modificato con successo!</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleModificaUtente()"></button>
+
+</div>
 
         </div>
 
-        </div>
-        <div>
-          <div class="modal-footer d-flex justify-content-between">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteUtente(utente)">SI o</button>
-          <button type="button" class="btn btn-primary" >NO</button>
-        </div>
-
-        </div>
-           <!--<div *ngIf="isErroreUguale">
-          <div class="modal-footer d-flex justify-content-between">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >SI</button>
-          <button type="button" class="btn btn-primary" (click)="chiudiModaleElimina()">NO</button>
-        </div>
-
-        </div>
-            <div *ngIf="errore" class="alert alert-danger">
-              <ul>
-                <li>{{ errore }}</li>
-              </ul>
-            </div>-->
       </div>
     </div>
+  </div>
 
   </main>
 

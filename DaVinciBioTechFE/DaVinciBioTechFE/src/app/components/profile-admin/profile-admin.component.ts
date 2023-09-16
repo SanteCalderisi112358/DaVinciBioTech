@@ -53,11 +53,13 @@ this.loadPage(1)
 }*/
 
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Subscription, catchError } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Donazione } from 'src/app/models/donazione.interface';
 import { TipoRuolo } from 'src/app/models/tipo-utente.enum';
 import { Utente } from 'src/app/models/utente.interface';
+import { UtenteModificato } from 'src/app/models/utenteModifica.interface';
 import { DvbtService } from 'src/app/services/dvbt.service';
 
 @Component({
@@ -76,13 +78,15 @@ export class ProfileAdminComponent implements OnInit {
   isDonatoriSelected: boolean = false;
   pageSize: number = 10;
   pageSizeD: number = 10;
+  totalElementsUtenti:number=0;
+  totalElementsDonatori:number=0;
   utente:Utente ={
 
 
     email:"",
     nome:"",
     cognome:"",
-    ruolo: TipoRuolo.User,
+    ruolo: TipoRuolo.USER,
     id:""
   };
   idDonatore:string | undefined;
@@ -90,11 +94,20 @@ export class ProfileAdminComponent implements OnInit {
   isUtenteEliminato:boolean = false;
   donazioniDonatore:Donazione[]=[];
   errore: string | undefined;
+  isUtenteModificato:boolean = false;
+  isUtenteUser:boolean = false;
+  utenteModificato:UtenteModificato={
+    email:"",
+    nome:"",
+    cognome:"",
+    ruolo: TipoRuolo.USER,
+
+  };
   constructor(private dvbtSrv: DvbtService, private authSrv: AuthService) {}
 
   ngOnInit(): void {
-    console.log(this.isDonatoriSelected)
     this.loadPage(this.currentPage);
+
   }
 
   loadPage(page: number): void {
@@ -104,7 +117,10 @@ export class ProfileAdminComponent implements OnInit {
       this.subUtenti = this.dvbtSrv.getAllUtentiDonatori(page - 1, this.pageSizeD, "nome").subscribe((response: any) => {
         this.donatori = response['content'];
         this.totalPagesArrayD = Array.from({ length: response['totalPages'] }, (_, i) => i + 1);
+        this.totalElementsDonatori = response['totalElements']
+        console.log(this.totalElementsDonatori)
                 console.log(this.donatori)
+
       });
     } else {
       // Chiamata per ottenere tutti gli utenti
@@ -113,6 +129,9 @@ export class ProfileAdminComponent implements OnInit {
         this.utenti = response['content'];
         console.log(this.utenti)
         this.totalPagesArray = Array.from({ length: response['totalPages'] }, (_, i) => i + 1);
+        this.totalElementsUtenti = response['totalElements']
+        console.log(this.totalElementsUtenti)
+        console.log(this.totalPagesArray)
       });
     }
   }
@@ -325,6 +344,76 @@ apriModaleEliminaUtente(utente:Utente){
     this.isUtenteEliminato = false;
   }
 
+  apriModaleModificaUtente(utente:Utente){
+    this.utente = utente;
+    const modal = document.getElementById('modaleModificaUtente');
+  if (modal) {
+    modal.classList.add('show');
+    modal.style.display = 'block';
+    if(this.utente.ruolo===TipoRuolo.USER){
+      this.isUtenteUser=true;
+    }else if(this.utente.ruolo ===TipoRuolo.ADMIN){
+            this.isUtenteUser = false;
+
+    }
+
+  }
+
+  console.log("IsUtenteModificato: "+this.isUtenteModificato)
+  }
+
+
+
+
+modificaUtente(form: NgForm) {
+this.utenteModificato.nome = form.value.nome;
+this.utenteModificato.cognome = form.value.cognome;
+this.utenteModificato.email = form.value.email;
+if(form.value.ruolo){
+  this.utenteModificato.ruolo = TipoRuolo.USER;
+}else{
+  this.utenteModificato.ruolo = TipoRuolo.ADMIN;
+
+}
+console.log(this.utente)
+console.log(this.utenteModificato)
+this.idDonatore=this.utente.id;
+if(this.idDonatore){
+  this.dvbtSrv.putUtente(this.idDonatore,this.utenteModificato).subscribe(
+  () => {
+    console.log('Richiesta HTTP PUT inviata con successo');
+    this.isUtenteModificato=true;
+    console.log("isUtenteModificato: "+this.isUtenteModificato)
+  },
+  (error:any) => {
+    this.errore = error.error.message;
+    console.log(this.errore)
+    this.loadPage(this.currentPage);
+
+  }
+);
+}
+
+
+
+  }
+
+  chiudiModaleModificaUtente(){
+    this.isUtenteModificato=false;
+    console.log("isUtenteModificato dopo chiusura: "+this.isUtenteModificato)
+
+    const modal = document.getElementById('modaleModificaUtente');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+      this.isUtenteUser = false;
+console.log("isUtenteUser dopo chiusura:"+this.isUtenteUser)
+console.log("isUtenteModificatodopo chiusura:"+this.isUtenteModificato)
+this.isUtenteEliminato=false;
+
+    }
+
+  }
 }
 
 

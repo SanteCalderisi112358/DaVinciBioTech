@@ -28,7 +28,7 @@ export class AuthService {
     email:"",
     nome:"",
     cognome:"",
-    ruolo: TipoRuolo.User,
+    ruolo: TipoRuolo.USER,
     id:""
     }
   }
