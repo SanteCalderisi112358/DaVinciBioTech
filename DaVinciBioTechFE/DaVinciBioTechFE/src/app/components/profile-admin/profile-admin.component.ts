@@ -215,6 +215,7 @@ this.loadPage(1)
 
 
   deleteUtente(utente: Utente) {
+    this.isUtenteEliminato = false;
     this.errore = ""
     console.log(utente);
     this.idDonatore = utente.id;
@@ -230,21 +231,33 @@ console.log("CIAO ELIMINAZIONE")
           console.log(this.errore)
           if(this.errore===`L'utente ${utente.nome} ${utente.cognome} ha eseguito delle donazioni. Vuoi eliminare anche le sue donazioni?`){
 this.isErroreUguale=true;
-console.log(this.isErroreUguale)
+this.isUtenteEliminato = false;
+console.log("L'utente è stato eliminato?"+this.isUtenteEliminato)
+console.log("IsUtente uguale a `L'utente ${utente.nome} ${utente.cognome} ha eseguito delle donazioni. Vuoi eliminare anche le sue donazioni?`"+this.isErroreUguale)
+          }else{
+            this.loadPage(this.currentPage);
+          this.isUtenteEliminato = true;
+          this.isErroreUguale=true;
+          console.log("IsUtente uguale a `L'utente ${utente.nome} ${utente.cognome} ha eseguito delle donazioni. Vuoi eliminare anche le sue donazioni?`?"+this.isErroreUguale)
+          console.log("L'utente è stato eliminato?"+this.isUtenteEliminato)
           }
+
+
         }
       );
     }
 
+    this.isUtenteEliminato = false;
 
 
   }
 
 apriModaleEliminaUtente(utente:Utente){
+
   this.utente = utente
   console.log(utente)
   this.errore = ""
-  const modal = document.getElementById('modaleDelete');
+  const modal = document.getElementById('modaleDeleteUtente');
   if (modal) {
     modal.classList.add('show');
     modal.style.display = 'block';
@@ -252,7 +265,7 @@ apriModaleEliminaUtente(utente:Utente){
 }
   chiudiModaleEliminaUtenti(): void {
     this.isErroreUguale = false;
-    const modal = document.getElementById('modaleDelete');
+    const modal = document.getElementById('modaleDeleteUtente');
     if (modal) {
       modal.classList.remove('show');
       modal.style.display = 'none';
@@ -264,6 +277,7 @@ apriModaleEliminaUtente(utente:Utente){
 
 
   deleteUtenteAndDonazioni(utente:Utente){
+    this.isUtenteEliminato = false;
     this.utente = utente;
     this.idDonatore = utente.id
     console.log(utente)
@@ -277,6 +291,8 @@ apriModaleEliminaUtente(utente:Utente){
           this.errore = error.error.message;
           this.isUtenteEliminato = true;
           console.log(this.errore)
+          this.loadPage(this.currentPage);
+
         }
       );
     }
@@ -287,6 +303,7 @@ apriModaleEliminaUtente(utente:Utente){
 
 
   deleteJustUtente(utente:Utente){
+    this.isUtenteEliminato = false;
     this.utente = utente;
     this.idDonatore = utente.id
     console.log(utente)
@@ -300,6 +317,8 @@ apriModaleEliminaUtente(utente:Utente){
           this.errore = error.error.message;
           this.isUtenteEliminato = true;
           console.log(this.errore)
+          this.loadPage(this.currentPage);
+
         }
       );
     }

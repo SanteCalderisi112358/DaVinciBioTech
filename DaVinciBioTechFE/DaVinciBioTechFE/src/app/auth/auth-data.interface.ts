@@ -6,7 +6,7 @@ export interface AuthData {
   email:string,
   nome:string,
   cognome:string,
-  ruolo: TipoRuolo;
+  ruolo: TipoRuolo,
   id?:string
   };
 }

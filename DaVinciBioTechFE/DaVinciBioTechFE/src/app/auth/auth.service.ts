@@ -8,6 +8,7 @@ import { AuthData } from './auth-data.interface';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { Utente } from '../models/utente.interface';
+import { TipoRuolo } from '../models/tipo-utente.enum';
 
 
 @Injectable({
@@ -21,6 +22,17 @@ export class AuthService {
   utente!: AuthData;
   user$ = this.authSubj.asObservable();
   timeLogout: any;
+  datiUtente: AuthData ={
+    accessToken: "",
+    utente: {
+    email:"",
+    nome:"",
+    cognome:"",
+    ruolo: TipoRuolo.User,
+    id:""
+    }
+  }
+  utenteLoggato:any;
   constructor(private http: HttpClient, private router: Router) {}
 
   login(data: Utente) {
@@ -39,17 +51,20 @@ export class AuthService {
   }
 
   restore() {
-    const utenteLoggato = localStorage.getItem('utente');
-    if (!utenteLoggato) {
+     this.utenteLoggato = localStorage.getItem('utente');
+    if (!this.utenteLoggato) {
         return;
     }
 
-    const datiUtente: AuthData = JSON.parse(utenteLoggato);
-    if (this.jwtHelper.isTokenExpired(datiUtente.accessToken)) {
-        return;
+    this.datiUtente = JSON.parse(this.utenteLoggato);
+    if (this.jwtHelper.isTokenExpired(this.datiUtente.accessToken)) {
+        this.logout;
     }
-    this.authSubj.next(datiUtente);
-    this.autologout(datiUtente);
+    else {
+      this.authSubj.next(this.datiUtente);
+      this.userProfile = this.datiUtente.utente;
+      this.autologout(this.datiUtente);
+    }
 }
 
   signup(data: {

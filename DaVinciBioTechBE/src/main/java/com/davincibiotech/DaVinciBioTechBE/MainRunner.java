@@ -38,10 +38,10 @@ public class MainRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Faker faker = new Faker(Locale.ITALIAN);
 
-		/* CREAZIONE 10 UTENTI USER */
-		for (int i = 0; i < 5; i++) {
+		/* CREAZIONE 60 UTENTI USER */
+		for (int i = 0; i < 60; i++) {
 			UtenteRequestBody nuovoUtenteUSER = new UtenteRequestBody(faker.name().firstName(), faker.name().lastName(),
-					faker.internet().emailAddress(), bcrypt.encode("1234"));
+					faker.internet().emailAddress(), bcrypt.encode("SanteCalderisi89"));
 			// utenteSrv.createUser(nuovoUtenteUSER);
 		}
 		/* CREAZIONE UTENTE ADMIN */
@@ -117,7 +117,7 @@ public class MainRunner implements CommandLineRunner {
 		utentiDB.forEach(ut -> System.err.println(ut.toString()));
 
 		/* CREAZIONE 20 DONAZIONI */
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 20; i++) {
 			double randomAmount = Math.floor(faker.number().numberBetween(10, 200)) / 2.0;
 			DonazioneRequestBody nuovaDonazione = new DonazioneRequestBody(BigDecimal.valueOf(randomAmount),
 					faker.date().past(30, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
