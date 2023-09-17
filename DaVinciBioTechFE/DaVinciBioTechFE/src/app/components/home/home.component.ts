@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, timeInterval } from 'rxjs';
 import { Utente } from 'src/app/models/utente.interface';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DvbtService } from 'src/app/services/dvbt.service';
@@ -21,12 +21,17 @@ utente!: Utente;
   searchInput!: string;
   showSearchInput: boolean = false;
   tavolaCasuale: Tavola | undefined;
-
+  isLoading:boolean = true;
 
   constructor(private dvbtSrv: DvbtService, private authSrv: AuthService) { }
 
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.isLoading = false;
+      console.log(this.isLoading)
+    }, 2000);
+    console.log(this.isLoading)
     this.subTavole = this.dvbtSrv.getAllTavoleHome().subscribe((response) => {
       this.tavole = response;
       console.log(this.tavole);

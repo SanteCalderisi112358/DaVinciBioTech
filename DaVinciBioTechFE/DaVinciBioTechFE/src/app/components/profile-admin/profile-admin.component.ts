@@ -9,12 +9,19 @@ import { TipoRuolo } from 'src/app/models/tipo-utente.enum';
 import { Utente } from 'src/app/models/utente.interface';
 import { UtenteModificato } from 'src/app/models/utenteModifica.interface';
 import { DvbtService } from 'src/app/services/dvbt.service';
-
 @Component({
   templateUrl: './profile-admin.component.html',
   styleUrls: ['./profile-admin.component.scss']
 })
 export class ProfileAdminComponent implements OnInit {
+  /* VARIABILI GENERALI*/
+  isErroreUguale:boolean = false;
+  errore: string | undefined;
+  isModaleOpen:boolean=false;
+  isLoading:boolean = true;
+
+
+  /* VARIABILI UTENTI*/
   subUtenti: Subscription | undefined;
   subDonazioni: Subscription | undefined;
   utenti: Utente[] = [];
@@ -38,10 +45,8 @@ export class ProfileAdminComponent implements OnInit {
     id:""
   };
   idDonatore:string | undefined;
-  isErroreUguale:boolean = false;
   isUtenteEliminato:boolean = false;
   donazioniDonatore:Donazione[]=[];
-  errore: string | undefined;
   isUtenteModificato:boolean = false;
   isUtenteUser:boolean = false;
   utenteModificato:UtenteModificato={
@@ -80,6 +85,10 @@ export class ProfileAdminComponent implements OnInit {
   constructor(private dvbtSrv: DvbtService, private authSrv: AuthService) {}
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.isLoading = false;
+      console.log(this.isLoading)
+    }, 2000);
     this.loadPageUtenti(this.currentPage);
     this.loadPageTavole(this.currentPageTavole);
 
@@ -430,14 +439,13 @@ this.loadPageTavole(1)
 
 
  apriModaleOsservaTavola(tavola:Tavola){
-
+  this.isModaleOpen = true;
   const modal = document.getElementById('tavola-eye');
     if (modal) {
       modal.classList.add('show');
       modal.style.display = 'block';
       this.tavola = tavola;
       console.log(this.tavola)
-      document.body.classList.add('modal-open');
 
 
     }
@@ -446,11 +454,11 @@ this.loadPageTavole(1)
  }
 
  chiudiModaleOsservaTavola(){
+  this.isModaleOpen = false;
   const modal = document.getElementById('tavola-eye');
   if (modal) {
     modal.classList.remove('show');
     modal.style.display = 'none';
-    document.body.classList.remove('modal-open');
 
   }
  }
