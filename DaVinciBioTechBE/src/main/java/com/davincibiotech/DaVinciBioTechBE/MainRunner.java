@@ -99,6 +99,10 @@ public class MainRunner implements CommandLineRunner {
 				"Nel suo caratteristico stile dettagliato, Leonardo non si è limitato a illustrare le protesi, ma ha anche condotto studi sulla turbolenza del sangue in base alle diverse tipologie di valvole.Questo straordinario lavoro dimostra la sua straordinaria capacità di coniugare l'arte e la scienza. Leonardo aveva intuito che le valvole cardiache svolgono un ruolo cruciale nel mantenere il flusso sanguigno regolare nel cuore umano, e i suoi studi pionieristici sulla turbolenza del sangue anticipavano di secoli le ricerche moderne.",
 				1497, "https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_valvole_cardiache.jpeg",
 				"Protesi Valcole Cardiache");
+		TavolaRequestBody tavola_Test01 = new TavolaRequestBody("TAVOLA TEST 01", 0, password, passwordEncode);
+		TavolaRequestBody tavola_Test02 = new TavolaRequestBody("TAVOLA TEST 02", 0, password, passwordEncode);
+		TavolaRequestBody tavola_Test03 = new TavolaRequestBody("TAVOLA TEST 03", 0, password, passwordEncode);
+		TavolaRequestBody tavola_Test04 = new TavolaRequestBody("TAVOLA TEST 04", 0, password, passwordEncode);
 
 //		tavolaSrv.create(DVBT_braccio_gomito);
 //		tavolaSrv.create(DVBT_protesi_anca);
@@ -111,6 +115,10 @@ public class MainRunner implements CommandLineRunner {
 //		tavolaSrv.create(DVBT_protesi_spalla_frontale);
 //		tavolaSrv.create(DVBT_protesi_spalla_retro);
 //		tavolaSrv.create(DVBT_protesi_valvole_cardiache);
+//		tavolaSrv.create(tavola_Test01);
+//		tavolaSrv.create(tavola_Test02);
+//		tavolaSrv.create(tavola_Test03);
+//		tavolaSrv.create(tavola_Test04);
 
 		List<Utente> utentiDB = new ArrayList<Utente>();
 		utentiDB = utenteSrv.findNoPage();

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.davincibiotech.DaVinciBioTechBE.entities.Tavola;
+import com.davincibiotech.DaVinciBioTechBE.exceptions.BadRequestException;
 import com.davincibiotech.DaVinciBioTechBE.payloads.TavolaRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.services.TavolaService;
 
@@ -63,7 +64,10 @@ public class TavoleController {
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public void deleteTavola(@PathVariable UUID tavolaId) {
 		System.err.println("Elimina tavola con id: " + tavolaId);
+		Tavola tavolaDaEliminare = tavolaSrv.findById(tavolaId);
 		tavolaSrv.findByIdAndDelete(tavolaId);
+		throw new BadRequestException(
+				"La tavola '" + tavolaDaEliminare.getTitolo() + "' è stata eliminata con successo!");
 	}
 
 }

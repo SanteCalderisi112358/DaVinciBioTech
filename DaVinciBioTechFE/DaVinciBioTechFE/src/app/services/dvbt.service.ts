@@ -5,6 +5,7 @@ import { Tavola } from '../models/tavola.interface';
 import { Utente } from '../models/utente.interface';
 import { Donazione } from '../models/donazione.interface';
 import { UtenteModificato } from '../models/utenteModifica.interface';
+import { TavolaModifica } from '../models/tavolaModifica.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,7 +14,7 @@ export class DvbtService {
   constructor(private http: HttpClient) {}
 
 
-
+/* CRUD UTENTI */
   getAllTavoleHome() {
     return this.http.get<Tavola[]>(`${this.baseUrl}home`);
   }
@@ -54,4 +55,16 @@ getAllTavoleAdmin(page:number, size:number, sortBy:String){
     return this.http.put<Utente>(`${this.baseUrl}utenti/${idUtente}`,utenteModificato)
 
   }
+
+  /* CRUD TAVOLE */
+
+  deleteTavola(idTavola:string){
+    return this.http.delete<string>(`${this.baseUrl}tavole-leonardo/${idTavola}`)
+  }
+
+  putTavola(idTavola:string, tavolaModificata: TavolaModifica){
+    return this.http.put<Tavola>(`${this.baseUrl}tavole-leonardo/${idTavola}`,tavolaModificata)
+
+  }
+
 }

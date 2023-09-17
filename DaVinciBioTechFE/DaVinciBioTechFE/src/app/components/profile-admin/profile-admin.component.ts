@@ -4,6 +4,7 @@ import { Subscription, catchError } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Donazione } from 'src/app/models/donazione.interface';
 import { Tavola } from 'src/app/models/tavola.interface';
+import { TavolaModifica } from 'src/app/models/tavolaModifica.interface';
 import { TipoRuolo } from 'src/app/models/tipo-utente.enum';
 import { Utente } from 'src/app/models/utente.interface';
 import { UtenteModificato } from 'src/app/models/utenteModifica.interface';
@@ -53,12 +54,29 @@ export class ProfileAdminComponent implements OnInit {
 
   /*VARIABILI TAVOLE*/
   tavole:Tavola[]=[];
+  tavola: Tavola ={
+    id: "",
+    titolo: "",
+    descrizione: "",
+    anno: 0,
+    url:"",
+
+
+    }
+  idTavola:string | undefined;
   subTavole: Subscription | undefined;
   currentPageTavole:number = 1;
-  pageSizeTavole: number = 10;
+  pageSizeTavole: number = 5;
   totalElementsTavole:number=0;
   totalPagesArrayTavole: number[] = [];
-
+  isTavolaEliminata:boolean = false;
+  isTavolaModificata:boolean = false;
+  tavolaModificata: TavolaModifica = {
+    titolo:"",
+    descrizione:"",
+    anno:0,
+    url:""
+  }
   constructor(private dvbtSrv: DvbtService, private authSrv: AuthService) {}
 
   ngOnInit(): void {
@@ -411,6 +429,141 @@ this.loadPageTavole(1)
   }
 
 
+ apriModaleOsservaTavola(tavola:Tavola){
+
+  const modal = document.getElementById('tavola-eye');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
+      this.tavola = tavola;
+      console.log(this.tavola)
+      document.body.classList.add('modal-open');
+
+
+    }
+
+
+ }
+
+ chiudiModaleOsservaTavola(){
+  const modal = document.getElementById('tavola-eye');
+  if (modal) {
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+
+  }
+ }
+
+ apriModaleModificaTavola(tavola:Tavola){
+  const modal = document.getElementById('modaleModificaTavola');
+  if (modal) {
+    modal.classList.add('show');
+    modal.style.display = 'block';
+    document.body.classList.remove('modal-open');
+     this.tavola = tavola;
+  this.idTavola = tavola.id;
+  console.log(this.tavola)
+  console.log(this.idTavola)
+
+
+  }
+ }
+
+modificaTavola(form: NgForm){
+this.tavolaModificata.titolo = form.value.titolo
+this.tavolaModificata.anno = form.value.anno
+this.tavolaModificata.descrizione = form.value.descrizione
+this.tavolaModificata.url = form.value.url
+console.log("TAVOLA PRIMA DELLA MODIFICA"+this.tavola)
+console.log("TAVOLA DOPO DELLA MODIFICA"+this.tavolaModificata)
+console.log("isErroreUguale:"+this.isErroreUguale)
+this.idTavola=this.tavola.id;
+if(this.idTavola){
+  this.dvbtSrv.putTavola(this.idTavola,this.tavolaModificata).subscribe(
+  () => {
+    console.log('Richiesta HTTP PUT inviata con successo');
+    this.isTavolaModificata=true;
+    console.log("Tavola Modificata?: "+this.isTavolaModificata)
+
+  },
+  (error:any) => {
+    if(error.error.message==="Errore generico, risolveremo il prima possibile"){
+      this.errore = "Sembra che tu abbia inserito un formato non valido. Per favore, verifica i dati inseriti e riprova."
+      this.isErroreUguale=true;
+      console.log(this.errore)
+      console.log("IsErroreUguale: "+this.isErroreUguale)
+    }else{
+      this.errore = error.error.message;
+      console.log(this.errore)
+    }
+
+
+  });
+}
+
+
+
+ }
+ chiudiModaleModificaTavola(){
+  this.isTavolaModificata=false;
+  this.isErroreUguale = false;
+  this.errore = "";
+  const modal = document.getElementById('modaleModificaTavola');
+  if (modal) {
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+    this.loadPageTavole(this.currentPage);
+
+
+  }
+ }
+
+ apriModaleEliminaTavola(tavola:Tavola){
+  const modal = document.getElementById('modaleDeleteTavola');
+  if (modal) {
+    modal.classList.add('show');
+    modal.style.display = 'block';
+    document.body.classList.remove('modal-open');
+     this.tavola = tavola;
+  this.idTavola = tavola.id;
+  console.log(this.tavola)
+  console.log(this.idTavola)
+
+
+  }
+
+
+
+ }
+  deleteTavola(tavola:Tavola){
+    this.tavola=tavola;
+    console.log(this.tavola)
+    if (this.idTavola) {
+      this.dvbtSrv.deleteTavola(this.idTavola).subscribe(
+        () => {
+          console.log('Richiesta HTTP DELETE inviata con successo');
+        },
+        (error:any) => {
+          this.errore = error.error.message;
+          this.isTavolaEliminata = true;
+          console.log(this.errore)
+          this.loadPageTavole(this.currentPage);
+
+        }
+      );
+    }
+  }
+ chiudiModaleEliminaTavola(){
+  const modal = document.getElementById('modaleDeleteTavola');
+  if (modal) {
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+    this.isTavolaEliminata = false;
+    this.errore= "";
+  }
+ }
 
 
 }
