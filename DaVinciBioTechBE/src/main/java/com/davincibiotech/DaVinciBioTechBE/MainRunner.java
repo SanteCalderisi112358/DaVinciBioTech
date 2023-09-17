@@ -107,7 +107,7 @@ public class MainRunner implements CommandLineRunner {
 //		tavolaSrv.create(DVBT_braccio_gomito);
 //		tavolaSrv.create(DVBT_protesi_anca);
 //		tavolaSrv.create(DVBT_protesi_braccio);
-//		tavolaSrv.create(DVBT_protesi_dito_piede);
+		tavolaSrv.create(DVBT_protesi_dito_piede);
 //		tavolaSrv.create(DVBT_protesi_gamba);
 //		tavolaSrv.create(DVBT_protesi_gamba_steampunk);
 //		tavolaSrv.create(DVBT_protesi_ginocchio_ginocchiera);
@@ -115,10 +115,10 @@ public class MainRunner implements CommandLineRunner {
 //		tavolaSrv.create(DVBT_protesi_spalla_frontale);
 //		tavolaSrv.create(DVBT_protesi_spalla_retro);
 //		tavolaSrv.create(DVBT_protesi_valvole_cardiache);
-//		tavolaSrv.create(tavola_Test01);
-//		tavolaSrv.create(tavola_Test02);
-//		tavolaSrv.create(tavola_Test03);
-//		tavolaSrv.create(tavola_Test04);
+		tavolaSrv.create(tavola_Test01);
+		tavolaSrv.create(tavola_Test02);
+		tavolaSrv.create(tavola_Test03);
+		tavolaSrv.create(tavola_Test04);
 
 		List<Utente> utentiDB = new ArrayList<Utente>();
 		utentiDB = utenteSrv.findNoPage();

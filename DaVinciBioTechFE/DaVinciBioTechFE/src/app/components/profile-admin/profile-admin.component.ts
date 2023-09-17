@@ -6,8 +6,10 @@ import { Donazione } from 'src/app/models/donazione.interface';
 import { Tavola } from 'src/app/models/tavola.interface';
 import { TavolaModifica } from 'src/app/models/tavolaModifica.interface';
 import { TipoRuolo } from 'src/app/models/tipo-utente.enum';
+import { UtenteNuovo } from 'src/app/models/utente-nuovo.interface';
 import { Utente } from 'src/app/models/utente.interface';
 import { UtenteModificato } from 'src/app/models/utenteModifica.interface';
+//import { AwsService } from 'src/app/services/aws.service';
 import { DvbtService } from 'src/app/services/dvbt.service';
 @Component({
   templateUrl: './profile-admin.component.html',
@@ -17,6 +19,7 @@ export class ProfileAdminComponent implements OnInit {
   /* VARIABILI GENERALI*/
   isErroreUguale:boolean = false;
   errore: string | undefined;
+  errori:string[]=[];
   isModaleOpen:boolean=false;
   isLoading:boolean = true;
 
@@ -36,8 +39,6 @@ export class ProfileAdminComponent implements OnInit {
   totalElementsUtenti:number=0;
   totalElementsDonatori:number=0;
   utente:Utente ={
-
-
     email:"",
     nome:"",
     cognome:"",
@@ -45,6 +46,7 @@ export class ProfileAdminComponent implements OnInit {
     id:""
   };
   idDonatore:string | undefined;
+  isUtenteCreato:boolean = false;
   isUtenteEliminato:boolean = false;
   donazioniDonatore:Donazione[]=[];
   isUtenteModificato:boolean = false;
@@ -54,7 +56,13 @@ export class ProfileAdminComponent implements OnInit {
     nome:"",
     cognome:"",
     ruolo: TipoRuolo.USER,
-
+  };
+  utenteNuovo:UtenteNuovo={
+    email:"",
+    nome:"",
+    cognome:"",
+    password:"",
+    ruolo: TipoRuolo.USER,
   };
 
   /*VARIABILI TAVOLE*/
@@ -82,7 +90,9 @@ export class ProfileAdminComponent implements OnInit {
     anno:0,
     url:""
   }
-  constructor(private dvbtSrv: DvbtService, private authSrv: AuthService) {}
+  constructor(private dvbtSrv: DvbtService, private authSrv: AuthService
+    /*, private awsService: AwsService*/
+    ) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -537,12 +547,7 @@ if(this.idTavola){
   this.idTavola = tavola.id;
   console.log(this.tavola)
   console.log(this.idTavola)
-
-
   }
-
-
-
  }
   deleteTavola(tavola:Tavola){
     this.tavola=tavola;
@@ -573,6 +578,74 @@ if(this.idTavola){
   }
  }
 
+ apriModaleAggiungiUtente(){
+  const modal = document.getElementById('modaleAggiungiUtente');
+  console.log(this.errori)
+  if (modal) {
+    modal.classList.add('show');
+    modal.style.display = 'block';
+    document.body.classList.remove('modal-open');
+
+  }
+ }
+
+ creaUtente(form:NgForm){
+  console.log(form.value);
+
+  form.value.nome = this.utenteNuovo.nome;
+  form.value.cognome = this.utenteNuovo.cognome;
+  form.value.email = this.utenteNuovo.email;
+  console.log(this.utenteNuovo)
+   /* form.value.ruolo = TipoRuolo.ADMIN;
+  }else{
+    form.value.ruolo = TipoRuolo.USER;
+   }*/
+   this.dvbtSrv.postUtente(this.utenteNuovo).subscribe(
+    () => {
+      console.log('Richiesta HTTP POST inviata con successo');
+      this.isUtenteCreato=true;
+      console.log("Utente Creato?: "+this.isUtenteCreato)
+
+    },
+    (error:any) => {
+console.log(error.error.errorsList)
+this.errori = error.error.errorsList;
+if(this.errori.length===0){
+  console.log("Utente Creato?: "+this.isUtenteCreato)
+  this.isUtenteCreato=false;
+}
+
+
+
+
+    });
+   console.log(this.utenteNuovo)
+
+
+ }
+
+ chiudiModaleAggiungiUtente(){
+  this.errori = [];
+  this.isUtenteCreato = false;
+  const modal = document.getElementById('modaleAggiungiUtente');
+  if (modal) {
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+
+  }
+ }
+
+ /*caricaImmagine(event: any) {
+  const file: File = event.target.files[0];
+  const objectKey = `images/${file.name}`;
+  this.awsService.uploadImage(file, objectKey)
+    .then((imageUrl) => {
+      console.log(imageUrl);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}*/
 
 }
 

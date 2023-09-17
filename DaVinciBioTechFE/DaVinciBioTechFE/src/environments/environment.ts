@@ -7,6 +7,16 @@ export const environment = {
   baseURL: 'http://localhost:3001/'
 };
 
+export const environment_AWS = {
+  production: false,
+  aws: {
+    accessKeyId: 'AKIAWPP5CJI2F72BRP53',
+    secretAccessKey: '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',
+    region: 'eu-central-1',  // Imposta la regione corretta
+    bucketName: 'davincibiotech',
+  },
+};
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

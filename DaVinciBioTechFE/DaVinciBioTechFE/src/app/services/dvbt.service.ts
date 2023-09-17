@@ -15,14 +15,6 @@ export class DvbtService {
 
 
 /* CRUD UTENTI */
-  getAllTavoleHome() {
-    return this.http.get<Tavola[]>(`${this.baseUrl}home`);
-  }
-getAllTavoleAdmin(page:number, size:number, sortBy:String){
-  return this.http.get<Tavola[]>(`${this.baseUrl}tavole-leonardo?page=${page}&size=${size}&sortBy=${sortBy}`);
-
-}
-
 
   getAllUtenti(page:number, size:number, sortBy:String){
     return this.http.get<Utente[]>(`${this.baseUrl}utenti?page=${page}&size=${size}&sortBy=${sortBy}`);
@@ -56,8 +48,21 @@ getAllTavoleAdmin(page:number, size:number, sortBy:String){
 
   }
 
+  postUtente(utenteNuovo:UtenteModificato){
+    return this.http.post<Utente>(`${this.baseUrl}auth/registrazione`,utenteNuovo)
+
+  }
+
   /* CRUD TAVOLE */
 
+  getAllTavoleHome() {
+    return this.http.get<Tavola[]>(`${this.baseUrl}home`);
+  }
+
+  getAllTavoleAdmin(page:number, size:number, sortBy:String){
+  return this.http.get<Tavola[]>(`${this.baseUrl}tavole-leonardo?page=${page}&size=${size}&sortBy=${sortBy}`);
+
+}
   deleteTavola(idTavola:string){
     return this.http.delete<string>(`${this.baseUrl}tavole-leonardo/${idTavola}`)
   }
