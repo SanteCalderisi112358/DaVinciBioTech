@@ -1,6 +1,15 @@
-<body>
+
+
+
+<body *ngIf="!user">
   <div class="container">
-  <p>donazioni works!</p>
+  <p>Non sei loggato</p>
+  </div>
+</body>
+
+<body *ngIf="user">
+  <div class="container">
+  <p>Sei Loggato</p>
 
   </div>
 </body>

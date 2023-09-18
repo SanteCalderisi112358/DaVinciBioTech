@@ -1,17 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, timeInterval } from 'rxjs';
+import { Subscription} from 'rxjs';
 import { Utente } from 'src/app/models/utente.interface';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DvbtService } from 'src/app/services/dvbt.service';
 import { Tavola } from 'src/app/models/tavola.interface';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit{
 
 utente!: Utente;
   listFavorite: number[] = [];
@@ -39,13 +38,7 @@ utente!: Utente;
     });
 
   }
-  ngOnDestroy(): void {
 
-    if (this.subTavole) {
-      this.subTavole.unsubscribe();
-    }
-
-  }
 
   selezionaTavolaCasuale(): void {
     // Genera un numero casuale tra 0 e la lunghezza dell'array delle tavole

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Tavola } from 'src/app/models/tavola.interface';
@@ -7,7 +7,6 @@ import { DvbtService } from 'src/app/services/dvbt.service';
   selector: 'app-tavole-leonardo',
   templateUrl: './tavole-leonardo.component.html',
   styleUrls: ['./tavole-leonardo.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TavoleLeonardoComponent implements OnInit {
   subTavole!: Subscription;
@@ -22,8 +21,12 @@ tavolaSingola:Tavola | undefined;
       console.log("Tavole in tavole.component")
       console.log(this.tavole);
 
-
+this.tavolaSingola = this.tavole[0]
+     console.log(this.tavolaSingola)
     });
+
   }
+
+
 
 }
