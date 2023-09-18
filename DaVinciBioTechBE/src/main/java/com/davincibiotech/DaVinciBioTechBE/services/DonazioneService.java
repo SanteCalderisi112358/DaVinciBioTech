@@ -2,6 +2,7 @@ package com.davincibiotech.DaVinciBioTechBE.services;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,10 @@ public class DonazioneService {
 		// Esegui la query per calcolare la somma degli importi per il periodo
 		// specificato
 		return donazioneRepo.getSommaDonazioniPerPeriodo(dataInizio, dataFine);
+	}
+
+	public List<Donazione> getDonazioniPerPeriodo(LocalDate dataInizio, LocalDate dataFine) {
+		return donazioneRepo.getDonazioniPerPeriodo(dataInizio, dataFine);
 	}
 
 }

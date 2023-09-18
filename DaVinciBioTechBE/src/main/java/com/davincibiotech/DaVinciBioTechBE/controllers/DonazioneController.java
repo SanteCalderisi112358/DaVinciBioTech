@@ -3,6 +3,7 @@ package com.davincibiotech.DaVinciBioTechBE.controllers;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,6 +150,23 @@ public class DonazioneController {
 
 		} else {
 			System.err.println(BigDecimal.ZERO);
+			throw new BadRequestException(
+					"Tra il " + dataInizio + " e il " + dataFine + " non ci sono state donazioni!");
+		}
+	}
+
+	@GetMapping("/donazioni-per-anno")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public List<Donazione> getDonazioniPerPeriodo(
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInizio,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFine) {
+		List<Donazione> donazioniPerPeriodo = donazioneSrv.getDonazioniPerPeriodo(dataInizio, dataFine);
+		if (!donazioniPerPeriodo.isEmpty()) {
+			System.err.println(donazioniPerPeriodo);
+
+			return donazioneSrv.getDonazioniPerPeriodo(dataInizio, dataFine);
+
+		} else {
 			throw new BadRequestException(
 					"Tra il " + dataInizio + " e il " + dataFine + " non ci sono state donazioni!");
 		}

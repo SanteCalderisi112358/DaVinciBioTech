@@ -1,11 +1,11 @@
 package com.davincibiotech.DaVinciBioTechBE;
 
 import java.math.BigDecimal;
-import java.time.ZoneId;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -125,13 +125,19 @@ public class MainRunner implements CommandLineRunner {
 		utentiDB.forEach(ut -> System.err.println(ut.toString()));
 
 		/* CREAZIONE 20 DONAZIONI */
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 1000; i++) {
 			double randomAmount = Math.floor(faker.number().numberBetween(10, 200)) / 2.0;
-			DonazioneRequestBody nuovaDonazione = new DonazioneRequestBody(BigDecimal.valueOf(randomAmount),
-					faker.date().past(30, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+			LocalDate startDate = LocalDate.of(2020, 1, 1); // Data di inizio (1 gennaio 2020)
+			LocalDate endDate = LocalDate.of(2023, 9, 30); // Data di fine (30 settembre 2023)
+
+			// Calculate a random date between startDate and endDate
+			long randomDays = faker.number().numberBetween(0, ChronoUnit.DAYS.between(startDate, endDate));
+			LocalDate randomDate = startDate.plusDays(randomDays);
+
+			DonazioneRequestBody nuovaDonazione = new DonazioneRequestBody(BigDecimal.valueOf(randomAmount), randomDate,
 					utentiDB.get(faker.number().numberBetween(0, utentiDB.size() - 1)));
 
-			// donazioneSrv.create(nuovaDonazione);
+			donazioneSrv.create(nuovaDonazione);
 		}
 
 		// List<Utente> lista = utenteSrv.getUtentiConDonazioni();

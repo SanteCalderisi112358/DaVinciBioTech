@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Data } from '@angular/router';
+import { ChartAxisLabelOptions } from 'aws-sdk/clients/quicksight';
 import { Subscription, catchError } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Donazione } from 'src/app/models/donazione.interface';
@@ -18,12 +19,14 @@ import { DvbtService } from 'src/app/services/dvbt.service';
 })
 export class ProfileAdminComponent implements OnInit {
   /* VARIABILI GENERALI*/
+
+
   isErroreUguale:boolean = false;
   errore: string = "";
   errori:string[]=[];
   isModaleOpen:boolean=false;
   isLoading:boolean = true;
-
+  chartOptions:any;
 
   /* VARIABILI UTENTI*/
   subUtenti: Subscription | undefined;
@@ -107,10 +110,51 @@ export class ProfileAdminComponent implements OnInit {
     selectedYear: string = '';
     dataInizio:string = '';
     dataFine:string ='';
+    dataInizioCanvas:string = '';
+    annoCanvas:string = ''
+    dataFineCanvas: string = '';
     isErroreRicercaPeriodo:boolean | undefined;
     erroreRicercaPeriodo:string="";
     erroreRicercaSelect:string ="";
     importoPerPeriodo!: number;
+    erroreCanvas:string =""
+    gennaioInizio: string = ""
+    gennaioFine: string = ""
+    febbraioInizio: string = ""
+    febbraioFine: string = ""
+    marzoInizio: string = ""
+    marzoFine: string = ""
+    aprileInizio: string = ""
+    aprileFine: string = ""
+    maggioInizio: string = ""
+    maggioFine: string = ""
+    giugnoInizio: string = ""
+    giugnoFine: string = ""
+    luglioInizio: string = ""
+    luglioFine: string = ""
+    agostoInizio: string = ""
+    agostoFine: string = ""
+    settembreInizio: string = ""
+    settembreFine: string = ""
+    ottobreInizio: string = ""
+    ottobreFine: string = ""
+    novembreInizio: string = ""
+    novembreFine: string = ""
+    dicembreInizio: string = ""
+    dicembreFine: string = ""
+    importo_gennaio!: number;
+    importo_febbraio!:number;
+    importo_marzo!:number;
+    importo_aprile!:number;
+    importo_maggio!:number;
+    importo_giugno!:number;
+    importo_luglio!:number;
+    importo_agosto!:number;
+    importo_settembre!:number;
+    importo_ottobre!:number;
+    importo_novembre!:number;
+    importo_dicembre!:number;
+
   constructor(private dvbtSrv: DvbtService, private authSrv: AuthService
    /* , private awsService: AwsService*/
     ) {}
@@ -801,7 +845,7 @@ ricercaImportoPeriodo(){
     this.dataInizio = this.selectedYear+"-"+this.selectedMonthStart
     this.dataFine = this.selectedYear+"-"+this.selectedMonthEnd
     console.log('Periodo mensile scelto: '+this.dataInizio+"-"+this.dataFine)
-    this.dvbtSrv.getDonazioniPerPeriodo(this.dataInizio,this.dataFine).subscribe(
+    this.dvbtSrv.getDonazioniImportoPerPeriodo(this.dataInizio,this.dataFine).subscribe(
       (importo) => {
     this.importoPerPeriodo = importo;
     this.isErroreRicercaPeriodo = false;
@@ -817,9 +861,286 @@ ricercaImportoPeriodo(){
 
   }
 
+  ricercaImportoPerAnno(){
+    this.erroreCanvas = ''
+    const annoSelect = document.getElementById('annoSelect_canvas') as HTMLSelectElement;
+    console.log(annoSelect.value)
+    if(annoSelect.value === 'Seleziona Anno'){
+      this.erroreCanvas = 'Seleziona un anno per la tua ricerca';
+    }else if(annoSelect.value!=='Seleziona Anno'){
+      this.erroreRicercaPeriodo = '';
+      this.annoCanvas = annoSelect.value;
+      this.dataInizioCanvas = this.annoCanvas+"-01-01"
+      this.dataFineCanvas = this.annoCanvas+"-12-31"
+      console.log("inizio periodo: "+this.dataInizioCanvas)
+      console.log("inizio periodo: "+this.dataFineCanvas)
+      this.gennaioInizio = this.annoCanvas+"-01-01"
+      this.gennaioFine = this.annoCanvas+"-01-31"
+      this.febbraioInizio = this.annoCanvas+"-02-01"
+      this.febbraioFine = this.annoCanvas+"-02-28"
+      this.marzoInizio = this.annoCanvas+"-03-01"
+      this.marzoFine = this.annoCanvas+"-03-31"
+      this.aprileInizio = this.annoCanvas+"-04-01"
+      this.aprileFine = this.annoCanvas+"-04-30"
+      this.maggioInizio = this.annoCanvas+"-05-01"
+      this.maggioFine = this.annoCanvas+"-05-31"
+      this.giugnoInizio = this.annoCanvas+"-06-01"
+      this.giugnoFine = this.annoCanvas+"-06-30"
+      this.luglioInizio = this.annoCanvas+"-07-01"
+      this.luglioFine = this.annoCanvas+"-07-31"
+      this.agostoInizio = this.annoCanvas+"-08-01"
+      this.agostoFine = this.annoCanvas+"-08-31"
+      this.settembreInizio = this.annoCanvas+"-09-01"
+      this.settembreFine = this.annoCanvas+"-09-30"
+      this.ottobreInizio = this.annoCanvas+"-10-01"
+      this.ottobreFine = this.annoCanvas+"-10-31"
+      this.novembreInizio = this.annoCanvas+"-11-01"
+      this.novembreFine = this.annoCanvas+"-11-30"
+      this.dicembreInizio = this.annoCanvas+"-12-01"
+      this.dicembreFine = this.annoCanvas+"-12-31"
 
+/*Gennaio*/
+      this.dvbtSrv.getDonazioniImportoPerPeriodo(this.gennaioInizio,this.gennaioFine).subscribe(
+        (importo) => {
+      this.importo_gennaio = importo;
+      console.log(this.importo_gennaio)
+
+        },
+        (error:any) => {
+          console.error(error.error.message)
+          if(error.error.message === 'Tra il '+this.gennaioInizio+' e il '+this.gennaioFine+' non ci sono state donazioni!'){
+            this.importo_gennaio = 0;
+            console.log(this.importo_gennaio)
+          }
+
+        }
+      );
+      }
+/*febbraio*/
+this.dvbtSrv.getDonazioniImportoPerPeriodo(this.febbraioInizio,this.febbraioFine).subscribe(
+  (importo) => {
+this.importo_febbraio = importo;
+console.log(this.importo_febbraio)
+
+  },
+  (error:any) => {
+    console.error(error.error.message)
+    if(error.error.message === 'Tra il '+this.febbraioInizio+' e il '+this.febbraioFine+' non ci sono state donazioni!'){
+      this.importo_febbraio = 0;
+      console.log(this.importo_febbraio)
+    }
 
   }
+);
+
+/*marzo*/
+this.dvbtSrv.getDonazioniImportoPerPeriodo(this.marzoInizio,this.marzoFine).subscribe(
+  (importo) => {
+this.importo_marzo = importo;
+console.log(this.importo_marzo)
+
+  },
+  (error:any) => {
+    console.error(error.error.message)
+    if(error.error.message === 'Tra il '+this.marzoInizio+' e il '+this.marzoFine+' non ci sono state donazioni!'){
+      this.importo_marzo = 0;
+      console.log(this.importo_marzo)
+    }
+
+  }
+);
+
+/*aprile*/
+this.dvbtSrv.getDonazioniImportoPerPeriodo(this.aprileInizio,this.aprileFine).subscribe(
+  (importo) => {
+this.importo_aprile = importo;
+console.log(this.importo_aprile)
+
+  },
+  (error:any) => {
+    console.error(error.error.message)
+    if(error.error.message === 'Tra il '+this.aprileInizio+' e il '+this.aprileFine+' non ci sono state donazioni!'){
+      this.importo_aprile= 0;
+      console.log(this.importo_aprile)
+    }
+
+  }
+);
+
+/*maggio*/
+this.dvbtSrv.getDonazioniImportoPerPeriodo(this.maggioInizio,this.maggioFine).subscribe(
+  (importo) => {
+this.importo_maggio = importo;
+console.log(this.importo_maggio)
+
+  },
+  (error:any) => {
+    console.error(error.error.message)
+    if(error.error.message === 'Tra il '+this.maggioInizio+' e il '+this.maggioFine+' non ci sono state donazioni!'){
+      this.importo_maggio = 0;
+      console.log(this.importo_maggio)
+    }
+
+  }
+);
+
+/*giugno*/
+this.dvbtSrv.getDonazioniImportoPerPeriodo(this.giugnoInizio,this.giugnoFine).subscribe(
+  (importo) => {
+this.importo_giugno = importo;
+console.log(this.importo_giugno)
+
+  },
+  (error:any) => {
+    console.error(error.error.message)
+    if(error.error.message === 'Tra il '+this.giugnoInizio+' e il '+this.giugnoFine+' non ci sono state donazioni!'){
+      this.importo_giugno = 0;
+      console.log(this.importo_giugno)
+    }
+
+  }
+);
+
+/*luglio*/
+this.dvbtSrv.getDonazioniImportoPerPeriodo(this.luglioInizio,this.luglioFine).subscribe(
+  (importo) => {
+this.importo_luglio = importo;
+console.log(this.importo_luglio)
+
+  },
+  (error:any) => {
+    console.error(error.error.message)
+    if(error.error.message === 'Tra il '+this.luglioInizio+' e il '+this.luglioFine+' non ci sono state donazioni!'){
+      this.importo_luglio = 0;
+      console.log(this.importo_luglio)
+    }
+
+  }
+);
+
+/*agosto*/
+this.dvbtSrv.getDonazioniImportoPerPeriodo(this.agostoInizio,this.agostoFine).subscribe(
+  (importo) => {
+this.importo_agosto = importo;
+console.log(this.importo_agosto)
+
+  },
+  (error:any) => {
+    console.error(error.error.message)
+    if(error.error.message === 'Tra il '+this.agostoInizio+' e il '+this.agostoFine+' non ci sono state donazioni!'){
+      this.importo_agosto= 0;
+      console.log(this.importo_agosto)
+    }
+
+  }
+);
+
+/*settembre*/
+this.dvbtSrv.getDonazioniImportoPerPeriodo(this.settembreInizio,this.settembreFine).subscribe(
+  (importo) => {
+this.importo_settembre = importo;
+console.log("Settembre: "+this.importo_settembre)
+
+  },
+  (error:any) => {
+    console.error(error.error.message)
+    if(error.error.message === 'Tra il '+this.settembreInizio+' e il '+this.settembreFine+' non ci sono state donazioni!'){
+      this.importo_settembre = 0;
+      console.log("Settembre: "+this.importo_settembre)
+    }
+
+  }
+);
+
+/*ottobre*/
+this.dvbtSrv.getDonazioniImportoPerPeriodo(this.ottobreInizio,this.ottobreFine).subscribe(
+  (importo) => {
+this.importo_ottobre = importo;
+console.log(this.importo_ottobre)
+
+  },
+  (error:any) => {
+    console.error(error.error.message)
+    if(error.error.message === 'Tra il '+this.ottobreInizio+' e il '+this.ottobreFine+' non ci sono state donazioni!'){
+      this.importo_ottobre = 0;
+      console.log(this.importo_ottobre)
+    }
+
+  }
+);
+
+/*novembre*/
+this.dvbtSrv.getDonazioniImportoPerPeriodo(this.novembreInizio,this.novembreFine).subscribe(
+  (importo) => {
+this.importo_novembre = importo;
+console.log(this.importo_novembre)
+
+  },
+  (error:any) => {
+    console.error(error.error.message)
+    if(error.error.message === 'Tra il '+this.novembreInizio+' e il '+this.novembreFine+' non ci sono state donazioni!'){
+      this.importo_novembre = 0;
+      console.log(this.importo_novembre)
+    }
+
+  }
+);
+/*dicembre*/
+this.dvbtSrv.getDonazioniImportoPerPeriodo(this.dicembreInizio,this.dicembreFine).subscribe(
+  (importo) => {
+this.importo_dicembre = importo;
+console.log(this.importo_dicembre)
+
+  },
+  (error:any) => {
+    console.error(error.error.message)
+    if(error.error.message === 'Tra il '+this.dicembreInizio+' e il '+this.dicembreFine+' non ci sono state donazioni!'){
+      this.importo_dicembre = 0;
+      console.log(this.importo_dicembre)
+    }
+
+  }
+);
+
+
+
+this.chartOptions = {
+    title: {
+      text: "Donazioni ricevute"
+    },
+    data: [{
+      type: "column",
+      dataPoints: [
+        { label: "Gennaio",  y: this.importo_gennaio  },
+        { label: "Febbraio", y: this.importo_febbraio  },
+        { label: "Marzo", y: this.importo_marzo  },
+        { label: "Aprile",  y: this.importo_aprile  },
+        { label: "Maggio",  y: this.importo_maggio  },
+        { label: "Giugno",  y: this.importo_giugno  },
+        { label: "Luglio",  y: this.importo_luglio  },
+        { label: "Agosto",  y: this.importo_agosto  },
+        { label: "Settembre",  y: this.importo_settembre },
+        { label: "Ottobre",  y: this.importo_ottobre  },
+        { label: "Novembre",  y: this.importo_novembre  },
+        { label: "Dicembre",  y: this.importo_dicembre  },
+
+      ]
+    }]
+  };
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
 
 
 

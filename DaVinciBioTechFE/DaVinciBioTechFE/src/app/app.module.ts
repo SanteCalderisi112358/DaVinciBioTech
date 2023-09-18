@@ -16,7 +16,7 @@ import { DonazioniComponent } from './components/donazioni/donazioni.component';
 import { TavoleLeonardoComponent } from './components/tavole-leonardo/tavole-leonardo.component';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 //import { AuthGuard } from './auth/auth.guard';
 //import { TokenInterceptor } from './auth/token.interceptor';
 
@@ -89,7 +89,8 @@ redirectTo:'',
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    CanvasJSAngularChartsModule
   ],
   providers: [
     {
