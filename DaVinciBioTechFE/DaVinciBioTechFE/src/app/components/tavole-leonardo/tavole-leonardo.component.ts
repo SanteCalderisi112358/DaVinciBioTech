@@ -11,7 +11,15 @@ import { DvbtService } from 'src/app/services/dvbt.service';
 export class TavoleLeonardoComponent implements OnInit {
   subTavole!: Subscription;
   tavole: Tavola[] = [];
-tavolaSingola:Tavola | undefined;
+  tavola: Tavola ={
+    id: "",
+    titolo: "",
+    descrizione: "",
+    anno: 0,
+    url:"",
+
+
+    }
   constructor(private dvbtSrv: DvbtService) { }
 
 
@@ -21,12 +29,32 @@ tavolaSingola:Tavola | undefined;
       console.log("Tavole in tavole.component")
       console.log(this.tavole);
 
-this.tavolaSingola = this.tavole[0]
-     console.log(this.tavolaSingola)
+
     });
 
   }
+  apriModaleOsservaTavola(tavola:Tavola){
+    this.tavola=tavola;
+    const modal = document.getElementById('tavola-eye');
+      if (modal) {
+        modal.classList.add('show');
+        modal.style.display = 'block';
+        this.tavola = tavola;
+        console.log(this.tavola)
 
 
+      }
+
+
+   }
+
+chiudiModaleOsservaTavola(){
+  const modal = document.getElementById('tavola-eye');
+  if (modal) {
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+
+  }
+      }
 
 }
