@@ -19,7 +19,7 @@ import { DvbtService } from 'src/app/services/dvbt.service';
 export class ProfileAdminComponent implements OnInit {
   /* VARIABILI GENERALI*/
   isErroreUguale:boolean = false;
-  errore: string | undefined;
+  errore: string = "";
   errori:string[]=[];
   isModaleOpen:boolean=false;
   isLoading:boolean = true;
@@ -58,6 +58,7 @@ export class ProfileAdminComponent implements OnInit {
     cognome:"",
     ruolo: TipoRuolo.USER,
   };
+  nuovoUtenteRuolo:string = 'USER';
   utenteNuovo:UtenteNuovo={
     email:"",
     nome:"",
@@ -65,7 +66,6 @@ export class ProfileAdminComponent implements OnInit {
     password:"",
     ruolo: TipoRuolo.USER,
   };
-
   /*VARIABILI TAVOLE*/
   tavole:Tavola[]=[];
   tavola: Tavola ={
@@ -123,7 +123,10 @@ export class ProfileAdminComponent implements OnInit {
     this.loadPageUtenti(this.currentPage);
     this.loadPageTavole(this.currentPageTavole);
     this.loadPageDonazioni(this.currentPageDonazioni)
-    console.log("isErroreRicercaPeriodo: "+this.isErroreRicercaPeriodo)
+    console.log("isUtenteCreato: "+this.isUtenteCreato)
+    console.log("errori: "+this.errori)
+    console.log("errore: "+this.errore)
+
 
   }
 
@@ -554,7 +557,7 @@ if(this.idTavola){
   if (modal) {
     modal.classList.remove('show');
     modal.style.display = 'none';
-    this.loadPageTavole(this.currentPage);
+    this.loadPageTavole(1);
 
 
   }
@@ -613,35 +616,50 @@ if(this.idTavola){
  }
 
  creaUtente(form:NgForm){
-  console.log(form.value);
+  this.isUtenteCreato = false;
+this.errore = "";
+this.errori = []
+  this.utenteNuovo.nome = form.value.nome_nuovoUtente;
+  this.utenteNuovo.cognome = form.value.cognome_nuovoUtente;
+  this.utenteNuovo.email = form.value.email_nuovoUtente;
+  this.utenteNuovo.password = form.value.password_nuovoUtente;
+if(form.value.ruolo_nuovoUtente === 'ADMIN'){
+  this.utenteNuovo.ruolo = TipoRuolo.ADMIN
+}else if(form.value.ruolo_nuovoUtente === 'USER'){
+  this.utenteNuovo.ruolo = TipoRuolo.USER
 
-  form.value.nome = this.utenteNuovo.nome;
-  form.value.cognome = this.utenteNuovo.cognome;
-  form.value.email = this.utenteNuovo.email;
-  console.log(this.utenteNuovo)
-   /* form.value.ruolo = TipoRuolo.ADMIN;
-  }else{
-    form.value.ruolo = TipoRuolo.USER;
-   }*/
-   this.dvbtSrv.postUtente(this.utenteNuovo).subscribe(
-    () => {
-      console.log('Richiesta HTTP POST inviata con successo');
-      this.isUtenteCreato=true;
-      console.log("Utente Creato?: "+this.isUtenteCreato)
-
-    },
-    (error:any) => {
-console.log(error.error.errorsList)
-this.errori = error.error.errorsList;
-if(this.errori.length===0){
-  console.log("Utente Creato?: "+this.isUtenteCreato)
-  this.isUtenteCreato=false;
 }
 
+  this.dvbtSrv.postUtente(this.utenteNuovo).subscribe(
+    (nuovoUtenteCreato) => {
+      if(nuovoUtenteCreato){
+       console.log('Richiesta HTTP POST inviata con successo');
+      this.isUtenteCreato=true;
+      this.errore = "";
+      this.errori = [];
+      console.log("Utente Creato?: "+this.isUtenteCreato)
+      this.loadPageUtenti(1)
+      form.reset()
+      }
+      },
+    (error:any) => {
+console.error(error)
 
+      /*if(error.error.errorsList){
+        console.error(error.error.errorsList)
+        this.errori = error.error.errorsList
+        this.isUtenteCreato = false;
 
+      }else if(error.error.message){
+        console.log(error.error.message)
+        this.errore = error.error.message
+        this.isUtenteCreato = false;
+
+      }*/
 
     });
+
+    console.log("Dati nuovoUtente: ")
    console.log(this.utenteNuovo)
 
 
@@ -796,6 +814,9 @@ ricercaImportoPeriodo(){
     }
 
   }
+
+
+
   }
 
 

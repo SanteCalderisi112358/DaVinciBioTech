@@ -6,6 +6,7 @@ import { Utente } from '../models/utente.interface';
 import { Donazione } from '../models/donazione.interface';
 import { UtenteModificato } from '../models/utenteModifica.interface';
 import { TavolaModifica } from '../models/tavolaModifica.interface';
+import { UtenteNuovo } from '../models/utente-nuovo.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -48,8 +49,8 @@ export class DvbtService {
 
   }
 
-  postUtente(utenteNuovo:UtenteModificato){
-    return this.http.post<Utente>(`${this.baseUrl}auth/registrazione`,utenteNuovo)
+  postUtente(utenteNuovo:UtenteNuovo){
+    return this.http.post<Utente>(`${this.baseUrl}utenti`,utenteNuovo)
 
   }
 

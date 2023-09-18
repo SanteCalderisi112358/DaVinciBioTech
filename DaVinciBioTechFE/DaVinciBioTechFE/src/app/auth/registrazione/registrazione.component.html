@@ -18,14 +18,23 @@
         <label for="password">Inserisci password</label>
         <input type="password" id="password" name="password" class="form-control" required ngModel>
       </div>
-      <button type="submit" [disabled]="form.invalid" class="btn btn-primary mb-5">Registrati</button>
-      <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"></span>
-     </form>
-     <div *ngIf="errori.length > 0" class="alert alert-danger">
+      <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Registrati</button>
+      <div class="d-flex justify-content-center">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"></span>
+
+      </div>
+      <div *ngIf="errori.length > 0" class="alert alert-danger">
       <ul>
         <li *ngFor="let errore of errori">{{ errore }}</li>
       </ul>
     </div>
+    <div *ngIf="errore" class="alert alert-danger">
+      <ul>
+        <li>{{errore}}</li>
+      </ul>
+    </div>
+     </form>
+
 
 
 

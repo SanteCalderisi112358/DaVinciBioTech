@@ -12,6 +12,7 @@ export class RegistrazioneComponent implements OnInit {
 
   isLoading = false;
  errori: string[] =[];
+  errore: string ="";
   constructor(private authSrv: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -27,14 +28,28 @@ export class RegistrazioneComponent implements OnInit {
           this.isLoading = false;
         },
         (error) => {
+          if(error.error.errorsList){
+            console.error(error.error.errorsList)
+            this.errori = error.error.errorsList
+
+          }else if(error.error.message){
+            console.log(error.error.message)
+            this.errore = error.error.message
+
+          }
+          /*
           this.errori = error.error.errorsList;
-          console.error(this.errori);
+          console.error(this.errori);*/
           this.isLoading = false;
+
         }
       );
     } catch (error) {
       console.error(error);
       this.isLoading = false;
     }
+
+    this.errore =""
+    this.errori = []
   }
 }

@@ -28,6 +28,14 @@ public class UtenteService {
 		this.usersRepo = usersRepo;
 	}
 
+	public Utente createFromAdmin(UtenteRequestBody body) {
+		usersRepo.findByEmail(body.getEmail()).ifPresent(user -> {
+			throw new BadRequestException("L'email è già stata utilizzata");
+		});
+		Utente newUser = new Utente(body.getNome(), body.getCognome(), body.getEmail(), body.getPassword(),
+				body.getRuolo());
+		return usersRepo.save(newUser);
+	}
 	public Utente createUser(UtenteRequestBody body) {
 
 		usersRepo.findByEmail(body.getEmail()).ifPresent(user -> {

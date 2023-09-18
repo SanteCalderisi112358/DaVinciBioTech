@@ -577,19 +577,19 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleAggiungiUtente()"></button>
         </div>
         <div class="modal-body">
-          <div>
+          <div *ngIf="!isUtenteCreato">
              <form #form="ngForm" (ngSubmit)="creaUtente(form)">
             <div class="form-group">
               <label for="nome">Nome</label>
-              <input type="text" class="form-control" id="nome_nuovoUtente" [(ngModel)]="utente.nome" name="nome_nuovoUtente" ngModel>
+              <input type="text" class="form-control" id="nome_nuovoUtente"  name="nome_nuovoUtente" required ngModel>
             </div>
             <div class="form-group">
               <label for="cognome">Cognome</label>
-              <input type="text" class="form-control" id="cognome_nuovoUtente" [(ngModel)]="utente.cognome" name="cognome_nuovoUtente" ngModel>
+              <input type="text" class="form-control" id="cognome_nuovoUtente"  name="cognome_nuovoUtente" required ngModel>
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" class="form-control" id="email_nuovoUtente" [(ngModel)]="utente.email" name="email_nuovoUtente" ngModel>
+              <input type="email" class="form-control" id="email_nuovoUtente"  name="email_nuovoUtente" required ngModel>
             </div>
             <div class="form-group">
               <label for="password">Password</label>
@@ -599,18 +599,23 @@
               <div class="d-flex justify-content-between">
                 <label for="ruolo">Ruolo</label>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="ruolo_nuovoUtente" id="USER_nuovoUtente" [(ngModel)]="utenteNuovo.ruolo" [value]="'USER'" checked>
+                  <input class="form-check-input" type="radio" name="ruolo_nuovoUtente" [(ngModel)]="nuovoUtenteRuolo"  value='USER' required ngModel>
                   <label class="form-check-label" for="USER">User</label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="ruolo_nuovoUtente" id="ADMIN_nuovoUtente" [(ngModel)]="utenteNuovo.ruolo" [value]="'ADMIN'">
+                  <input class="form-check-input" type="radio" name="ruolo_nuovoUtente" [(ngModel)]="nuovoUtenteRuolo" value='ADMIN' required ngModel>
                   <label class="form-check-label" for="ADMIN">Admin</label>
                 </div>
               </div>
             </div>
-            <div *ngIf="errori.length > 0" class="alert alert-danger">
+          <div *ngIf="errori.length > 0" class="alert alert-danger">
               <ul>
-                <li *ngFor="let errore of errori">{{ errore }}</li>
+                <li *ngFor="let err of errori">{{ err }}</li>
+              </ul>
+            </div>
+            <div *ngIf="errore" class="alert alert-danger">
+              <ul>
+                <li>{{errore}}</li>
               </ul>
             </div>
             <div class="modal-footer d-flex justify-content-center">
