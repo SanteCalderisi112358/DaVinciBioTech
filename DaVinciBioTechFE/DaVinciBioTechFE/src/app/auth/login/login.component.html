@@ -13,7 +13,10 @@
         <input type="password" id="password" name="password" class="form-control" required ngModel>
       </div>
       <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Accedi</button>
-      <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"></span>
+      <div class="d-flex justify-content-center">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"></span>
+
+      </div>
       <div *ngIf="erroreLogin" class="alert alert-danger">
         <ul>
           <li>{{ errore }}</li>

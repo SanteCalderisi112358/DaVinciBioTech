@@ -82,10 +82,11 @@ public class UtenteController {
 
 	@PostMapping
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public Utente createUtente(@RequestBody @Validated UtenteRequestBody body) throws BadRequestException {
+	public Utente createUtente(@RequestBody @Validated UtenteRequestBody body) {
 
 		return utenteSrv.createFromAdmin(body);
 	}
+
 	@DeleteMapping("/only-utente/{userId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAuthority('ADMIN')")

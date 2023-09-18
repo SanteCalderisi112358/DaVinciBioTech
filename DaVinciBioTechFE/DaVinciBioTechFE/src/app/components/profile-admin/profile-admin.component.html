@@ -97,7 +97,7 @@
         ➕
       </div>
     </div>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-start">
       <div id="checkDonatori" class="form-check form-check-inline">
         <input
           class="form-check-input"
@@ -412,8 +412,8 @@
   <div class="modal" id="modaleModificaUtente" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div *ngIf="!isUtenteModificato" class="modal-header">
-          <h5 class="modal-title">Modifica l'utente {{utente.nome}} {{utente.cognome}}</h5>
+        <div  class="modal-header">
+          <h5 *ngIf="!isUtenteModificato" class="modal-title">Modifica l'utente {{utente.nome}} {{utente.cognome}}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleModificaUtente()"></button>
         </div>
         <div class="modal-body">
@@ -446,7 +446,6 @@
             </div>
             <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Save changes</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
           </form>
           </div>
@@ -520,8 +519,8 @@
   <div class="modal" id="modaleModificaTavola" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div *ngIf="!isTavolaModificata" class="modal-header">
-          <h5 class="modal-title">Modifica la tavola {{tavola.titolo}}</h5>
+        <div  class="modal-header">
+          <h5 *ngIf="!isTavolaModificata" class="modal-title">Modifica la tavola {{tavola.titolo}}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleModificaTavola()"></button>
         </div>
         <div class="modal-body">
@@ -619,13 +618,12 @@
               </ul>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary">Salva Utente</button>
+          <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Salva Utente</button>
         </div>
           </form>
           </div>
 <div class="modal-body" *ngIf="isUtenteCreato">
   <h5 class="modal-title alert alert-success">Utente creato con successo!</h5>
-  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleAggiungiUtente()"></button>
 
 </div>
 

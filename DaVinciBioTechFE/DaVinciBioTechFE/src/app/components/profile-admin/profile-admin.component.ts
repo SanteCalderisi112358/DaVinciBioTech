@@ -112,7 +112,7 @@ export class ProfileAdminComponent implements OnInit {
     erroreRicercaSelect:string ="";
     importoPerPeriodo!: number;
   constructor(private dvbtSrv: DvbtService, private authSrv: AuthService
-    /*, private awsService: AwsService*/
+   /* , private awsService: AwsService*/
     ) {}
 
   ngOnInit(): void {
@@ -645,17 +645,19 @@ if(form.value.ruolo_nuovoUtente === 'ADMIN'){
     (error:any) => {
 console.error(error)
 
-      /*if(error.error.errorsList){
+      if(error.error.errorsList){
         console.error(error.error.errorsList)
         this.errori = error.error.errorsList
         this.isUtenteCreato = false;
+        form.reset()
 
       }else if(error.error.message){
         console.log(error.error.message)
         this.errore = error.error.message
         this.isUtenteCreato = false;
+        form.reset()
 
-      }*/
+      }
 
     });
 

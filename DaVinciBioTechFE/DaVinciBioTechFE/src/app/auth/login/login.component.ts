@@ -17,7 +17,10 @@ errore:string | undefined;
   }
 
   access(form:NgForm){
-    this.isLoading = true
+
+    setTimeout(() => {
+      this.isLoading = true;
+    }, 1500);
     console.log(form.value)
     try {
       this.authServ.login(form.value).subscribe(
