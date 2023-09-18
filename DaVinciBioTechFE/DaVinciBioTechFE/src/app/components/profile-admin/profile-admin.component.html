@@ -292,13 +292,20 @@
       </button>
 
     </div>
+    <div *ngIf="erroreRicercaSelect!=''">
+      <div  class="d-flex justify-content-center alert alert-danger">
+        <ul>
+          <li>{{ erroreRicercaSelect }}</li>
+        </ul>
+     </div>
+    </div>
     <div *ngIf="isErroreRicercaPeriodo!==undefined">
       <div *ngIf="!isErroreRicercaPeriodo">
-      <div  class="d-flex justify-content-center alert alert-success">
-        <p>Il totale delle donazioni nel periodo scelto è stato di:</p>
-      <ul>
-        <li>{{ importoPerPeriodo }} €</li>
-      </ul>
+      <div  class="d-flex flex-column alert alert-success">
+        <p class="text-center">Il totale delle donazioni nel periodo scelto è stato di:</p>
+      <div>
+        <p class="text-center" style="font-size: 30px; font-weight: bolder;"><i>{{importoPerPeriodo}} €</i></p>
+      </div>
     </div>
     </div>
     <div *ngIf="isErroreRicercaPeriodo">

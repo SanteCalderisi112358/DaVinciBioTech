@@ -109,6 +109,7 @@ export class ProfileAdminComponent implements OnInit {
     dataFine:string ='';
     isErroreRicercaPeriodo:boolean | undefined;
     erroreRicercaPeriodo:string="";
+    erroreRicercaSelect:string ="";
     importoPerPeriodo!: number;
   constructor(private dvbtSrv: DvbtService, private authSrv: AuthService
     /*, private awsService: AwsService*/
@@ -694,13 +695,17 @@ ricercaImportoPeriodo(){
     const meseSelect = document.getElementById('meseSelect') as HTMLSelectElement;
     const annoSelect = document.getElementById('annoSelect') as HTMLSelectElement;
   if (meseSelect.value === 'Seleziona Mese' &&  annoSelect.value=== 'Seleziona Anno') {
-    this.erroreRicercaPeriodo = 'Si prega di selezionare mese e anno prima di effettuare la ricerca.';
+    this.erroreRicercaSelect = 'Si prega di selezionare mese e anno prima di effettuare la ricerca.';
+    console.log(this.erroreRicercaSelect)
   } else if (meseSelect.value === 'Seleziona Mese' &&  annoSelect.value!== 'Seleziona Anno') {
-    this.erroreRicercaPeriodo = 'Si prega di selezionare un mese prima di effettuare la ricerca.';
+    this.erroreRicercaSelect = 'Si prega di selezionare un mese prima di effettuare la ricerca.';
+    console.log(this.erroreRicercaSelect)
   } else if ( meseSelect.value !== 'Seleziona Mese' &&  annoSelect.value=== 'Seleziona Anno') {
-    this.erroreRicercaPeriodo = 'Si prega di selezionare un anno prima di effettuare la ricerca.';
+    this.erroreRicercaSelect = 'Si prega di selezionare un anno prima di effettuare la ricerca.';
+    console.log(this.erroreRicercaSelect)
   } else if(meseSelect.value !== 'Seleziona Mese' &&  annoSelect.value!== 'Seleziona Anno'){
-    this.erroreRicercaPeriodo = '';
+    this.erroreRicercaSelect = '';
+  console.log(this.erroreRicercaSelect)
     switch (meseSelect.value) {
       case "1":
         this.selectedMonthStart = "01-01";
@@ -790,9 +795,9 @@ ricercaImportoPeriodo(){
     );
     }
 
-
   }
-}
+  }
+
 
 
 
