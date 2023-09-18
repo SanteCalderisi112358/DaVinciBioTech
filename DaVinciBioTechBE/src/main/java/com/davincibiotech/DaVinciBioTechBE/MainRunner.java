@@ -115,10 +115,10 @@ public class MainRunner implements CommandLineRunner {
 //		tavolaSrv.create(DVBT_protesi_spalla_frontale);
 //		tavolaSrv.create(DVBT_protesi_spalla_retro);
 //		tavolaSrv.create(DVBT_protesi_valvole_cardiache);
-		tavolaSrv.create(tavola_Test01);
-		tavolaSrv.create(tavola_Test02);
-		tavolaSrv.create(tavola_Test03);
-		tavolaSrv.create(tavola_Test04);
+//		tavolaSrv.create(tavola_Test01);
+//		tavolaSrv.create(tavola_Test02);
+//		tavolaSrv.create(tavola_Test03);
+//		tavolaSrv.create(tavola_Test04);
 
 		List<Utente> utentiDB = new ArrayList<Utente>();
 		utentiDB = utenteSrv.findNoPage();

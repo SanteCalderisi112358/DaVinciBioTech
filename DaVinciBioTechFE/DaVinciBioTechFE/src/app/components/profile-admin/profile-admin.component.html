@@ -4,7 +4,7 @@
       <div class="d-flex flex-column">
         <div class="d-flex justify-content-center mt-2 mb-2">
           <!--TABELLA TAVOLE-->
-          <div id="tavole-leonardo">
+          <div id="tavole-leonardo" class="mb-5">
             <div class="border rounded p-3 shadow-lg">
               <div class="d-flex justify-content-end">
                 <div style="font-size: 40px; cursor: pointer;" title="Aggiungi Tavola">
@@ -90,16 +90,7 @@
           </div>
     </div>
         </div>
-
-<div class="d-flex justify-content-center mt-2 mb-2">
-  <div  style="background-color:brown; height: 400px;">
-<p>ALTRE STATISTICHE</p>
-</div>
-</div>
-
-
-
-<div id="utenti" class="d-flex justify-content-center mt-2 mb-2">
+<div id="utenti" class="d-flex justify-content-center mb-5 mb-2">
   <div class="border rounded p-3 shadow-lg">
     <div class="d-flex justify-content-end">
       <div style="font-size: 40px; cursor: pointer;" title="Aggiungi Utente" (click)="apriModaleAggiungiUtente()">
@@ -265,6 +256,77 @@
         </div>
       </div>
 </div>
+<div id="donazioni" class="d-flex justify-content-center mb-5 mb-2">
+  <div class="border rounded p-3 shadow-lg">
+    <div class="d-flex justify-content-end">
+      <div style="font-size: 40px; cursor: pointer;" class="mb-2" title="Aggiungi Donazione" >
+        ➕
+      </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-baseline mb-5">
+      <select id="meseSelect" class="form-select form-select-lg mb-3 me-3" aria-label="Large select example">
+        <option selected value="Seleziona Mese">Seleziona Mese</option>
+        <option value="1">Gennaio</option>
+        <option value="2">Febbraio</option>
+        <option value="3">Marzo</option>
+        <option value="4">Aprile</option>
+        <option value="5">Maggio</option>
+        <option value="6">Giugno</option>
+        <option value="7">Luglio</option>
+        <option value="8">Agosto</option>
+        <option value="9">Settembre</option>
+        <option value="10">Ottobre</option>
+        <option value="11">Novembre</option>
+        <option value="12">Dicembre</option>
+
+      </select>
+      <select id="annoSelect" class="form-select form-select-lg mb-3 ms-3" aria-label="Large select example">
+        <option selected value="Seleziona Anno">Seleziona Anno</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+
+      </select>
+      <button type="button" (click)="ricercaImportoPeriodo()" class="btn btn-info  ms-4"><i class="bi bi-search" style="color: aliceblue;"></i>
+      </button>
+
+    </div>
+    <div *ngIf="isErroreRicercaPeriodo!==undefined">
+      <div *ngIf="!isErroreRicercaPeriodo">
+      <div  class="d-flex justify-content-center alert alert-success">
+        <p>Il totale delle donazioni nel periodo scelto è stato di:</p>
+      <ul>
+        <li>{{ importoPerPeriodo }} €</li>
+      </ul>
+    </div>
+    </div>
+    <div *ngIf="isErroreRicercaPeriodo">
+      <div  class="d-flex justify-content-center alert alert-danger">
+        <ul>
+          <li>{{ erroreRicercaPeriodo }}</li>
+        </ul>
+     </div>
+    </div>
+    </div>
+
+
+
+  <div >
+    <table class="table table-striped">
+
+    </table>
+
+
+
+      </div>
+
+      </div>
+</div>
+
+
+
+
 
 
 

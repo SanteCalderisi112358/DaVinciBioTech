@@ -71,5 +71,16 @@ export class DvbtService {
     return this.http.put<Tavola>(`${this.baseUrl}tavole-leonardo/${idTavola}`,tavolaModificata)
 
   }
+  /* CRUD DONAZIONI */
+
+  getAllDonazioniAdmin(page:number, size:number, sortBy:String){
+    return this.http.get<Donazione[]>(`${this.baseUrl}donazioni?page=${page}&size=${size}&sortBy=${sortBy}`);
+
+  }
+
+  getDonazioniPerPeriodo(dataInizio:string, dataFine:string){
+    return this.http.get<number>(`${this.baseUrl}donazioni/somma-importi?dataInizio=${dataInizio}&dataFine=${dataFine}`);
+
+  }
 
 }

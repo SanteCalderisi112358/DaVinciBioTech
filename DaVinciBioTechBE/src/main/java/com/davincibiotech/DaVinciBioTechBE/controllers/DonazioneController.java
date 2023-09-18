@@ -149,7 +149,8 @@ public class DonazioneController {
 
 		} else {
 			System.err.println(BigDecimal.ZERO);
-			throw new BadRequestException("Non ci sono donazioni nel periodo scelto");
+			throw new BadRequestException(
+					"Tra il " + dataInizio + " e il " + dataFine + " non ci sono state donazioni!");
 		}
 	}
 

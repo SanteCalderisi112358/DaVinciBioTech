@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Data } from '@angular/router';
 import { Subscription, catchError } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Donazione } from 'src/app/models/donazione.interface';
@@ -90,6 +91,25 @@ export class ProfileAdminComponent implements OnInit {
     anno:0,
     url:""
   }
+
+    /*VARIABILI DONAZIONI*/
+    donazione:Donazione | undefined;
+    donazioni:Donazione[]=[];
+    subDOnazioni:Subscription | undefined;
+    dataDonazioni:string[]=[]
+    annoDonazioni:string[]=[]
+    meseDonazioni:string[]=[]
+    currentPageDonazioni:number=1
+    pageSizeDonazioni:number = 5
+    areThereDonazioni: boolean = false;
+    selectedMonthStart: string = '';
+    selectedMonthEnd: string = '';
+    selectedYear: string = '';
+    dataInizio:string = '';
+    dataFine:string ='';
+    isErroreRicercaPeriodo:boolean | undefined;
+    erroreRicercaPeriodo:string="";
+    importoPerPeriodo!: number;
   constructor(private dvbtSrv: DvbtService, private authSrv: AuthService
     /*, private awsService: AwsService*/
     ) {}
@@ -101,6 +121,8 @@ export class ProfileAdminComponent implements OnInit {
     }, 2000);
     this.loadPageUtenti(this.currentPage);
     this.loadPageTavole(this.currentPageTavole);
+    this.loadPageDonazioni(this.currentPageDonazioni)
+    console.log("isErroreRicercaPeriodo: "+this.isErroreRicercaPeriodo)
 
   }
 
@@ -646,7 +668,132 @@ if(this.errori.length===0){
       console.error(error);
     });
 }*/
+/* LOGICA DONAZIONI */
+
+loadPageDonazioni(page: number): void {
+
+  this.subDOnazioni=this.dvbtSrv.getAllDonazioniAdmin(page - 1, this.pageSizeDonazioni, "data").subscribe((response: any) => {
+   this.donazioni = response['content'];
+  /* this.totalPagesArrayTavole = Array.from({ length: response['totalPages'] }, (_, i) => i + 1);
+    this.totalElementsTavole = response['totalElements']*/
+   console.log("Donazioni")
+   console.log(this.donazioni)
+this.donazioni.forEach(don=>this.dataDonazioni.push(don.data))
+console.log("Data donazioni:")
+console.log(this.dataDonazioni)
+
+  });
 
 }
+
+
+ricercaImportoPeriodo(){
+  this.erroreRicercaPeriodo = "";
+  console.log("errore: "+this.erroreRicercaPeriodo)
+  this.importoPerPeriodo = 0;
+    const meseSelect = document.getElementById('meseSelect') as HTMLSelectElement;
+    const annoSelect = document.getElementById('annoSelect') as HTMLSelectElement;
+  if (meseSelect.value === 'Seleziona Mese' &&  annoSelect.value=== 'Seleziona Anno') {
+    this.erroreRicercaPeriodo = 'Si prega di selezionare mese e anno prima di effettuare la ricerca.';
+  } else if (meseSelect.value === 'Seleziona Mese' &&  annoSelect.value!== 'Seleziona Anno') {
+    this.erroreRicercaPeriodo = 'Si prega di selezionare un mese prima di effettuare la ricerca.';
+  } else if ( meseSelect.value !== 'Seleziona Mese' &&  annoSelect.value=== 'Seleziona Anno') {
+    this.erroreRicercaPeriodo = 'Si prega di selezionare un anno prima di effettuare la ricerca.';
+  } else if(meseSelect.value !== 'Seleziona Mese' &&  annoSelect.value!== 'Seleziona Anno'){
+    this.erroreRicercaPeriodo = '';
+    switch (meseSelect.value) {
+      case "1":
+        this.selectedMonthStart = "01-01";
+        this.selectedMonthEnd = "01-31";
+        break;
+      case "2":
+        this.selectedMonthStart = "02-01";
+        this.selectedMonthEnd = "02-28";
+        break;
+      case "3":
+        this.selectedMonthStart = "03-01";
+        this.selectedMonthEnd = "03-31";
+        break;
+      case "4":
+        this.selectedMonthStart = "04-01";
+        this.selectedMonthEnd = "04-30";
+        break;
+      case "5":
+        this.selectedMonthStart = "05-01";
+        this.selectedMonthEnd = "05-31";
+        break;
+      case "6":
+        this.selectedMonthStart = "06-01";
+        this.selectedMonthEnd = "06-30";
+        break;
+      case "7":
+        this.selectedMonthStart = "07-01";
+        this.selectedMonthEnd = "07-31";
+        break;
+      case "8":
+        this.selectedMonthStart = "08-01";
+        this.selectedMonthEnd = "08-31";
+        break;
+      case "9":
+        this.selectedMonthStart = "09-01";
+        this.selectedMonthEnd = "09-30";
+        break;
+      case "10":
+        this.selectedMonthStart = "10-01";
+        this.selectedMonthEnd = "10-31";
+        break;
+      case "11":
+        this.selectedMonthStart = "11-01";
+        this.selectedMonthEnd = "11-30";
+        break;
+      case "12":
+        this.selectedMonthStart = "12-01";
+        this.selectedMonthEnd = "12-31";
+        break;
+      default:
+        this.selectedMonthStart = '';
+        this.selectedMonthEnd = '';
+        break;
+    }
+
+    switch(annoSelect.value){
+      case "2020":
+        this.selectedYear = "2020";
+        break;
+      case "2021":
+        this.selectedYear = "2021";
+        break;
+      case "2022":
+        this.selectedYear = "2022";
+        break;
+      case "2023":
+        this.selectedYear = "2023";
+        break;
+      default:
+          this.selectedYear = ""
+    }
+
+    this.dataInizio = this.selectedYear+"-"+this.selectedMonthStart
+    this.dataFine = this.selectedYear+"-"+this.selectedMonthEnd
+    console.log('Periodo mensile scelto: '+this.dataInizio+"-"+this.dataFine)
+    this.dvbtSrv.getDonazioniPerPeriodo(this.dataInizio,this.dataFine).subscribe(
+      (importo) => {
+    this.importoPerPeriodo = importo;
+    this.isErroreRicercaPeriodo = false;
+      },
+      (error:any) => {
+        this.erroreRicercaPeriodo = error.error.message;
+        this.isErroreRicercaPeriodo = true;
+        console.log(this.erroreRicercaPeriodo)
+
+      }
+    );
+    }
+
+
+  }
+}
+
+
 
 
