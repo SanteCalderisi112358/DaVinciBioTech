@@ -4,7 +4,7 @@
 
   <div class="container">
     <h1>
-      <span>Leonardo</span>
+      <span>Leonardo:</span>
       <div class="message">
         <div class="word1">Pittore</div>
         <div class="word2">Scultore</div>
@@ -39,43 +39,51 @@
 </div>
 
 <div class="container">
- <div id="sommario-vita">
-  <div id="sommario">
-  <p> <span><i>Leonardo da Vinci</i></span> è universalmente riconosciuto come il più grande genio nella storia dell'umanità. Fu un uomo eccezionale, dotato di un talento straordinario e <span>fuori dal comune</span>. <br> Leonardo si distinse in diverse discipline, tra cui <span>scienza</span>, <span>arte</span>, <span>ingegneria</span> , e <span>anatomia</span>, guadagnandosi il titolo di <span>Genio Universale</span>. <br>
-
- La sua genialità unica, prolifica e senza pari lo colloca tra le menti più brillanti e influenti del <span><i>Rinascimento</i></span>.</p>
+  <div class="row">
+    <div class="col-12 p-0">
+      <div class="d-flex justify-content-center">
+        <div class="card mb-3" style="border: none;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="https://hips.hearstapps.com/hmg-prod/images/uomo-vitruviano-leonardo-da-vinci-arte-1664797190.jpg" class="img-fluid rounded-start"  alt="...">
+      </div>
+      <div class="col-md-8" style="background-color: #EDEBE4;">
+        <div class="card-body p-0">
+          <p class="pt-5 ps-3" style="font-size: large; color: black;background-color: #EDEBE4;"><span><i>Leonardo da Vinci</i></span> è universalmente riconosciuto come il più grande genio nella storia dell'umanità. Fu un uomo eccezionale, dotato di un talento straordinario e <span>fuori dal comune</span>. <br> Leonardo si distinse in diverse discipline, tra cui <span>scienza</span>, <span>arte</span>, <span>ingegneria</span> , e <span>anatomia</span>, guadagnandosi il titolo di <span>Genio Universale</span>. <br>
+            La sua genialità unica, prolifica e senza pari lo colloca tra le menti più brillanti e influenti del <span><i>Rinascimento</i></span>.
+                        </p>
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="immagine-sommario">
-  <img src="https://hips.hearstapps.com/hmg-prod/images/uomo-vitruviano-leonardo-da-vinci-arte-1664797190.jpg" alt="Uomo Vitruviano" width="50%">
+      </div>
+
+    </div>
+
   </div>
 
- </div>
+  <div id="biografia" class="mb-4">
+    <div>
+      <div class="row justify-content-evenly flex-nowrap " >
+        <div class="col-md-3 image-bg m-1 random-position" *ngFor="let tavola of tavole" style="background-image: url('{{tavola.url}}');"style="height: 500px;">
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
  <div class="container" id="bioingegnere">
   <h3>Leonardo... <i>Bioingegnere</i> </h3>
   <p>Non tutti sanno che Leonardo da Vinci, oltre a essere uno dei più grandi artisti della storia, si è dedicato anche all'ingegneria biomedica. Recenti scoperte hanno portato alla luce i suoi disegni innovativi di protesi per varie parti del corpo umano.</p>
   <p>Invitiamo gli appassionati e gli studiosi a consultare le tavole ritrovate di Leonardo, che sono una testimonianza straordinaria della sua mente geniale e della sua capacità di unire l'arte e la scienza per migliorare la vita umana. Queste visioni pionieristiche hanno ispirato generazioni di scienziati e ingegneri nel campo delle protesi biomediche.</p>
-  <p>Per esplorare ulteriormente queste tavole, vi invitiamo a visitare la nostra pagina dedicata alle <a [routerLink]="['/tavole-leonardo']">Tavole di Leonardo</a>. La <b>DaVinciBioTech</b>, fondata per salvaguardare queste opere uniche, è il punto di riferimento per scoprire il genio di Leonardo nel campo dell'ingegneria biomedica.</p>
+  <p>Per esplorare ulteriormente queste tavole, vi invitiamo a visitare la nostra pagina dedicata alle <a [routerLink]="['/tavole-leonardo']">Tavole di Leonardo</a>. La <span>DaVinciBioTech</span>, fondata per salvaguardare queste opere uniche, è il punto di riferimento per scoprire il genio di Leonardo nel campo dell'ingegneria biomedica.</p>
   <p>Per saperne di più su di noi e la nostra missione, vi invitiamo a visitare la pagina <a [routerLink]="['/chi-siamo']">Chi Siamo</a>.</p>
 </div>
 
-<div id="carouselExampleFade" class="carousel slide carousel-fade">
-  <div class="carousel-inner">
-    <div *ngFor="let tavola of tavole; let i = index" class="carousel-item" [class.active]="i === 0">
-      <img [src]="tavola.url" class="d-block mx-auto" alt="{{tavola.titolo}}" title="{{tavola.titolo}}" style="width: 30%; height: 50%;">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-<div id="tavole">
-
-</div>
 </div>
 
 

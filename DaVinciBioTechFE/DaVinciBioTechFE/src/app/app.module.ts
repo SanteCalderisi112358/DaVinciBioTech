@@ -90,7 +90,8 @@ redirectTo:'',
     HttpClientModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    CanvasJSAngularChartsModule
+    CanvasJSAngularChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

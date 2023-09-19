@@ -34,8 +34,11 @@ h1 {
 }
 
 h1 span {
-  font-size: 40px;
-  margin-left: 40px;
+  font-size: 30px;
+}
+
+span{
+  font-weight: 300;
 }
 
 .message {
@@ -43,10 +46,10 @@ h1 span {
   color: #333;
   display: block;
   font-weight: 900;
-  overflow: hidden;
+  //overflow: hidden;
   position: absolute;
   top: 0.2rem;
-  left: 270px;
+  left: 155px;
   animation: openclose 10s ease-in-out infinite;
 }
 
@@ -74,6 +77,9 @@ h1 span {
     padding-left:10px;
 
 }
+
+
+
 
 @keyframes openclose {
   /* PITTORE */
@@ -275,12 +281,35 @@ span:nth-child(18) {
   background-repeat: no-repeat;
   background-size:cover;
   display: flex;
-  justify-content: flex-end; /* Allinea il contenuto a destra */
-  align-items: flex-end; /* Allinea il contenuto in basso */
-  height: 50vh; /* Imposta l'altezza del div per occupare l'intera altezza della viewport */
-  padding: 20px; /* Aggiunge uno spazio di riempimento per spostare il testo dal bordo */
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 50vh;
+  padding: 20px;
   position: relative;
 }
+
+.image-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+
+.random-position {
+  animation: slideIn 20s ease-in-out infinite;
+}
+
+
 
 
 .carousel-control-prev-icon,
