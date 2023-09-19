@@ -1,8 +1,15 @@
 <body>
+
   <main>
-    <div class="container"></div>
     <h1 class="text-center">Accedi</h1>
     <p class="text-center">Inserisci le tue credenziali o <a class="nav-link" style="text-decoration: underline;" [routerLink]="['/registrazione']" routerLinkActive="active">registrati</a> se non hai ancora un account.</p>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 d-flex justify-content-center justify-content-md-end align-items-center">
+          <img src="https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_valvole_cardiache.jpeg" width="300px" class="img-fluid">
+        </div>
+<div class="col-md-6 col-12">
+  <div>
     <form #form="ngForm" (ngSubmit)="access(form)">
       <div class="form-group">
         <label for="email">Indirizzo e-mail</label>
@@ -12,7 +19,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" class="form-control" required ngModel>
       </div>
-      <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Accedi</button>
+      <button type="submit" [disabled]="form.invalid" class="btn btn-primary mb-3">Accedi</button>
       <div class="d-flex justify-content-center">
               <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"></span>
 
@@ -23,8 +30,12 @@
         </ul>
       </div>
     </form>
+  </div>
+
+</div>
+
+      </div>
+      </div>
+
   </main>
-
-
-
 </body>

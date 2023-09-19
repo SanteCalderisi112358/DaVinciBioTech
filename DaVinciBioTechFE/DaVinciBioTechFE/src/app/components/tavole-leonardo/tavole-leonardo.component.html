@@ -1,6 +1,6 @@
 <body>
 
-  <main>
+  <main [class.blur-main]="modalIsOpen">
     <section class="d-flex justify-content-between flex-wrap container">
       <div *ngFor="let tavola of tavole; let i = index">
         <div class="container">

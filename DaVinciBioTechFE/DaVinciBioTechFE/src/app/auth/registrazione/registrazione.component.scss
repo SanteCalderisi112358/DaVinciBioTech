@@ -3,28 +3,31 @@ body{
   padding-top: 50px;
   margin: auto;
 }
-/* Stili per il container principale */
 main {
+  padding-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   flex-direction: column;
 }
+.card {
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_braccio.jpeg');
+  background-size: cover;
+  background-position: center;
+}
 
-/* Stili per il titolo "Registrati!" */
+.card-header {
+  background-color: rgba(255, 255, 255, 0.8); /* Sfondo semitrasparente per il contenuto del card-header */
+}
+
 h1 {
   font-size: 24px;
   margin-bottom: 20px;
 }
-
-/* Stili per il paragrafo "Unisciti alla nostra missione" */
 p {
   font-size: 16px;
   margin-bottom: 30px;
 }
-
-/* Stili per il form */
 form {
   width: 100%;
   max-width: 400px;
@@ -35,7 +38,6 @@ form {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Stili per i campi di input */
 .form-group {
   margin-bottom: 20px;
 }
@@ -53,8 +55,6 @@ input[type="password"] {
   border-radius: 3px;
   font-size: 16px;
 }
-
-/* Stili per il pulsante "Registrati" */
 button[type="submit"] {
   width: 100%;
   padding: 10px;
@@ -71,7 +71,6 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-/* Stili per il simbolo di caricamento (spinner) */
 .spinner-border {
   display: inline-block;
   width: 20px;
@@ -79,7 +78,6 @@ button[type="submit"]:hover {
   vertical-align: text-bottom;
 }
 
-/* Stili per il link di accesso */
 a {
   text-decoration: underline;
 }

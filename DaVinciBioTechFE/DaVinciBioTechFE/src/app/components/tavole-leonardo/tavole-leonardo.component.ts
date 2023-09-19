@@ -17,9 +17,9 @@ export class TavoleLeonardoComponent implements OnInit {
     descrizione: "",
     anno: 0,
     url:"",
+}
+modalIsOpen = false;
 
-
-    }
   constructor(private dvbtSrv: DvbtService) { }
 
 
@@ -34,6 +34,7 @@ export class TavoleLeonardoComponent implements OnInit {
 
   }
   apriModaleOsservaTavola(tavola:Tavola){
+    this.modalIsOpen = true;
     this.tavola=tavola;
     const modal = document.getElementById('tavola-eye');
       if (modal) {
@@ -49,6 +50,7 @@ export class TavoleLeonardoComponent implements OnInit {
    }
 
 chiudiModaleOsservaTavola(){
+  this.modalIsOpen = false;
   const modal = document.getElementById('tavola-eye');
   if (modal) {
     modal.classList.remove('show');

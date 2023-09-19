@@ -1,10 +1,14 @@
 body{
   padding-top: 50px;
   margin: auto;
+  background-color: #EDEBE4;
+
+}
+main{
+  padding-top: 50px;
 
 }
 
-/* Stilizzazione generale del form */
 form {
   max-width: 400px;
   margin: 0 auto;
@@ -15,13 +19,13 @@ form {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Stilizzazione del titolo */
 h1 {
   text-align: center;
   color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-/* Stilizzazione dei campi di input */
 .form-group {
   margin-bottom: 15px;
 }
@@ -40,7 +44,6 @@ h1 {
   border-radius: 3px;
 }
 
-/* Stilizzazione del pulsante di invio */
 button[type="submit"] {
   width: 100%;
   padding: 10px;
@@ -51,19 +54,16 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-/* Stilizzazione del pulsante di invio quando è disabilitato */
 button[type="submit"]:disabled {
   background-color: #007bff;
   cursor: not-allowed;
 }
 
-/* Stilizzazione del messaggio di errore */
 .error-message {
   color: red;
   margin-top: 10px;
 }
 
-/* Spinner di caricamento */
 .spinner {
   display: inline-block;
   width: 20px;

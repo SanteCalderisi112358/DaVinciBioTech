@@ -16,6 +16,7 @@ export class RegistrazioneComponent implements OnInit {
   constructor(private authSrv: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+
   }
 
   registra(form: NgForm) {
@@ -31,11 +32,15 @@ export class RegistrazioneComponent implements OnInit {
           if(error.error.errorsList){
             console.error(error.error.errorsList)
             this.errori = error.error.errorsList
-
+            setTimeout(() => {
+              this.isLoading = true;
+            }, 500);
           }else if(error.error.message){
             console.log(error.error.message)
             this.errore = error.error.message
-
+            setTimeout(() => {
+              this.isLoading = true;
+            }, 500);
           }
           /*
           this.errori = error.error.errorsList;
