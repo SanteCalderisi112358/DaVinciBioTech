@@ -84,6 +84,11 @@ export class DvbtService {
 
   }
 
+  getImportoAllDOnazioni(){
+    return this.http.get<number>(`${this.baseUrl}donazioni/somma-all-importi`);
+
+  }
+
   getDonazioniPerPeriodo(dataInizio:string, dataFine:string){
     return this.http.get<Donazione[]>(`${this.baseUrl}donazioni/donazioni-per-anno?dataInizio=${dataInizio}&dataFine=${dataFine}`);
 

@@ -155,6 +155,20 @@ public class DonazioneController {
 		}
 	}
 
+	@GetMapping("/somma-all-importi")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public BigDecimal getSommaAllDonazioni() {
+		BigDecimal donazioniTotaliPerPeriodo = donazioneSrv.getSommaAllDonazioni();
+		if (donazioniTotaliPerPeriodo != null) {
+			System.err.println(donazioniTotaliPerPeriodo);
+
+			return donazioneSrv.getSommaAllDonazioni();
+
+		} else {
+			System.err.println(BigDecimal.ZERO);
+			throw new BadRequestException("Non ci sono state donazioni!");
+		}
+	}
 	@GetMapping("/donazioni-per-anno")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public List<Donazione> getDonazioniPerPeriodo(

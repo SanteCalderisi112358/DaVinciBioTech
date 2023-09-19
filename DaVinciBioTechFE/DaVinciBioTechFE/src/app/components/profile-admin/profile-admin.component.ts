@@ -37,7 +37,7 @@ export class ProfileAdminComponent implements OnInit {
   currentPageD: number = 1;
   totalPagesArray: number[] = [];
   totalPagesArrayD:number[] =[]
-  isDonatoriSelected: boolean = false;
+  isDonatoriSelected: boolean = true;
   pageSize: number = 10;
   pageSizeD: number = 10;
   totalElementsUtenti:number=0;
@@ -96,6 +96,7 @@ export class ProfileAdminComponent implements OnInit {
   }
 
     /*VARIABILI DONAZIONI*/
+    donazioniTotaleImporto:number=0;
     donazione:Donazione | undefined;
     donazioni:Donazione[]=[];
     subDOnazioni:Subscription | undefined;
@@ -167,6 +168,7 @@ export class ProfileAdminComponent implements OnInit {
     this.loadPageUtenti(this.currentPage);
     this.loadPageTavole(this.currentPageTavole);
     this.loadPageDonazioni(this.currentPageDonazioni)
+    this.loadImportoAllDOnazioni();
     console.log("isUtenteCreato: "+this.isUtenteCreato)
     console.log("errori: "+this.errori)
     console.log("errore: "+this.errore)
@@ -174,6 +176,12 @@ export class ProfileAdminComponent implements OnInit {
 
   }
 
+
+  loadImportoAllDOnazioni():void{
+    this.dvbtSrv.getImportoAllDOnazioni().subscribe((importoTotale)=>{
+this.donazioniTotaleImporto = importoTotale;
+    })
+  }
   loadPageUtenti(page: number): void {
     if (this.isDonatoriSelected) {
       // Chiamata per ottenere solo i donatori
@@ -255,6 +263,7 @@ this.loadPageUtenti(1)
   }
 
   apriModaleDonatore(donatore:Utente){
+    this.isModaleOpen = true;
     this.authSrv.restore();
     const modal = document.getElementById('modaleDonatore');
     if (modal) {
@@ -285,6 +294,7 @@ this.loadPageUtenti(1)
   }
 
   chiudiModaleDonatore(): void {
+    this.isModaleOpen=false;
     const modal = document.getElementById('modaleDonatore');
     if (modal) {
       modal.classList.remove('show');
@@ -319,6 +329,7 @@ console.log("L'utente è stato eliminato?"+this.isUtenteEliminato)
 console.log("IsUtente uguale a `L'utente ${utente.nome} ${utente.cognome} ha eseguito delle donazioni. Vuoi eliminare anche le sue donazioni?`"+this.isErroreUguale)
           }else{
             this.loadPageUtenti(this.currentPage);
+            this.loadImportoAllDOnazioni();
           this.isUtenteEliminato = true;
           this.isErroreUguale=true;
           console.log("IsUtente uguale a `L'utente ${utente.nome} ${utente.cognome} ha eseguito delle donazioni. Vuoi eliminare anche le sue donazioni?`?"+this.isErroreUguale)
@@ -336,7 +347,7 @@ console.log("IsUtente uguale a `L'utente ${utente.nome} ${utente.cognome} ha ese
   }
 
 apriModaleEliminaUtente(utente:Utente){
-
+  this.isModaleOpen=true;
   this.utente = utente
   console.log(utente)
   this.errore = ""
@@ -347,6 +358,7 @@ apriModaleEliminaUtente(utente:Utente){
   }
 }
   chiudiModaleEliminaUtenti(): void {
+    this.isModaleOpen=false;
     this.isErroreUguale = false;
     const modal = document.getElementById('modaleDeleteUtente');
     if (modal) {
@@ -375,7 +387,7 @@ apriModaleEliminaUtente(utente:Utente){
           this.isUtenteEliminato = true;
           console.log(this.errore)
           this.loadPageUtenti(this.currentPage);
-
+          this.loadImportoAllDOnazioni();
         }
       );
     }
@@ -401,7 +413,7 @@ apriModaleEliminaUtente(utente:Utente){
           this.isUtenteEliminato = true;
           console.log(this.errore)
           this.loadPageUtenti(this.currentPage);
-
+          this.loadImportoAllDOnazioni();
         }
       );
     }
@@ -409,6 +421,7 @@ apriModaleEliminaUtente(utente:Utente){
   }
 
   apriModaleModificaUtente(utente:Utente){
+    this.isModaleOpen=true;
     this.utente = utente;
     const modal = document.getElementById('modaleModificaUtente');
   if (modal) {
@@ -463,6 +476,7 @@ if(this.idDonatore){
   }
 
   chiudiModaleModificaUtente(){
+    this.isModaleOpen=false;
     this.isUtenteModificato=false;
     console.log("isUtenteModificato dopo chiusura: "+this.isUtenteModificato)
 
@@ -544,6 +558,7 @@ this.loadPageTavole(1)
  }
 
  apriModaleModificaTavola(tavola:Tavola){
+  this.isModaleOpen=true;
   const modal = document.getElementById('modaleModificaTavola');
   if (modal) {
     modal.classList.add('show');
@@ -594,6 +609,7 @@ if(this.idTavola){
 
  }
  chiudiModaleModificaTavola(){
+  this.isModaleOpen=false;
   this.isTavolaModificata=false;
   this.isErroreUguale = false;
   this.errore = "";
@@ -608,6 +624,7 @@ if(this.idTavola){
  }
 
  apriModaleEliminaTavola(tavola:Tavola){
+  this.isModaleOpen=true
   const modal = document.getElementById('modaleDeleteTavola');
   if (modal) {
     modal.classList.add('show');
@@ -638,6 +655,7 @@ if(this.idTavola){
     }
   }
  chiudiModaleEliminaTavola(){
+  this.isModaleOpen=false
   const modal = document.getElementById('modaleDeleteTavola');
   if (modal) {
     modal.classList.remove('show');
@@ -649,6 +667,7 @@ if(this.idTavola){
  }
 
  apriModaleAggiungiUtente(){
+  this.isModaleOpen=true
   const modal = document.getElementById('modaleAggiungiUtente');
   console.log(this.errori)
   if (modal) {
@@ -712,6 +731,7 @@ console.error(error)
  }
 
  chiudiModaleAggiungiUtente(){
+  this.isModaleOpen=false
   this.errori = [];
   this.isUtenteCreato = false;
   const modal = document.getElementById('modaleAggiungiUtente');

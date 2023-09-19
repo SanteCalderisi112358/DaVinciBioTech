@@ -59,13 +59,15 @@ public class DonazioneService {
 
 	/* METODI CUSTOM BACK-OFFICE ADMIN */
 	public BigDecimal getSommaDonazioniPerPeriodo(LocalDate dataInizio, LocalDate dataFine) {
-		// Esegui la query per calcolare la somma degli importi per il periodo
-		// specificato
 		return donazioneRepo.getSommaDonazioniPerPeriodo(dataInizio, dataFine);
 	}
 
 	public List<Donazione> getDonazioniPerPeriodo(LocalDate dataInizio, LocalDate dataFine) {
 		return donazioneRepo.getDonazioniPerPeriodo(dataInizio, dataFine);
+	}
+
+	public BigDecimal getSommaAllDonazioni() {
+		return donazioneRepo.getSommaAllDonazioni();
 	}
 
 }

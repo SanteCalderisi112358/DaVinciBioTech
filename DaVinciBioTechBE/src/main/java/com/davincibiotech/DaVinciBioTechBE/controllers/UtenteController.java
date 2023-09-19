@@ -115,7 +115,7 @@ public class UtenteController {
 			donazioniUtente.forEach(donazione -> {
 				UUID donazioneId = donazione.getId();
 				donazione.setUtente(null);
-				donazioneSrv.findById(donazioneId);
+				donazioneSrv.findByIdAndDelete(donazioneId);
 
 			});
 			utenteSrv.findByIdAndDelete(userId);

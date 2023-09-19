@@ -39,9 +39,9 @@ public class MainRunner implements CommandLineRunner {
 		Faker faker = new Faker(Locale.ITALIAN);
 
 		/* CREAZIONE 60 UTENTI USER */
-		for (int i = 0; i < 60; i++) {
+		for (int i = 0; i < 50; i++) {
 			UtenteRequestBody nuovoUtenteUSER = new UtenteRequestBody(faker.name().firstName(), faker.name().lastName(),
-					faker.internet().emailAddress(), bcrypt.encode("SanteCalderisi89"));
+					faker.internet().emailAddress(), bcrypt.encode("Santecalderisi89"));
 			// utenteSrv.createUser(nuovoUtenteUSER);
 		}
 		/* CREAZIONE UTENTE ADMIN */
@@ -49,8 +49,8 @@ public class MainRunner implements CommandLineRunner {
 		UtenteRequestBody nuovoUtenteADMIN = new UtenteRequestBody();
 		nuovoUtenteADMIN.setNome("Sante");
 		nuovoUtenteADMIN.setCognome("Calderisi");
-		nuovoUtenteADMIN.setEmail("santecalderisi@gmail.it");
-		String password = "epicode";
+		nuovoUtenteADMIN.setEmail("santecalderisi@gmail.com");
+		String password = "Santecalderisi89";
 		String passwordEncode = bcrypt.encode(password);
 		nuovoUtenteADMIN.setPassword(passwordEncode);
 		// utenteSrv.createAdmin(nuovoUtenteADMIN);
@@ -125,20 +125,21 @@ public class MainRunner implements CommandLineRunner {
 		utentiDB.forEach(ut -> System.err.println(ut.toString()));
 
 		/* CREAZIONE 20 DONAZIONI */
-		for (int i = 0; i < 1000; i++) {
-			double randomAmount = Math.floor(faker.number().numberBetween(10, 200)) / 2.0;
-			LocalDate startDate = LocalDate.of(2020, 1, 1); // Data di inizio (1 gennaio 2020)
-			LocalDate endDate = LocalDate.of(2023, 9, 30); // Data di fine (30 settembre 2023)
+		for (int i = 0; i < 20; i++) {
+			double[] importiPossibili = { 5.00, 10.00, 15.00 };
+			double randomAmount = importiPossibili[faker.number().numberBetween(0, importiPossibili.length)];
+			LocalDate startDate = LocalDate.of(2020, 1, 1);
+			LocalDate endDate = LocalDate.of(2023, 9, 30);
 
-			// Calculate a random date between startDate and endDate
 			long randomDays = faker.number().numberBetween(0, ChronoUnit.DAYS.between(startDate, endDate));
 			LocalDate randomDate = startDate.plusDays(randomDays);
 
 			DonazioneRequestBody nuovaDonazione = new DonazioneRequestBody(BigDecimal.valueOf(randomAmount), randomDate,
 					utentiDB.get(faker.number().numberBetween(0, utentiDB.size() - 1)));
 
-			donazioneSrv.create(nuovaDonazione);
+			// donazioneSrv.create(nuovaDonazione);
 		}
+
 
 		// List<Utente> lista = utenteSrv.getUtentiConDonazioni();
 		// lista.forEach(ut -> System.err.println(ut));
