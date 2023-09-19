@@ -277,7 +277,8 @@ span:nth-child(18) {
 }
 
 #hero {
-  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-11+233133.png');
+
+  background: linear-gradient(0deg,rgba(0,0,0,0.2),rgba(0,0,0,0.9)), url("https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-11+233133.png");
   background-repeat: no-repeat;
   background-size:cover;
   display: flex;

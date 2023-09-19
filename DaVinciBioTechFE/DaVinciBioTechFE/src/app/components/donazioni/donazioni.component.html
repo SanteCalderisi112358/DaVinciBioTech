@@ -8,8 +8,70 @@
 </body>
 
 <body *ngIf="user">
-  <div class="container">
-  <p>Sei Loggato</p>
+  <main>
+    <div class="container hero">
+<div class="hero_content container-fluid">
+<div class="donazione_section row">
+  <div class="row d-flex justify-content-center">
+    <div class="col-lg-6 contact-left">
+      <div class="single-info">
+        <h4>Preservare l'Opera di un Genio</h4>
+        <p>
+          Ogni donazione è un passo verso la preservazione dell'eredità straordinaria di Leonardo da Vinci. Contribuendo oggi, aiuti a proteggere queste opere uniche per le generazioni future e a sostenere la ricerca che avvicina la scienza e l'arte come mai prima d'ora.        </p>
+      </div>
+      <div class="single-info">
+        <h4>Insieme Verso un Futuro Innovativo</h4>
+        <p>
+          La genialità di Leonardo ci ha lasciato un tesoro di conoscenze e ispirazione. Con la tua generosità, possiamo continuare a scoprire i segreti nascosti dietro le tavole di anatomia e a sviluppare soluzioni innovative nell'ingegneria biomedica. Ogni donazione ci avvicina alla realizzazione di questa visione straordinaria.        </p>
+      </div>
+      <div class="single-info">
+        <h4>Arte, Scienza e il Tuo Contributo</h4>
+        <p>
+          Immagina un mondo in cui la bellezza dell'arte e il potere della scienza si uniscono per creare progressi incredibili. La tua donazione non solo preserverà l'opera senza tempo di Leonardo, ma anche sosterrà ricerche all'avanguardia che potrebbero cambiare il futuro della medicina e dell'ingegneria. Ogni contributo conta, unisciti a noi in questa straordinaria missione!        </p>
+      </div>
+    </div>
+    <div class="col-lg-6 contact-right">
+      <form class="booking-form" id="myForm" action="donate.php">
+           <div class="row">
+             <div class="col-lg-12 d-flex flex-column">
+              <div class="donation-container">
+
+                <div class="donation-box">
+                  <div class="title">Scegli l'importo da donare</div>
+
+                  <div class="fields">
+                    <p style="color: #757373;">{{user.utente.nome}}</p>
+                    <p style="color: #757373;">{{user.utente.cognome}}</p>
+                    <p style="color: #757373;">{{user.utente.email}}</p>
+
+                  </div>
+
+
+
+                  <div class="amount">
+                    <div class="button">5 €</div>
+                    <div class="button">10 €</div>
+                    <div class="button">15 €</div>
+                  </div>
+                <div class="donate-button"><i class="fa fa-credit-card"></i> Dona ora</div>
+                </div>
+
+            </div>
+
+             </div>
+
+
+            <div class="col-lg-12 d-flex justify-content-end">
+            </div>
+          </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+</div>
 
   </div>
+  </main>
+
 </body>

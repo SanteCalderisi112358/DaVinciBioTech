@@ -85,6 +85,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>	
+		<dependency>
+  <groupId>com.stripe</groupId>
+  <artifactId>stripe-java</artifactId>
+  <version>23.5.0</version>
+</dependency>
 <!-- https://mvnrepository.com/artifact/com.sendgrid/sendgrid-java -->
 <dependency>
     <groupId>com.sendgrid</groupId>

@@ -108,7 +108,7 @@ public class MainRunner implements CommandLineRunner {
 //		tavolaSrv.create(DVBT_protesi_anca);
 //		tavolaSrv.create(DVBT_protesi_braccio);
 //		tavolaSrv.create(DVBT_protesi_dito_piede);
-//		tavolaSrv.create(DVBT_protesi_gamba);
+		// tavolaSrv.create(DVBT_protesi_gamba);
 //		tavolaSrv.create(DVBT_protesi_gamba_steampunk);
 //		tavolaSrv.create(DVBT_protesi_ginocchio_ginocchiera);
 //		tavolaSrv.create(DVBT_protesi_ginocchio_interna);

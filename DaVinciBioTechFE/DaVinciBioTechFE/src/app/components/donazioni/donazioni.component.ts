@@ -23,4 +23,8 @@ constructor(private autSrv:AuthService){}
 
     })  }
 
+
+    creaDonazione(){
+
+    }
 }

@@ -36,11 +36,13 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
+import com.stripe.Stripe;
 
 @RestController
 @RequestMapping("/donazioni")
 public class DonazioneController {
-
+	@Value("${stipe.apiKey}")
+	private String stripe_key;
 	@Value("${sendgrid.key}")
 	private String key;
 
@@ -67,9 +69,8 @@ public class DonazioneController {
 
 	@PostMapping
 	public Donazione createDonazione(@RequestBody @Validated DonazioneRequestBody body) throws IOException {
+		Stripe.apiKey = stripe_key;
 		body.setData(LocalDate.now());
-		
-		
 		Utente donatore = body.getUtente();
 		Email from = new Email("santecalderisi@gmail.com");
 		String subject = "Grazie per la tua donazione, " + donatore.getNome();
@@ -93,18 +94,7 @@ public class DonazioneController {
 				+ "            </td>\r\n" + "        </tr>\r\n" + "    </table>\r\n" + "</body>\r\n" + "</html>";
 		emailHtml = emailHtml.replace("{NOME_UTENTE}", donatore.getNome());
 		emailHtml = emailHtml.replace("{IMPORTO_DONAZIONE}", String.valueOf(body.getImporto()));
-		// Altri sostituti per altri dati dell'utente
-
 		Content content = new Content("text/html", emailHtml);
-//		Content content = new Content("text/plain", "Gentile " + donatore.getNome() + ",\r\n" + "\r\n"
-//				+ "grazie di cuore per il tuo generoso contributo a DaVinciBioTech! La tua donazione di "
-//				+ body.getImporto()
-//				+ " € è un passo fondamentale per la conservazione e il restauro delle preziose tavole di Leonardo da Vinci.\r\n"
-//				+ "\r\n"
-//				+ "Il tuo sostegno ci permette di preservare non solo l'eredità artistica di Leonardo, ma anche la sua visione pionieristica nel campo delle artoprotesi e degli strumenti biomedici. È grazie a persone come te che possiamo rendere omaggio al genio di Leonardo e contribuire al progresso della scienza e della medicina.\r\n"
-//				+ "\r\n"
-//				+ "Grazie ancora per essere parte della nostra missione. Senza il tuo supporto, non sarebbe possibile.\r\n"
-//				+ "\r\n" + "Con gratitudine,\r\n" + "Sante Calderisi\r\n" + "Fondatore, DaVinciBioTech\r\n" + "");
 		Mail mail = new Mail(from, subject, to, content);
 		SendGrid sg = new SendGrid(this.key);
 		Request request = new Request();
