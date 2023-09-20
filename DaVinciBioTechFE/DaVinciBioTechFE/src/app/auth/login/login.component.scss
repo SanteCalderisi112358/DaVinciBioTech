@@ -1,8 +1,12 @@
 body{
   padding-top: 50px;
+  padding-bottom: 50px;
   margin: auto;
   background-color: #EDEBE4;
-
+  background: linear-gradient(-180deg,rgba(0,0,0,0.3),rgba(0,0,0,0.95)), url("https://davincibiotech.s3.eu-central-1.amazonaws.com/damaErmellinoSfocata.jpg");
+  background-repeat: no-repeat;
+background-size:cover;
+position: relative;
 }
 main{
   padding-top: 50px;
