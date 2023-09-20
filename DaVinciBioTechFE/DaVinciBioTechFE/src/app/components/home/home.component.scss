@@ -354,11 +354,31 @@ p span{
   position: sticky;
   top: 275px;
   right: 31%;
-  background-color: yellow;
-  padding: 50px;
-  font-size: 20px;
+}
+.anno{
+  color: white;
+    font-size: 90px;
+    font-style: italic;
 }
 
+.single-info{
+  display: flex;
+    flex-direction: column;
+    padding: 20px;
+    color: white;
+}
+ul li{
+  list-style-type: none
+}
+.sub-title{
+
+  width: 9px;
+  height: 9px;
+  background: white;
+  border-radius: 100%;
+  margin-right: 12px;
+
+}
 @keyframes scale {
   100% {
     transform: scale(1);
