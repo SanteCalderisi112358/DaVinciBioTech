@@ -345,7 +345,7 @@ p span{
 
 
 #biografia {
-  height: 2000px;
+  height: 2050px;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9)), url("https://davincibiotech.s3.eu-central-1.amazonaws.com/monnalisa-sfocata.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -367,6 +367,19 @@ p span{
     padding: 20px;
     color: white;
 }
+
+.animationLife{
+  animation: animationLife 1s ease-in ;
+}
+
+.animationLifeDelayed {
+  animation: animationLife 1s ease-in 500ms;
+}
+
+.hidden {
+  opacity: 0;
+}
+
 ul li{
   list-style-type: none
 }
@@ -378,6 +391,17 @@ ul li{
   border-radius: 100%;
   margin-right: 12px;
 
+}
+
+@keyframes animationLife{
+  0%{
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(0%);
+  }
 }
 @keyframes scale {
   100% {

@@ -4,7 +4,7 @@
     <h1 class="text-center" style="color: aliceblue;">Accedi</h1>
     <p class="text-center" style="color: aliceblue;">Inserisci le tue credenziali o <a class="nav-link" style="text-decoration: underline;" [routerLink]="['/registrazione']" routerLinkActive="active">registrati</a> se non hai ancora un account.</p>
     <div class="container">
-      <div class="row">
+      <div class="row align-items-center">
         <div class="col-md-6 d-flex justify-content-center justify-content-md-end align-items-center">
           <img src="https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_valvole_cardiache.jpeg" width="300px" class="img-fluid">
         </div>
@@ -20,11 +20,11 @@
         <input type="password" id="password" name="password" class="form-control" required ngModel>
       </div>
       <button type="submit" [disabled]="form.invalid" class="btn btn-primary mb-3">Accedi</button>
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center mb-1">
               <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"></span>
 
       </div>
-      <div *ngIf="erroreLogin" class="alert alert-danger">
+      <div *ngIf="erroreLogin" class="alert alert-danger mt-1">
         <ul>
           <li>{{ errore }}</li>
         </ul>

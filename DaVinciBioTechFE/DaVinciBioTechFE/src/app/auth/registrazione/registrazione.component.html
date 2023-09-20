@@ -3,7 +3,7 @@
     <h1 class="text-center" style="color: aliceblue;">Registrati!</h1>
     <p class="text-center" style="color: aliceblue;">Unisciti alla nostra missione o <a class="nav-link" style="text-decoration: underline;" [routerLink]="['/login']" routerLinkActive="active">accedi</a> con le tue credenziali!</p>
     <div class="container">
-      <div class="row">
+      <div class="row align-items-center">
         <div class="col-md-6 d-flex justify-content-end">
           <form #form="ngForm" (ngSubmit)="registra(form)">
             <div class="form-group">
@@ -21,16 +21,16 @@
               <input type="password" id="password" name="password" class="form-control" required ngModel>
             </div>
             <button type="submit" [disabled]="form.invalid" class="btn btn-primary mb-3">Registrati</button>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center mb-1">
                     <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"></span>
 
             </div>
-            <div *ngIf="errori.length > 0" class="alert alert-danger">
+            <div *ngIf="errori.length > 0" class="alert alert-danger mt-1">
             <ul>
               <li *ngFor="let errore of errori">{{ errore }}</li>
             </ul>
           </div>
-          <div *ngIf="errore" class="alert alert-danger">
+          <div *ngIf="errore" class="alert alert-danger mt-1">
             <ul>
               <li>{{errore}}</li>
             </ul>

@@ -21,7 +21,6 @@ export class RegistrazioneComponent implements OnInit {
 
   registra(form: NgForm) {
     this.isLoading = true;
-    console.log(form.value);
     try {
       this.authSrv.signup(form.value).subscribe(
         () => {
@@ -30,7 +29,7 @@ export class RegistrazioneComponent implements OnInit {
         },
         (error) => {
           if(error.error.errorsList){
-            console.error(error.error.errorsList)
+            console.error(error)
             this.errori = error.error.errorsList
             setTimeout(() => {
               this.isLoading = true;

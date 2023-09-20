@@ -64,22 +64,25 @@
   <div class="h2 text-center">
       <p >Vita di un <span class="h1"><b style="font-weight: 900; font-size: 50px;">Genio</b></span></p>
     </div>
-  <div id="biografia">
+  <div id="biografia" class="mb-5">
 
     <div class="row">
       <div class="d-flex justify-content-center col-6 tavole-sinistra z-0" style="background-color: transparent; height: 2000px;">
-        <div class="col-lg-6 contact-left d-flex flex-column justify-content-between">
+        <div class="col-lg-6 contact-left d-flex flex-column justify-content-between mb-5">
           <ul>
             <li>
-              <div class="single-info">
-            <h4 class="d-flex align-items-center"><div class="sub-title"></div><div>15 aprile 1452:<br> Nascita di un Genio</div> </h4>
+              <div class="single-info mb-3 hidden" id="1452">
+                <div>
+                  <h4 class="d-flex align-items-center"><div class="sub-title"></div><div>15 aprile 1452:<br> Nascita di un Genio</div> </h4>
             <p >
               Leonardo da Vinci nasce ad Anchiano, vicino a Vinci, in provincia di Firenze.
             </p>
+                </div>
+
           </div>
             </li>
             <li>
-              <div class="single-info">
+              <div class="single-info mb-3 hidden" id="1466">
             <h4 class="d-flex align-items-center"><div class="sub-title"></div><div>1466: Apprendistato <br> presso Verrocchio</div></h4>
             <p >
                Inizia il suo apprendistato artistico nella bottega di Andrea del Verrocchio a Firenze.
@@ -87,7 +90,7 @@
           </div>
             </li>
             <li>
-              <div class="single-info">
+              <div class="single-info mb-3 hidden" id="1482">
             <h4 class="d-flex align-items-center"><div class="sub-title"></div><div>1482: Milano</div></h4>
             <p >
                Si trasferisce a Milano, dove lavora come artista e ingegnere alla corte degli Sforza.
@@ -95,45 +98,69 @@
           </div>
             </li>
             <li>
-               <div class="single-info">
+              <div class="d-flex mb-5">
+                <div id="cenacolo" class="hidden" style="left: 350px; position: absolute; width: 400px; height: 200px; background-size: cover; background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-20+215001.png');">
+                  <div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-color: rgba(0, 0, 0, 0.4);"></div>
+
+                </div>
+                 <div class="single-info mb-3 hidden" style="z-index: 10;" id="1498">
             <h4 class="d-flex align-items-center"><div class="sub-title"></div><div>1498: L'Ultima Cena</div></h4>
             <p >
                Completa il celebre dipinto "Ultima Cena" nel refettorio del convento di Santa Maria delle Grazie a Milano.
             </p>
           </div>
+              </div>
+
             </li>
             <li>
-               <div class="single-info">
+              <div class="d-flex mb-5">
+                <div id="gioconda" class="hidden" style="position: absolute;left: 230px; height: 200px;width: 130px; background-size: cover; background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-20+214847.png'); ">
+                  <div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-color: rgba(0, 0, 0, 0.4);"></div>
+
+                </div>
+                <div class="single-info mb-3 hidden" id="1503" style="z-index: 10;">
             <h4 class="d-flex align-items-center"><div class="sub-title"></div><div>1503: Monna Lisa</div></h4>
             <p >
                Inizia a dipinge il capolavoro "La Gioconda" (Mona Lisa) durante il suo soggiorno a Firenze.
             </p>
           </div>
+              </div>
+
             </li>
             <li>
-              <div class="single-info">
+              <div class="single-info mb-3 hidden" id="1513">
             <h4 class="d-flex align-items-center"><div class="sub-title"></div><div>1513: Roma</div></h4>
             <p >
               Si trasferisce a Roma su invito di Giuliano de Medici. Vede la Cappella Sistina di Michelangelo e continua gli studi di geometria ed ingegneria idraulica.            </p>
           </div>
             </li>
             <li>
-              <div class="single-info">
+              <div class="single-info mb-3 hidden" id="1516">
             <h4 class="d-flex align-items-center"><div class="sub-title"></div><div>1516: Morte</div></h4>
             <p >
               Muore il 2 maggio a Cloux, l’attuale castello-museo di Clos Lucé, lasciando i manoscritti, disegni e strumenti al suo discepolo ed erede principale Francesco Melzi. Dei suoi dipinti, misteriosamente, non si fa menzione.            </p>
           </div>
             </li>
             <li>
-              <div class="single-info">
-            <h4 class="d-flex align-items-center"><div class="sub-title"></div><div>1570: I Quaderni</div></h4>
-            <p >
-              I suoi Quaderni, contenenti appunti, disegni e idee, vengono pubblicati postumi.
-            </p>
-          </div>
+              <div class="d-flex mb-5">
+                <div style="z-index: 10;" class="single-info mb-3 hidden" id="1570">
+                  <h4 class="d-flex align-items-center">
+                    <div class="sub-title"></div>
+                    <div>1570: I Quaderni</div>
+                  </h4>
+                  <p>
+                    I suoi Quaderni, contenenti appunti, disegni e idee, vengono pubblicati postumi.
+                  </p>
+                </div>
+                <div class="hidden" id="uomo_vetruviano" style="position: absolute; left: 186px; width: 165px; height: 200px; background-size: cover; background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-20+222127.png');">
+                  <div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-color: rgba(0, 0, 0, 0.4);"></div>
+                </div>
+              </div>
+
+
             </li>
             <li>
-               <div class="single-info">
+               <div class="single-info mb-3 hidden" id="oggi">
             <h4 class="d-flex align-items-center"><div class="sub-title"></div><div>L'eredità di Leonardo</div></h4>
             <p >
               Il suo Genio continua a influenzare l'arte, la scienza e la cultura fino ai giorni nostri.

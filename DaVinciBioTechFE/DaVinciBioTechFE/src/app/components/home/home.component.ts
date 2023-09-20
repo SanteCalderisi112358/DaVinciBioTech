@@ -45,22 +45,46 @@ utente!: Utente;
     this.scrollTop = window.scrollY;
     console.log(this.scrollTop)
     if(window.scrollY>0 && window.scrollY<900){
+      document.getElementById('1452')?.classList.remove('hidden');
+      document.getElementById('1452')?.classList.add('animationLife');
       this.anno = '1452'
     }else if(window.scrollY>1000 && window.scrollY<1100){
+      document.getElementById('1466')?.classList.remove('hidden');
+      document.getElementById('1466')?.classList.add('animationLife');
       this.anno = '1466'
     }else if(window.scrollY>1200 && window.scrollY<1280){
+      document.getElementById('1482')?.classList.remove('hidden');
+      document.getElementById('1482')?.classList.add('animationLife');
       this.anno = '1482'
     }else if(window.scrollY>1344 && window.scrollY<1436){
+      document.getElementById('1498')?.classList.remove('hidden');
+      document.getElementById('1498')?.classList.add('animationLife');
+      document.getElementById('cenacolo')?.classList.remove('hidden');
+      document.getElementById('cenacolo')?.classList.add('animationLife');
       this.anno = '1498'
     }else if(window.scrollY>1523 && window.scrollY<1624){
+      document.getElementById('gioconda')?.classList.remove('hidden');
+      document.getElementById('gioconda')?.classList.add('animationLife');
+      document.getElementById('1503')?.classList.remove('hidden');
+      document.getElementById('1503')?.classList.add('animationLife');
       this.anno = '1503'
-    }else if(window.scrollY>1712 && window.scrollY<1837){
+    }else if(window.scrollY>1712 && window.scrollY<1978){
+      document.getElementById('1513')?.classList.remove('hidden');
+      document.getElementById('1513')?.classList.add('animationLife');
       this.anno = '1513'
     }else if(window.scrollY>1896 && window.scrollY<2000){
+      document.getElementById('1516')?.classList.remove('hidden');
+      document.getElementById('1516')?.classList.add('animationLife');
       this.anno = '1516'
-    }else if(window.scrollY>2200 && window.scrollY<2325){
+    }else if(window.scrollY>2200 && window.scrollY<2400){
+      document.getElementById('uomo_vetruviano')?.classList.remove('hidden');
+      document.getElementById('uomo_vetruviano')?.classList.add('animationLife');
+      document.getElementById('1570')?.classList.remove('hidden');
+      document.getElementById('1570')?.classList.add('animationLife');
       this.anno = '1570'
     }else if(window.scrollY>2400){
+      document.getElementById('oggi')?.classList.remove('hidden');
+      document.getElementById('oggi')?.classList.add('animationLife');
       this.anno = 'Oggi'
     }
   }
