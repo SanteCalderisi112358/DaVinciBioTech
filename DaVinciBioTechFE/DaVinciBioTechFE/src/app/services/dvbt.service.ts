@@ -7,6 +7,7 @@ import { Donazione } from '../models/donazione.interface';
 import { UtenteModificato } from '../models/utenteModifica.interface';
 import { TavolaModifica } from '../models/tavolaModifica.interface';
 import { UtenteNuovo } from '../models/utente-nuovo.interface';
+import { RecuperoPassword } from '../models/recupero-password.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -94,4 +95,10 @@ export class DvbtService {
 
   }
 
+
+
+  recuperoPassword(email:RecuperoPassword){
+    return this.http.put<Utente>(`${this.baseUrl}auth/recupera-password`, email);
+
+  }
 }

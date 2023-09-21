@@ -81,6 +81,16 @@ public class UtenteService {
 		return usersRepo.save(found);
 	}
 
+	public Utente findByIdAndUpdateForNewPassword(UUID id, UtenteRequestBody body) throws NotFoundException {
+		Utente found = this.findById(id);
+		found.setEmail(body.getEmail());
+		found.setNome(body.getNome());
+		found.setCognome(body.getCognome());
+		found.setRuolo(TipoUtente.USER);
+		found.setPassword(body.getPassword());
+		return usersRepo.save(found);
+	}
+
 	public void findByIdAndDelete(UUID id) throws NotFoundException {
 		Utente found = this.findById(id);
 		usersRepo.delete(found);

@@ -49,7 +49,7 @@ public class MainRunner implements CommandLineRunner {
 		UtenteRequestBody nuovoUtenteADMIN = new UtenteRequestBody();
 		nuovoUtenteADMIN.setNome("Sante");
 		nuovoUtenteADMIN.setCognome("Calderisi");
-		nuovoUtenteADMIN.setEmail("santecalderisi@gmail.com");
+		nuovoUtenteADMIN.setEmail("santecalderisi@mail.com");
 		String password = "Santecalderisi89";
 		String passwordEncode = bcrypt.encode(password);
 		nuovoUtenteADMIN.setPassword(passwordEncode);
@@ -144,7 +144,6 @@ public class MainRunner implements CommandLineRunner {
 		// List<Utente> lista = utenteSrv.getUtentiConDonazioni();
 		// lista.forEach(ut -> System.err.println(ut));
 		System.err.println(utentiDB.size());
-
 
 	}
 }

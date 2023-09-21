@@ -52,4 +52,17 @@ public class UtenteRequestBody {
 				+ password + ", ruolo=" + ruolo + "]";
 	}
 
+	public UtenteRequestBody(@NotNull(message = "Il campo 'Nome' è vuoto") String nome,
+			@NotNull(message = "Il campo 'Cognome' è vuoto") String cognome,
+			@NotNull(message = "Il campo 'E-mail' è vuoto") @Email(message = "L'email inserita è in un formato non valido") String email,
+			@NotNull(message = "Il campo 'Password' è vuoto") @Pattern(regexp = ".*[a-z].*", message = "La password deve contenere almeno una lettera minuscola") @Pattern(regexp = ".*[A-Z].*", message = "La password deve contenere almeno una lettera maiuscola") @Pattern(regexp = ".*\\d.*", message = "La password deve contenere almeno un numero") @Size(min = 8, max = 30, message = "La password deve avere minimo 8 caratteri, massimo 30") String password,
+			TipoUtente ruolo) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+		this.email = email;
+		this.password = password;
+		this.ruolo = ruolo;
+	}
+
 }
