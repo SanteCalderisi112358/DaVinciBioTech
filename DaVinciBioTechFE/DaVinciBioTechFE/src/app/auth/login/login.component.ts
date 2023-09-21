@@ -21,8 +21,6 @@ errore:string | undefined;
   emailUtente:string = '';
   isModaleOpen:boolean=false;
   loginForm:NgForm | undefined;
-  recuperoPassworrd: NgForm | undefined
-  isFormPasswordDisabiled:boolean=false;
   recuperoPasswordData = {
     recoveryEmail: ''
   };
@@ -85,7 +83,6 @@ this.loginForm = form
       id: ""
     };
     this.isErroreRecuperoPassword= false
-    this.isFormPasswordDisabiled = true;
     this.isModaleOpen=true;
     const modal = document.getElementById('recupero-password');
   if (modal) {
@@ -123,7 +120,6 @@ form.reset()
       }
   chiudiModaleRecuperaPassword() {
    this.messaggioOk = ''
-    this.isFormPasswordDisabiled = false;
     this.isModaleOpen=false;
     this.erroreRecuperoPassword =''
     const modal = document.getElementById('recupero-password');

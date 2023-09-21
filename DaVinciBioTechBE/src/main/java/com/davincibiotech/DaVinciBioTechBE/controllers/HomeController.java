@@ -22,12 +22,7 @@ public class HomeController {
 		this.tavolaSrv = tavolaSrv;
 	}
 
-//	@GetMapping
-//	public Page<Tavola> getTavole(@RequestParam(defaultValue = "0") int page,
-//			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
-//		System.err.println("Sto vedendo le tavole");
-//		return tavolaSrv.find(page, size, sortBy);
-//	}
+
 
 	@GetMapping
 	public List<Tavola> getTavole() {

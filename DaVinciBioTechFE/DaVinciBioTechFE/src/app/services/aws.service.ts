@@ -4,7 +4,7 @@ import * as AWS from 'aws-sdk';
 @Injectable({
   providedIn: 'root'
 })
-export class AwsService {
+export class AwsServiceSDK {
   private s3: AWS.S3 | undefined;
   constructor() {
     AWS.config.update({
@@ -17,9 +17,9 @@ export class AwsService {
   uploadImage(file: File, key: string): Promise<string> {
     const params = {
       Bucket: environment_AWS.aws.bucketName,
-      Key: key, // Nome dell'oggetto in S3
+      Key: key,
       Body: file,
-      ACL: 'public-read', // Imposta l'accesso dell'oggetto a pubblico
+      ACL: 'public-read',
     };
 
     return new Promise<string>((resolve, reject) => {

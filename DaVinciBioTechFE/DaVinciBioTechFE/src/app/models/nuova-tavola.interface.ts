@@ -1,6 +1,6 @@
-export interface TavolaModifica {
+export interface NuovaTavola {
   titolo:string;
   descrizione:string;
-  anno:0;
+  anno:string;
   url:string
 }

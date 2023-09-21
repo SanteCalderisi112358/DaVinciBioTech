@@ -14,7 +14,6 @@ import com.davincibiotech.DaVinciBioTechBE.entities.Tavola;
 import com.davincibiotech.DaVinciBioTechBE.exceptions.NotFoundException;
 import com.davincibiotech.DaVinciBioTechBE.payloads.TavolaRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.repositories.TavolaRepository;
-
 @Service
 public class TavolaService {
 	private final TavolaRepository tavolaRepo;
@@ -57,6 +56,7 @@ public class TavolaService {
 		Tavola found = this.findById(id);
 		tavolaRepo.delete(found);
 	}
+
 
 
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import { Data } from '@angular/router';
-import { ChartAxisLabelOptions } from 'aws-sdk/clients/quicksight';
 import { Subscription, catchError } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Donazione } from 'src/app/models/donazione.interface';
@@ -11,8 +10,10 @@ import { TipoRuolo } from 'src/app/models/tipo-utente.enum';
 import { UtenteNuovo } from 'src/app/models/utente-nuovo.interface';
 import { Utente } from 'src/app/models/utente.interface';
 import { UtenteModificato } from 'src/app/models/utenteModifica.interface';
-import { AwsService } from 'src/app/services/aws.service';
 import { DvbtService } from 'src/app/services/dvbt.service';
+import { NuovaTavola } from 'src/app/models/nuova-tavola.interface';
+import { AwsServiceSDK } from 'src/app/services/aws.service';
+import * as AWS from 'aws-sdk'
 @Component({
   templateUrl: './profile-admin.component.html',
   styleUrls: ['./profile-admin.component.scss']
@@ -20,7 +21,11 @@ import { DvbtService } from 'src/app/services/dvbt.service';
 export class ProfileAdminComponent implements OnInit {
   /* VARIABILI GENERALI*/
 
-
+  uploadedImage: File | undefined;
+  dbImage: any;
+  postResponse: any;
+  successResponse: string | undefined;
+  image: any;
   isErroreUguale:boolean = false;
   errore: string = "";
   errori:string[]=[];
@@ -88,10 +93,12 @@ export class ProfileAdminComponent implements OnInit {
   totalPagesArrayTavole: number[] = [];
   isTavolaEliminata:boolean = false;
   isTavolaModificata:boolean = false;
-  tavolaModificata: TavolaModifica = {
+  tavolaModificata!: TavolaModifica;
+
+  nuovaTavola: NuovaTavola  = {
     titolo:"",
     descrizione:"",
-    anno:0,
+    anno:"",
     url:""
   }
 
@@ -156,8 +163,8 @@ export class ProfileAdminComponent implements OnInit {
     importo_novembre!:number;
     importo_dicembre!:number;
 
-  constructor(private dvbtSrv: DvbtService, private authSrv: AuthService
-    , private awsService: AwsService
+  constructor(private dvbtSrv: DvbtService, private authSrv: AuthService, private httpClient: HttpClient
+    //, private awsService: AwsServiceSDK
     ) {}
 
   ngOnInit(): void {
@@ -557,6 +564,50 @@ this.loadPageTavole(1)
   }
  }
 
+ apriModaleAggiungiTavola(){
+  this.isModaleOpen = true;
+  const modal = document.getElementById('modaleCreaTavola');
+  if (modal) {
+    modal.classList.add('show');
+    modal.style.display = 'block';
+
+  }
+ }
+ public onImageUpload(event:any) {
+  if(event){
+     console.log(event.target.files[0])
+     this.uploadedImage = event.target.files[0]
+
+  }
+
+}
+ aggiungiTavola(form:NgForm){
+  console.log(form)
+  const imageFormData = new FormData();
+  if(this.uploadedImage){
+      imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
+
+  }
+/*this.nuovaTavola.titolo = form.value.titoloUploadTavola;
+this.nuovaTavola.anno = form.value.annoUploadTavola;
+this.nuovaTavola.descrizione = form.value.descrizioneUploadTavola;*/
+
+/*Devo vedere come trasformare url in path file*/
+/*this.nuovaTavola.url = form.value.urlUploadTavola;
+console.log(this.nuovaTavola)*/
+
+ }
+
+ chiudiModaleAggiungiTavola(){
+  this.isModaleOpen = false;
+  const modal = document.getElementById('modaleCreaTavola');
+  if (modal) {
+    modal.classList.remove('show');
+    modal.style.display = 'none';
+
+  }
+ }
+
  apriModaleModificaTavola(tavola:Tavola){
   this.isModaleOpen=true;
   const modal = document.getElementById('modaleModificaTavola');
@@ -742,7 +793,7 @@ console.error(error)
   }
  }
 
- caricaImmagine(event: any) {
+ /*caricaImmagine(event: any) {
   const file: File = event.target.files[0];
   const objectKey = `images/${file.name}`;
   this.awsService.uploadImage(file, objectKey)
@@ -752,7 +803,7 @@ console.error(error)
     .catch((error) => {
       console.error(error);
     });
-}
+}*/
 /* LOGICA DONAZIONI */
 
 loadPageDonazioni(page: number): void {

@@ -8,6 +8,7 @@ import { UtenteModificato } from '../models/utenteModifica.interface';
 import { TavolaModifica } from '../models/tavolaModifica.interface';
 import { UtenteNuovo } from '../models/utente-nuovo.interface';
 import { RecuperoPassword } from '../models/recupero-password.interface';
+import { DonazioneBody } from '../models/donazione-body.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -77,6 +78,11 @@ export class DvbtService {
 
   getAllDonazioniAdmin(page:number, size:number, sortBy:String){
     return this.http.get<Donazione[]>(`${this.baseUrl}donazioni?page=${page}&size=${size}&sortBy=${sortBy}`);
+
+  }
+
+  postDonazione(donazioneBody: DonazioneBody){
+    return this.http.post<Donazione>(`${this.baseUrl}donazioni`, donazioneBody);
 
   }
 

@@ -18,9 +18,8 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { AuthGuard } from './auth/auth.guard';
-import { AWSAccount } from 'aws-sdk/clients/es';
-import { AwsService } from './services/aws.service';
 //import { TokenInterceptor } from './auth/token.interceptor';
+import * as AWS from 'aws-sdk';
 
 
 const routes: Routes= [

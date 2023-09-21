@@ -2,101 +2,104 @@
   <main [class.blur-main]="isModaleOpen">
 
     <div class="container">
-      <div class="d-flex justify-content-end sticky-div">
+      <div class="d-flex justify-content-between sticky-div">
+
+          <p class=" rounded p-1 shadow-lg" style="font-size: large;">Numero donatori: <span style="color: green;">{{totalElementsDonatori}}</span> </p>
+
 <p class=" rounded p-1 shadow-lg" style="font-size: large;">Donazioni raccolte: <span style="color: green;">{{donazioniTotaleImporto}} €</span> </p>
   </div>
-      <div class="d-flex flex-column">
-        <div class="d-flex justify-content-center mt-2 mb-2">
-          <!--TABELLA TAVOLE-->
-          <div id="tavole-leonardo" class="mb-5">
-            <div class="border rounded p-3 shadow-lg">
-              <div class="d-flex justify-content-end">
-                <div style="font-size: 40px; cursor: pointer;" title="Aggiungi Tavola">
-                  ➕
-                </div>
-              </div>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-            <th scope="col">Titolo</th>
-            <th scope="col">Anno</th>
-            <th scope="col">Immagine</th>
-            <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let tavola of tavole; let i = index">
-                <th scope="row" class="align-middle">{{ i + 1 + (currentPageTavole - 1) * pageSizeTavole }}</th>
-                <td style="cursor: pointer;" (click)="apriModaleOsservaTavola(tavola)" class="align-middle">{{tavola.titolo}}</td>
-                <td style="cursor: pointer;" (click)="apriModaleOsservaTavola(tavola)" class="align-middle">{{tavola.anno}}</td>
-                <td style="cursor: pointer;" (click)="apriModaleOsservaTavola(tavola)" class="align-middle">
-                  <img [src]="tavola.url" alt="Immagine" width="100" height="100">
-                </td>
-                <td style="cursor: pointer;" class="w-100">
-                  <div class="d-flex justify-content-between " style="margin-top: 40px;">
-                    <i class="bi bi-pencil me-2" title="Modifica" style="cursor: pointer;" (click)="apriModaleModificaTavola(tavola)"></i>
-                    <div class="me-2" title="Elimina" style="cursor: pointer;" (click)="apriModaleEliminaTavola(tavola)">❌</div>
-                    <div><i class="bi bi-eye me-2" (click)="apriModaleOsservaTavola(tavola)" style="cursor: pointer;" title="Dai un'occhiata alla tavola" data-bs-toggle="modal"></i></div></div>
 
+  <!-- TABELLA DONAZIONI STATISTICHE-->
+<div id="donazioni" class="d-flex justify-content-center mb-5 mb-2">
+  <div class="border rounded p-3 shadow-lg">
+    <div class="d-flex justify-content-end">
+      <div style="font-size: 40px; cursor: pointer;" class="mb-2" title="Aggiungi Donazione" >
+        ➕
+      </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-baseline mb-5">
+      <select id="meseSelect" class="form-select form-select-lg mb-3 me-3" aria-label="Large select example">
+        <option selected value="Seleziona Mese">Seleziona Mese</option>
+        <option value="1">Gennaio</option>
+        <option value="2">Febbraio</option>
+        <option value="3">Marzo</option>
+        <option value="4">Aprile</option>
+        <option value="5">Maggio</option>
+        <option value="6">Giugno</option>
+        <option value="7">Luglio</option>
+        <option value="8">Agosto</option>
+        <option value="9">Settembre</option>
+        <option value="10">Ottobre</option>
+        <option value="11">Novembre</option>
+        <option value="12">Dicembre</option>
 
-                </td>
-              </tr>
+      </select>
+      <select id="annoSelect" class="form-select form-select-lg mb-3 ms-3" aria-label="Large select example">
+        <option selected value="Seleziona Anno">Seleziona Anno</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
 
+      </select>
+      <button type="button" (click)="ricercaImportoPeriodo()" class="btn btn-info  ms-4"><i class="bi bi-search" style="color: aliceblue;"></i>
+      </button>
 
-            </tbody>
-          </table>
+    </div>
+    <div *ngIf="erroreRicercaSelect!=''">
+      <div  class="d-flex justify-content-center alert alert-danger">
+        <ul>
+          <li>{{ erroreRicercaSelect }}</li>
+        </ul>
+     </div>
+    </div>
+    <div *ngIf="isErroreRicercaPeriodo!==undefined">
+      <div *ngIf="!isErroreRicercaPeriodo">
+      <div  class="d-flex flex-column alert alert-success">
+        <p class="text-center">Il totale delle donazioni nel periodo scelto è stato di:</p>
+      <div>
+        <p class="text-center" style="font-size: 30px; font-weight: bolder;"><i>{{importoPerPeriodo}} €</i></p>
+      </div>
+    </div>
+    </div>
+    <div *ngIf="isErroreRicercaPeriodo">
+      <div  class="d-flex justify-content-center alert alert-danger">
+        <ul>
+          <li>{{ erroreRicercaPeriodo }}</li>
+        </ul>
+     </div>
+    </div>
+    </div>
 
-    <div class="d-flex justify-content-center">
-       <div>
-              <div class="paginazione">
-                <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" style="cursor: pointer;" (click)="previousPageTavole()" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item" *ngFor="let pageNumber of totalPagesArrayTavole">
-                  <a class="page-link" style="cursor: pointer;" (click)="setPageTavole(pageNumber)">{{ pageNumber }}</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" style="cursor: pointer;" (click)="nextPageTavole()" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-              </div>
-              <div class="d-flex justify-content-center">
-                 <div class="d-flex justify-content-between">
-                <div id="checkSizeTavole">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="pageSizeRadio1Tavole" id="pageSizeRadio1Tavole" value="5" (change)="setPageSizeTavole(5)" [checked]="pageSizeTavole === 5">
-                    <label class="form-check-label" for="pageSizeRadio1Tavole">5</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="pageSizeRadio2Tavole" id="pageSizeRadio2Tavole" value="10" (change)="setPageSizeTavole(10)" [checked]="pageSizeTavole === 10">
-                    <label class="form-check-label" for="pageSizeRadio2Tavole">10</label>
-                  </div>
-                </div>
-              </div>
+    <div id="canvas">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <select id="annoSelect_canvas" class="form-select form-select-lg" aria-label="Large select example">
+        <option selected value="Seleziona Anno">Seleziona Anno</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
 
+      </select>
+      <button type="button" (click)="ricercaImportoPerAnno()" class="btn btn-info  ms-4"><i class="bi bi-search" style="color: aliceblue;"></i>
+      </button>
 
-
-              </div>
-
-          </div>
+      </div>
+<div *ngIf="erroreCanvas!==''">
+        <div  class="d-flex justify-content-center alert alert-danger">
+          <ul>
+            <li>{{ erroreCanvas}}</li>
+          </ul>
+       </div>
+      </div>
+      <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
     </div>
 
 
-            </div>
-          </div>
-    </div>
-        </div>
-        <div class="d-flex justify-content-start sticky-div">
-          <p class=" rounded p-1 shadow-lg" style="font-size: large;">Numero donatori: <span style="color: green;">{{totalElementsDonatori}}</span> </p>
-            </div>
+
+      </div>
+</div>
+      <!-- TABELLA UTENTI-->
 <div id="utenti" class="d-flex justify-content-center mb-5 mb-2">
   <div class="border rounded p-3 shadow-lg">
     <div class="d-flex justify-content-end">
@@ -263,96 +266,98 @@
         </div>
       </div>
 </div>
-<!-- TABELLA DONAZIONI STATISTICHE-->
-<div id="donazioni" class="d-flex justify-content-center mb-5 mb-2">
-  <div class="border rounded p-3 shadow-lg">
-    <div class="d-flex justify-content-end">
-      <div style="font-size: 40px; cursor: pointer;" class="mb-2" title="Aggiungi Donazione" >
-        ➕
-      </div>
+
+          <div class="d-flex flex-column">
+        <div class="d-flex justify-content-center mt-2 mb-2">
+
+          <!--TABELLA TAVOLE-->
+          <div id="tavole-leonardo" class="mb-5">
+            <div class="border rounded p-3 shadow-lg">
+              <div class="d-flex justify-content-end">
+                <div style="font-size: 40px; cursor: pointer;" title="Aggiungi Tavola" (click)="apriModaleAggiungiTavola()">
+                  ➕
+                </div>
+              </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+            <th scope="col">Titolo</th>
+            <th scope="col">Anno</th>
+            <th scope="col">Immagine</th>
+            <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tavola of tavole; let i = index">
+                <th scope="row" class="align-middle">{{ i + 1 + (currentPageTavole - 1) * pageSizeTavole }}</th>
+                <td style="cursor: pointer;" (click)="apriModaleOsservaTavola(tavola)" class="align-middle">{{tavola.titolo}}</td>
+                <td style="cursor: pointer;" (click)="apriModaleOsservaTavola(tavola)" class="align-middle">{{tavola.anno}}</td>
+                <td style="cursor: pointer;" (click)="apriModaleOsservaTavola(tavola)" class="align-middle">
+                  <img [src]="tavola.url" alt="Immagine" width="100" height="100">
+                </td>
+                <td style="cursor: pointer;" class="w-100">
+                  <div class="d-flex justify-content-between " style="margin-top: 40px;">
+                    <i class="bi bi-pencil me-2" title="Modifica" style="cursor: pointer;" (click)="apriModaleModificaTavola(tavola)"></i>
+                    <div class="me-2" title="Elimina" style="cursor: pointer;" (click)="apriModaleEliminaTavola(tavola)">❌</div>
+                    <div><i class="bi bi-eye me-2" (click)="apriModaleOsservaTavola(tavola)" style="cursor: pointer;" title="Dai un'occhiata alla tavola" data-bs-toggle="modal"></i></div></div>
+
+
+                </td>
+              </tr>
+
+
+            </tbody>
+          </table>
+
+    <div class="d-flex justify-content-center">
+       <div>
+              <div class="paginazione">
+                <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" style="cursor: pointer;" (click)="previousPageTavole()" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" *ngFor="let pageNumber of totalPagesArrayTavole">
+                  <a class="page-link" style="cursor: pointer;" (click)="setPageTavole(pageNumber)">{{ pageNumber }}</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" style="cursor: pointer;" (click)="nextPageTavole()" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+              </div>
+              <div class="d-flex justify-content-center">
+                 <div class="d-flex justify-content-between">
+                <div id="checkSizeTavole">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pageSizeRadio1Tavole" id="pageSizeRadio1Tavole" value="5" (change)="setPageSizeTavole(5)" [checked]="pageSizeTavole === 5">
+                    <label class="form-check-label" for="pageSizeRadio1Tavole">5</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="pageSizeRadio2Tavole" id="pageSizeRadio2Tavole" value="10" (change)="setPageSizeTavole(10)" [checked]="pageSizeTavole === 10">
+                    <label class="form-check-label" for="pageSizeRadio2Tavole">10</label>
+                  </div>
+                </div>
+              </div>
+
+
+
+              </div>
+
+          </div>
     </div>
-    <div class="d-flex justify-content-between align-items-baseline mb-5">
-      <select id="meseSelect" class="form-select form-select-lg mb-3 me-3" aria-label="Large select example">
-        <option selected value="Seleziona Mese">Seleziona Mese</option>
-        <option value="1">Gennaio</option>
-        <option value="2">Febbraio</option>
-        <option value="3">Marzo</option>
-        <option value="4">Aprile</option>
-        <option value="5">Maggio</option>
-        <option value="6">Giugno</option>
-        <option value="7">Luglio</option>
-        <option value="8">Agosto</option>
-        <option value="9">Settembre</option>
-        <option value="10">Ottobre</option>
-        <option value="11">Novembre</option>
-        <option value="12">Dicembre</option>
 
-      </select>
-      <select id="annoSelect" class="form-select form-select-lg mb-3 ms-3" aria-label="Large select example">
-        <option selected value="Seleziona Anno">Seleziona Anno</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
-        <option value="2023">2023</option>
 
-      </select>
-      <button type="button" (click)="ricercaImportoPeriodo()" class="btn btn-info  ms-4"><i class="bi bi-search" style="color: aliceblue;"></i>
-      </button>
-
+            </div>
+          </div>
     </div>
-    <div *ngIf="erroreRicercaSelect!=''">
-      <div  class="d-flex justify-content-center alert alert-danger">
-        <ul>
-          <li>{{ erroreRicercaSelect }}</li>
-        </ul>
-     </div>
-    </div>
-    <div *ngIf="isErroreRicercaPeriodo!==undefined">
-      <div *ngIf="!isErroreRicercaPeriodo">
-      <div  class="d-flex flex-column alert alert-success">
-        <p class="text-center">Il totale delle donazioni nel periodo scelto è stato di:</p>
-      <div>
-        <p class="text-center" style="font-size: 30px; font-weight: bolder;"><i>{{importoPerPeriodo}} €</i></p>
-      </div>
-    </div>
-    </div>
-    <div *ngIf="isErroreRicercaPeriodo">
-      <div  class="d-flex justify-content-center alert alert-danger">
-        <ul>
-          <li>{{ erroreRicercaPeriodo }}</li>
-        </ul>
-     </div>
-    </div>
-    </div>
+        </div>
 
-    <div id="canvas">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <select id="annoSelect_canvas" class="form-select form-select-lg" aria-label="Large select example">
-        <option selected value="Seleziona Anno">Seleziona Anno</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
-        <option value="2023">2023</option>
-
-      </select>
-      <button type="button" (click)="ricercaImportoPerAnno()" class="btn btn-info  ms-4"><i class="bi bi-search" style="color: aliceblue;"></i>
-      </button>
-
-      </div>
-<div *ngIf="erroreCanvas!==''">
-        <div  class="d-flex justify-content-center alert alert-danger">
-          <ul>
-            <li>{{ erroreCanvas}}</li>
-          </ul>
-       </div>
-      </div>
-      <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
-    </div>
-
-
-
-      </div>
-</div>
 </div>
 
   </main>
@@ -378,9 +383,6 @@
      </div>
    </div>
  </div>
-
-
-
 
    <!-- MODALE ELIMINAZIONE DONATORE/UTENTE-->
 
@@ -464,8 +466,6 @@
          </div>
 <div class="modal-body" *ngIf="isUtenteModificato">
  <h5 class="modal-title alert alert-success">Utente modificato con successo!</h5>
- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleModificaUtente()"></button>
-
 </div>
 
        </div>
@@ -494,6 +494,8 @@
      </div>
    </div>
  </div>
+
+
   <!-- MODALE ELIMINAZIONE TAVOLA-->
 
   <div class="modal" id="modaleDeleteTavola" tabindex="-1">
@@ -525,7 +527,42 @@
     </div>
   </div>
 
+<!-- MODALE CREA TAVOLA-->
+<div class="modal" id="modaleCreaTavola" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div  class="modal-header">
+        <h5  class="modal-title">Riempi i campi</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleAggiungiTavola()"></button>
+      </div>
+      <div class="modal-body">
+        <div >
+          <form #formUploadTavola ="ngForm" action="/upload" method="post" enctype="multipart/form-data">
+          <!--<label for="titoloUploadTavola" class="me-2">Titolo:</label>
+            <input type="text" name="titoloUploadTavola" id="titoloUploadTavola" required [(ngModel)]="nuovaTavola.titolo"><br><br>
 
+            <label for="annoUploadTavola" class="me-2">Anno:</label>
+            <input type="text" name="annoUploadTavola" id="annoUploadTavola" required [(ngModel)]="nuovaTavola.anno"><br><br>
+
+            <label for="descrizione">Descrizione:</label>
+            <textarea name="descrizioneUploadTavola" id="descrizioneUploadTavola" rows="4" cols="50" required [(ngModel)]="nuovaTavola.descrizione"></textarea><br><br>-->
+            <p>CHANGE</p>
+            <input type="file" (change)="onImageUpload($event)" >
+<p>CLICK</p>
+            <input  type="file" name="fileUploadTavola" id="urlUploadTavola" accept=".jpg, .jpeg, .png" required [(ngModel)]="nuovaTavola.url"><br><br>
+
+<div class="modal-body d-flex justify-content-center">
+   <button type="button" style="width: 85px;" class="btn btn-primary " data-bs-dismiss="modal" [disabled]="formUploadTavola.invalid" (click)="aggiungiTavola(formUploadTavola)"><p class="p-0 m-0">Carica</p></button>
+</div>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
   <!-- MODALE MODIFICA TAVOLA-->
   <div class="modal" id="modaleModificaTavola" tabindex="-1">
     <div class="modal-dialog">
@@ -629,7 +666,7 @@
               </ul>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-          <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Salva Utente</button>
+          <button type="submit" [disabled]="form.invalid" style="width: 85px;" class="btn btn-primary"><p class="m-0">Carica</p></button>
         </div>
           </form>
           </div>

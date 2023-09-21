@@ -2,11 +2,8 @@ package com.davincibiotech.DaVinciBioTechBE.payloads;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
 
-@Setter
-@Getter
+
 public class TavolaRequestBody {
 	@NotNull(message = "La descrizione è obbligatoria")
 	@Column(name = "descrizione", length = 1024)
@@ -26,6 +23,37 @@ public class TavolaRequestBody {
 		this.titolo = titolo;
 	}
 
+	public String getDescrizione() {
+		return descrizione;
+	}
+
+	public String getTitolo() {
+		return titolo;
+	}
+
+	public int getAnno() {
+		return anno;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
+	public void setTitolo(String titolo) {
+		this.titolo = titolo;
+	}
+
+	public void setAnno(int anno) {
+		this.anno = anno;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 
 }
