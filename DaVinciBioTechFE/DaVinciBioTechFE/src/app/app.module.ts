@@ -17,9 +17,10 @@ import { TavoleLeonardoComponent } from './components/tavole-leonardo/tavole-leo
 import { TokenInterceptor } from './auth/token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-//import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './auth/auth.guard';
+import { AWSAccount } from 'aws-sdk/clients/es';
+import { AwsService } from './services/aws.service';
 //import { TokenInterceptor } from './auth/token.interceptor';
-
 
 
 const routes: Routes= [
@@ -31,12 +32,12 @@ const routes: Routes= [
   {
     path:'chi-siamo',
     component: ChiSiamoComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path:'tavole-leonardo',
     component: TavoleLeonardoComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path:'donazioni',
@@ -46,12 +47,12 @@ const routes: Routes= [
   {
     path:'profile-user',
     component: ProfileUserComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path:'profile-admin',
     component: ProfileAdminComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path:'login',
@@ -66,7 +67,7 @@ const routes: Routes= [
   {
     path:'**',
 redirectTo:'',
-  //  canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   }
 ]
 @NgModule({
@@ -84,6 +85,7 @@ redirectTo:'',
    FooterComponent,
 
 
+
   ],
   imports: [
     BrowserModule,
@@ -91,7 +93,8 @@ redirectTo:'',
     RouterModule.forRoot(routes),
     FormsModule,
     CanvasJSAngularChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
   ],
   providers: [
     {

@@ -11,7 +11,7 @@ import { TipoRuolo } from 'src/app/models/tipo-utente.enum';
 import { UtenteNuovo } from 'src/app/models/utente-nuovo.interface';
 import { Utente } from 'src/app/models/utente.interface';
 import { UtenteModificato } from 'src/app/models/utenteModifica.interface';
-//import { AwsService } from 'src/app/services/aws.service';
+import { AwsService } from 'src/app/services/aws.service';
 import { DvbtService } from 'src/app/services/dvbt.service';
 @Component({
   templateUrl: './profile-admin.component.html',
@@ -157,7 +157,7 @@ export class ProfileAdminComponent implements OnInit {
     importo_dicembre!:number;
 
   constructor(private dvbtSrv: DvbtService, private authSrv: AuthService
-   /* , private awsService: AwsService*/
+    , private awsService: AwsService
     ) {}
 
   ngOnInit(): void {
@@ -742,7 +742,7 @@ console.error(error)
   }
  }
 
- /*caricaImmagine(event: any) {
+ caricaImmagine(event: any) {
   const file: File = event.target.files[0];
   const objectKey = `images/${file.name}`;
   this.awsService.uploadImage(file, objectKey)
@@ -752,7 +752,7 @@ console.error(error)
     .catch((error) => {
       console.error(error);
     });
-}*/
+}
 /* LOGICA DONAZIONI */
 
 loadPageDonazioni(page: number): void {

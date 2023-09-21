@@ -1,4 +1,4 @@
-/*import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment_AWS } from 'src/environments/environment';
 import * as AWS from 'aws-sdk';
 @Injectable({
@@ -35,4 +35,4 @@ export class AwsService {
 
     });
   }
-}*/
+}
