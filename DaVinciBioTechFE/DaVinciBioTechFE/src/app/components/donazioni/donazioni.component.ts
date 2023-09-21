@@ -63,6 +63,7 @@ const today = new Date();
     this.dvbtSrv.postDonazione(this.donazioneBody).subscribe((response)=>{
       if(response){
         this.donazione = response;
+        console.log(this.donazione)
         setTimeout(() => {
           this.isDonazione = true;
         }, 2000);

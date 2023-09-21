@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,HostListener } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Tavola } from 'src/app/models/tavola.interface';
@@ -19,6 +19,7 @@ export class TavoleLeonardoComponent implements OnInit {
     url:"",
 }
 modalIsOpen = false;
+parallaxElements: HTMLElement[] = [];
 
   constructor(private dvbtSrv: DvbtService) { }
 
@@ -28,7 +29,9 @@ modalIsOpen = false;
       this.tavole = response;
       console.log("Tavole in tavole.component")
       console.log(this.tavole);
-
+      this.parallaxElements = Array.from(
+        document.querySelectorAll('.my-div')
+      ) as HTMLElement[];
 
     });
 
@@ -58,5 +61,13 @@ chiudiModaleOsservaTavola(){
 
   }
       }
-
+      @HostListener('window:scroll', ['$event'])
+      onScroll(event: Event): void {
+        const yOffset = window.pageYOffset;
+        this.parallaxElements.forEach((element: HTMLElement) => {
+          const speed = parseFloat(element.getAttribute('data-speed') || '5');
+          const translateY = yOffset * speed;
+          element.style.transform = `translate3d(0, ${-translateY}px, 0)`;
+        });
+      }
 }

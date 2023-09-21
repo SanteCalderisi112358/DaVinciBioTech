@@ -1,7 +1,8 @@
 <body>
 
   <main [class.blur-main]="modalIsOpen">
-    <section class="d-flex justify-content-between flex-wrap container">
+    <div class="d-flex justify-content-around">
+      <section style="position: absolute;" class="d-flex justify-content-between flex-wrap container">
       <div *ngFor="let tavola of tavole; let i = index">
         <div class="container">
           <div class="row">
@@ -23,6 +24,21 @@
 
       </div>
     </section>
+    </div>
+
+    <section class="d-flex flex-column justify-content-between parallax-section" id="eyes" style="height: 2300px;">
+      <div class="my-div" data-speed="0.6" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)), url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-21+235243.png');"></div>
+      <div class="my-div" data-speed="0.6" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)), url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-22+004019.png');"></div>
+      <div class="my-div" data-speed="0.6" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)), url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-22+003909.png');"></div>
+      <div class="my-div" data-speed="0.6" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)), url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-22+003947.png');"></div>
+      <div class="my-div" data-speed="0.6" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)), url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-21+235512.png');"></div>
+      <div class="my-div" data-speed="0.6" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)), url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-21+235134.png');"></div>
+      <div class="my-div" data-speed="0.6" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)), url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-22+001529.png');"></div>
+      <div class="my-div" data-speed="0.6" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)), url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-21+235214.png');"></div>
+
+
+    </section>
+
   </main>
 
   <!-- MODALE OSSERVAZIONE TAVOLA-->
