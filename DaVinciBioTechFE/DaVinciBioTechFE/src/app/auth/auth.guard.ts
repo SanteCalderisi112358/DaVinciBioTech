@@ -30,15 +30,15 @@ export class AuthGuard implements CanActivate {
       take(1),
       map((user) => {
         if (user) {
+          if (user.utente.ruolo === 'USER' && state.url === '/profile-admin') {
+            return this.router.createUrlTree(['/']);
+          }
           return true;
         } else {
-
-          alert('Non fare il furbo! Se vuoi consultare il nostro mondo videoludico REGISTRATI!')
-
-          return this.router.createUrlTree(['/']);
-
+          return this.router.createUrlTree(['/login']);
         }
       })
     );
   }
 }
+

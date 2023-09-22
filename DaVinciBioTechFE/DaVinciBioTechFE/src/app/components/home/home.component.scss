@@ -179,10 +179,10 @@ h2 {
   text-align: center;
   transform: scale(0.4);
   animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
-  position: absolute; /* Imposta la posizione assoluta per h2 */
-  bottom: 0; /* Allinea il testo in basso */
-  right: 0; /* Allinea il testo a destra */
-  margin: 0; /* Rimuove il margine predefinito di h2 */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
 }
 @keyframes scale {
   100% {
@@ -278,13 +278,13 @@ span:nth-child(18) {
 
 #hero {
 
-  background: linear-gradient(0deg,rgba(0,0,0,0.2),rgba(0,0,0,0.9)), url("https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-11+233133.png");
+  background: linear-gradient(0deg,rgba(0,0,0,0.2),rgba(0,0,0,0.5)), url("https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-11+233133.png");
   background-repeat: no-repeat;
   background-size:cover;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  height: 50vh;
+  height: 90vh;
   padding: 20px;
   position: relative;
 }

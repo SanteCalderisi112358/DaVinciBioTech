@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { Subscription} from 'rxjs';
 import { Utente } from 'src/app/models/utente.interface';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DvbtService } from 'src/app/services/dvbt.service';
 import { Tavola } from 'src/app/models/tavola.interface';
+import { Console } from 'console';
 
 @Component({
   templateUrl: './home.component.html',
@@ -12,7 +13,7 @@ import { Tavola } from 'src/app/models/tavola.interface';
 
 })
 export class HomeComponent implements OnInit{
-
+  @ViewChild('hero') hero!: ElementRef;
 utente!: Utente;
   listFavorite: number[] = [];
   subTavole!: Subscription;
@@ -23,7 +24,7 @@ utente!: Utente;
   tavolaCasuale: Tavola | undefined;
   isLoading:boolean = true;
   anno:string | undefined;
-  scrollTop: number = 0;
+  scrollTop: number = window.scrollY;
    constructor(private dvbtSrv: DvbtService, private authSrv: AuthService) { }
 
 
@@ -39,11 +40,27 @@ utente!: Utente;
     });
 
   }
+  @HostListener('window:scroll', ['$event'])
+  onScrollHero(event: Event): void {
+    const scrollPosition = window.scrollY;
+    const backgroundSize = `cover ${100 + scrollPosition / 5}%`;
+    const hero = document.getElementById('hero');
+    console.log(backgroundSize)
+    console.log(scrollPosition)
+    if(hero){
+      console.log("Hero:")
+    console.log(this.hero)
+    }
 
+  }
   @HostListener('window:scroll', ['$event'])
   onScroll() {
-    this.scrollTop = window.scrollY;
-    console.log(this.scrollTop)
+    const hero = document.getElementById('hero');
+    if (hero) {
+      const backgroundSize = `${((window.scrollY + 1) / 50) + 100}%`;
+      hero.style.backgroundSize = backgroundSize;
+      console.log(backgroundSize)
+    }
     if(window.scrollY>0 && window.scrollY<900){
       document.getElementById('1452')?.classList.remove('hidden');
       document.getElementById('1452')?.classList.add('animationLife');

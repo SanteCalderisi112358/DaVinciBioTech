@@ -1,3 +1,186 @@
+:root{
+  --backgroundCuore:url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_valvole_cardiache.jpeg')  //Cuore
+  --background2:url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_interna_ginocchio.jpeg')
+  --background3:url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_dito_piede.jpeg')
+  --background4:url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_spalla.jpeg')
+
+}
+
 body{
   padding-top: 15%;
+}
+
+h1, h5{
+text-align: center;
+
+}
+h5{
+  opacity: 0;
+  transition: all .3s linear;
+}
+
+.remoBlock{
+  transition: all 600ms linear;
+  scale:0;
+  rotate: 180deg;
+}
+.disabilita{
+  width: 854px;
+  height: 341px;
+  position: absolute;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 2rem;
+  text-align: center;
+}
+.scena{
+  display: flex;
+  justify-content: space-between;
+  width: 800px;
+  height: 270px;
+  margin: 40px 0;
+  perspective: 600px;
+}
+
+.carta1,.carta2,.carta3,.carta4{
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+  transition: all 1s;
+  margin: 0px 10px;
+}
+.carta-face{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: white;
+
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  filter: drop-shadow(2px 4px 6px black);
+}
+
+.button.disabilitaButton{
+  color: #fff;
+  background: #000;
+  box-shadow: 0px 0px 9px 0px #fff;
+  z-index: -1;
+}
+
+.button{
+  position: absolute;
+  color: black;
+  background: white;
+  padding: 10px 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .3s linear;
+  box-shadow: 0px 0px 9px #000;
+}
+.button:hover{
+  color: #fff;
+  background: #000;
+  box-shadow: 0px 0px 9px 0px #fff;
+}
+
+.carta1.scopriCarta, .carta2.scopriCarta, .carta3.scopriCarta, .carta4.scopriCarta{
+  transform: rotateY(-180deg);
+}
+.carta-face--front1, .carta-face--front2, .carta-face--front3, .carta-face--front4{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-20+222127.png');
+background-size: cover;
+background-position: center -2px;
+background-repeat: no-repeat;
+border-radius: 20px
+;
+}
+
+.carta-face--back1, .carta-face--back2, .carta-face--back3, .carta-face--back4{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_interna_ginocchio.jpeg');
+background-position: center center;
+background-size: cover;
+background-repeat: no-repeat;
+transform: rotateY(180deg);
+border-radius: 20px;
+}
+
+.carta-face--back2{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_dito_piede.jpeg');
+}
+.carta-face--back3{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_valvole_cardiache.jpeg');
+}
+.carta-face--back4{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_spalla.jpeg');
+}
+
+.opacity-on{
+  opacity: 1!important;
+}
+
+.avvia1{
+  animation: carta1 1.2s linear 2 reverse;
+}
+
+.avvia2{
+  animation: carta2 0.8s linear 2 reverse;
+}
+.avvia3{
+  animation: carta3 1.2s linear 2 reverse;
+}
+.avvia4{
+  animation: carta4 0.7s linear 2 reverse;
+}
+
+
+
+@keyframes carta1{
+  0%{
+    transform: translate(0vmin);
+  }
+  50%{
+    transform: translate(80vmin) scale(0.9);
+  }
+  100%{
+    transform: translate(0vmin);
+  }
+}
+
+@keyframes carta2{
+  0%{
+    transform: translate(0vmin);
+  }
+  50%{
+    transform: translate(30vmin) scale(0.9);
+  }
+  100%{
+    transform: translate(0vmin);
+  }
+}
+
+@keyframes carta3{
+  0%{
+    transform: translate(0vmin);
+  }
+  50%{
+    transform: translate(-30vmin) scale(0.9);
+  }
+  100%{
+    transform: translate(0vmin);
+  }
+}
+
+@keyframes carta4{
+  0%{
+    transform: translate(0vmin);
+  }
+  50%{
+    transform: translate(-80vmin) scale(0.9);
+  }
+  100%{
+    transform: translate(0vmin);
+  }
 }

@@ -20,6 +20,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { AuthGuard } from './auth/auth.guard';
 //import { TokenInterceptor } from './auth/token.interceptor';
 import * as AWS from 'aws-sdk';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 const routes: Routes= [
@@ -31,12 +32,10 @@ const routes: Routes= [
   {
     path:'chi-siamo',
     component: ChiSiamoComponent,
-    canActivate: [AuthGuard],
   },
   {
     path:'tavole-leonardo',
     component: TavoleLeonardoComponent,
-    canActivate: [AuthGuard],
   },
   {
     path:'donazioni',
@@ -65,8 +64,8 @@ const routes: Routes= [
   },
   {
     path:'**',
-redirectTo:'',
-    canActivate: [AuthGuard]
+component: NotFoundComponent,
+    //canActivate: [AuthGuard]
   }
 ]
 @NgModule({
@@ -82,6 +81,7 @@ redirectTo:'',
    TavoleLeonardoComponent,
    NavbarComponent,
    FooterComponent,
+   NotFoundComponent,
 
 
 
