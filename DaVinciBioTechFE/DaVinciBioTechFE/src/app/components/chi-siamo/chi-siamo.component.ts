@@ -23,6 +23,10 @@ export class ChiSiamoComponent implements OnInit {
   onWindowScroll(event: Event): void {
     this.translateY = -window.scrollY * this.speed;
     const img2 = document.getElementById('img2');
+    const img8 = document.querySelector('.img8') as HTMLElement
+    const img7 = document.querySelector('.img7') as HTMLElement;
+    const img1NoBio = document.querySelector('.img1-noBio') as HTMLElement;
+
 
     if (img2) {
       const backgroundPositionY = `${-60 + window.scrollY * 0.3}px`;
@@ -40,22 +44,19 @@ export class ChiSiamoComponent implements OnInit {
       }
     }
 
-    const img7 = document.querySelector('.img7') as HTMLElement;
-    const img1NoBio = document.querySelector('.img1-noBio') as HTMLElement;
-
     if (img7) {
-      console.log(img7)
-      console.log("BackGroundSize img7"+img7.style.backgroundSize)
-      console.log(`${100 + window.scrollY / 5}%`)
-      img7.style.backgroundSize = `${-300 + window.scrollY / 5.5}%`;
+      img7.style.backgroundPositionY = `${-400 + window.scrollY / 5.5}px`;
     }
 
     if (img1NoBio) {
-      console.log(img1NoBio)
-      console.log("BackGroundY img1NoBio"+img1NoBio.style.backgroundSize)
-      console.log(`${100 + window.scrollY / 5}px`)
       img1NoBio.style.backgroundPositionY = `${500 - window.scrollY / 5.5}px`;
 
+    }
+
+    if(img8){
+      console.log(window.scrollY)
+      console.log(img8)
+      img8.style.backgroundPositionX = `${500 - window.scrollY / 5.5}px`
     }
   }
   }
