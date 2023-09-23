@@ -1,3 +1,87 @@
+
+
 main{
-  padding-top: 100px;
+  padding-top: 200px;
+  padding-bottom: 300px;
+  background-color: #EDEBE4;
 }
+
+h1{
+  font-size: xxx-large;
+  font-weight: 400;
+}
+
+  h3 {
+    font-size: 28px;
+    font-weight: bold;
+
+  }
+
+
+i, b{
+  color: white;
+}
+
+
+  .storia p {
+    margin-bottom: 20px;
+  }
+
+
+
+
+#background-video {
+     height: 100%;
+    width: 100%;
+}
+.img1{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_braccio.jpeg');
+
+}
+
+.img2{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_ginocchio.jpeg');
+}
+
+.img3{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_interna_ginocchio.jpeg');
+  filter: blur(1px);
+
+}
+
+.img4{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_dito_piede.jpeg');
+  filter: blur(1px);
+
+}
+
+.img5{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_gamba02.jpeg');
+  filter: blur(1px);
+  background-position-x: -20px;
+}
+
+.img6{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_gamba01.jpeg');
+  filter: blur(1px);
+  background-position-x: -150px;
+}
+
+.img7{
+  background: linear-gradient(0deg,rgba(0,0,0,0.2),rgba(0,0,0,0.5)), url("https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_spalla_frontale.jpeg");
+}
+
+.img8{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-23+091726.png');
+}
+
+.img1-noBio{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-23+091811.png');
+}
+
+.img1,.img1-noBio,.img2,.img3,.img4,.img5,.img6,.img7,.img8,.img1-noBio,.img2-noBio{
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
