@@ -11,7 +11,7 @@
 
 body{
   background-color: #EDEBE4;
-  padding-top: 100px;
+  padding-top: 60px;
 }
 
 main{
@@ -278,7 +278,7 @@ span:nth-child(18) {
 
 #hero {
 
-  background: linear-gradient(0deg,rgba(0,0,0,0.2),rgba(0,0,0,0.5)), url("https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-11+233133.png");
+  background: linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.5)), url("https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-11+233133.png");
   background-repeat: no-repeat;
   background-size:cover;
   display: flex;
@@ -289,6 +289,9 @@ span:nth-child(18) {
   position: relative;
 }
 
+#tavole{
+  margin-bottom: 230px;
+}
 .image-bg {
   background-size: cover;
   background-position: center;

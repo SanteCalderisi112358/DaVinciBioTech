@@ -6,9 +6,10 @@ main{
 }
 
 .travolta {
-width: 50%;
-background: linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.5)), url("https://assets-9gag-fun.9cache.com/s/fab0aa49/033037194a549b0bf83e2ac4ba90706a52a9132e/static/dist/web6/img/404/bg.gif") center center no-repeat;
-background-size: cover;
+
+background: linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.5)), url("https://media.tenor.com/-6apUW9Kqj4AAAAM/monalisa.gif") center center no-repeat;
+background-size: contain;
+padding: 20px;
 
 }
 
@@ -17,18 +18,19 @@ h1 {
   padding-top: 25vh;
   margin-bottom: 1vh;
   z-index: 2;
+  color: white;
 }
 
 p {
-  font-size: 125%;
-}
-
-a, p {
   text-decoration: none;
   color: white;
   z-index: 2;
-}
+  font-size: 125%;
 
+}
+a{
+  color: black;
+}
 a:hover {
   text-decoration: underline;
 }

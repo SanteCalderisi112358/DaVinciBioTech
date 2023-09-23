@@ -21,6 +21,7 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
   immaginiRetro:string[] = ['https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_valvole_cardiache.jpeg','https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_spalla.jpeg','https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_dito_piede.jpeg','https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_interna_ginocchio.jpeg']
 constructor(private autSrv: AuthService){}
   ngOnInit(): void {
+
     this.autSrv.user$.subscribe((_user)=>{
       this.user= _user
       if(this.user){
