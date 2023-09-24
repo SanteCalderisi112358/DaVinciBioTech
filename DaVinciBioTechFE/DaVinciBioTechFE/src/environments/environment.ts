@@ -17,6 +17,11 @@ export const environment_AWS = {
   },
 };
 
+
+export const environment_STRIPE = {
+  stripe_test_key: 'pk_test_51Ns5IPHWbKrKC7SG4ffCvduUWoVqLTS0qilYIVY96yg1NSpLtOcfqrryoJE73tnlHyQqlYT8tvxYsVmFOUgFx9KH00Vr7YDCH1'
+}
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

@@ -48,6 +48,12 @@ utente!: Utente;
   onScroll() {
     console.log(window.scrollY)
     const hero = document.getElementById('hero');
+    const vetruvio = document.getElementById('vetruvio') as HTMLElement
+
+    if(vetruvio){
+      console.log(vetruvio)
+      vetruvio.style.top = `${-window.scrollY / 5.5}px`
+    }
     if (hero) {
       const backgroundSize = `${((window.scrollY + 1) / 50) + 100}%`;
       hero.style.backgroundSize = backgroundSize;

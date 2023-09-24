@@ -5,19 +5,22 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { DonazioneBody } from 'src/app/models/donazione-body.interface';
 import { Donazione } from 'src/app/models/donazione.interface';
 import { DvbtService } from 'src/app/services/dvbt.service';
+import { environment_STRIPE } from 'src/environments/environment';
 
 @Component({
   templateUrl: './donazioni.component.html',
   styleUrls: ['./donazioni.component.scss']
 })
 export class DonazioniComponent implements OnInit {
-
+  stripeAPIKey: string = environment_STRIPE.stripe_test_key
+  paymentHandler: any = null;
   user!: AuthData|null
   isDonazione:boolean = false;
   donazioneBody!: DonazioneBody;
   donazione!:Donazione;
 constructor(private autSrv:AuthService, private dvbtSrv:DvbtService){}
   ngOnInit(): void {
+    this.invokeStripe();
     this.autSrv.user$.subscribe((_user)=>{
       this.user= _user
       if(this.user){
@@ -30,6 +33,42 @@ constructor(private autSrv:AuthService, private dvbtSrv:DvbtService){}
 
     })  }
 
+    makePayment(amount: any) {
+      const paymentHandler = (<any>window).StripeCheckout.configure({
+        key: this.stripeAPIKey,
+        locale: 'auto',
+        token: function (stripeToken: any) {
+          console.log(stripeToken);
+          alert('Stripe token generated!');
+        },
+      });
+
+      //const cvcInput = window.document.getElementById('script').getEle;
+      const numeroCartaInput = document.getElementById('card_number') as HTMLInputElement;
+      const mm_aaInput = document.getElementById('cc-exp') as HTMLInputElement;
+
+      if (numeroCartaInput && mm_aaInput) {
+        numeroCartaInput.style.border = '10px solid black';
+        mm_aaInput.value = `ew/rw`;
+      }
+
+      paymentHandler.open({
+        name: 'DaVinciBioTech',
+        description: 'Pagamento online',
+        amount: amount * 100,
+        email: this.user?.utente.email,
+        nostyle: true,
+        currency: 'eur',
+        submit_type: 'donate',
+        payment_method_types: ['card'],
+
+        submit: {
+          message: `Grazie ${this.donazioneBody.utente.nome} per la donazione. Riceverai a breve una email.`,
+        },
+
+      });
+    }
+
 
     creaDonazione(form:NgForm){
       this.isDonazione = false;
@@ -37,6 +76,10 @@ constructor(private autSrv:AuthService, private dvbtSrv:DvbtService){}
         this.donazioneBody = {
         importo: 0,
         data: '',
+        numeroCarta:'',
+        cvc: '',
+        mese:'',
+        anno:'',
         utente:{
           id:this.user?.utente.id,
           nome:this.user?.utente.nome,
@@ -74,7 +117,32 @@ const today = new Date();
     })
 )
   }
-
+this.makePayment(this.donazioneBody.importo)
 
     }
-}
+
+    invokeStripe() {
+      if (!window.document.getElementById('stripe-script')) {
+        const script = window.document.createElement('script');
+
+        script.id = 'stripe-script';
+        script.type = 'text/javascript';
+        script.src = 'https://checkout.stripe.com/checkout.js';
+        script.innerHTML ='PROVO A MODIFICARE SCRIPT'
+        script.onload = () => {
+          this.paymentHandler = (<any>window).StripeCheckout.configure({
+            key: this.stripeAPIKey,
+            locale: 'auto',
+            token: function (stripeToken: any) {
+              console.log(stripeToken);
+              alert('Payment has been successfull!');
+            },
+          });
+
+        };
+
+        window.document.body.appendChild(script);
+      }
+    }
+  }
+
