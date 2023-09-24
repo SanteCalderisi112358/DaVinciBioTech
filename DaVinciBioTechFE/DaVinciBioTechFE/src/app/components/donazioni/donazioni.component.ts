@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthData } from 'src/app/auth/auth-data.interface';
 import { AuthService } from 'src/app/auth/auth.service';
 import { DonazioneBody } from 'src/app/models/donazione-body.interface';
 import { Donazione } from 'src/app/models/donazione.interface';
+import { TipoRuolo } from 'src/app/models/tipo-utente.enum';
 import { DvbtService } from 'src/app/services/dvbt.service';
 import { environment_STRIPE } from 'src/environments/environment';
 
@@ -18,8 +20,9 @@ export class DonazioniComponent implements OnInit {
   isDonazione:boolean = false;
   donazioneBody!: DonazioneBody;
   donazione!:Donazione;
-constructor(private autSrv:AuthService, private dvbtSrv:DvbtService){}
+constructor(private autSrv:AuthService, private dvbtSrv:DvbtService, private router:Router){}
   ngOnInit(): void {
+
     this.invokeStripe();
     this.autSrv.user$.subscribe((_user)=>{
       this.user= _user
@@ -39,8 +42,14 @@ constructor(private autSrv:AuthService, private dvbtSrv:DvbtService){}
         locale: 'auto',
         token: function (stripeToken: any) {
           console.log(stripeToken);
-          alert('Stripe token generated!');
+          //alert('Stripe token generated!');
+          const modaleRingraziamento = window.document.getElementById('thanks')
+          if(modaleRingraziamento){
+            modaleRingraziamento.classList.add('show')
+            modaleRingraziamento.style.display = 'block';
+          }
         },
+
       });
 
       //const cvcInput = window.document.getElementById('script').getEle;
@@ -54,17 +63,36 @@ constructor(private autSrv:AuthService, private dvbtSrv:DvbtService){}
 
       paymentHandler.open({
         name: 'DaVinciBioTech',
-        description: 'Pagamento online',
+        description: 'Sostieni la nostra causa',
         amount: amount * 100,
+        img:'https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_braccio.jpeg',
         email: this.user?.utente.email,
         nostyle: true,
         currency: 'eur',
         submit_type: 'donate',
         payment_method_types: ['card'],
-
-        submit: {
-          message: `Grazie ${this.donazioneBody.utente.nome} per la donazione. Riceverai a breve una email.`,
+        zipCode:true,
+        panelLabel: 'Dona adesso',
+        customText: {
+          submit: 'Dona adesso',
+          cancel: 'Annulla',
+          terms: 'Termini e condizioni',
         },
+        prefill: {
+          email: this.donazioneBody.utente.email,
+          name: `${this.donazioneBody.utente.nome} ${this.donazioneBody.utente.cognome}`,
+        },
+        style: {
+          base: {
+            color: '#32325d',
+            fontFamily: 'Arial, sans-serif',
+            fontSize: '16px',
+          },
+        },
+        overlayColor: 'rgba(23, 23, 23, 0.7)',
+        note: `Grazie per ciò che stai per i ${this.donazioneBody.importo} che stai per donarci!`,
+
+
 
       });
     }
@@ -123,12 +151,11 @@ this.makePayment(this.donazioneBody.importo)
 
     invokeStripe() {
       if (!window.document.getElementById('stripe-script')) {
-        const script = window.document.createElement('script');
+        const script =document.createElement('script');
 
         script.id = 'stripe-script';
         script.type = 'text/javascript';
         script.src = 'https://checkout.stripe.com/checkout.js';
-        script.innerHTML ='PROVO A MODIFICARE SCRIPT'
         script.onload = () => {
           this.paymentHandler = (<any>window).StripeCheckout.configure({
             key: this.stripeAPIKey,
@@ -143,6 +170,19 @@ this.makePayment(this.donazioneBody.importo)
 
         window.document.body.appendChild(script);
       }
+    }
+
+    chiudiModaleRingraziamnto(){
+      this.isDonazione = false
+      const modaleRingraziamento = window.document.getElementById('thanks')
+          if(modaleRingraziamento){
+            modaleRingraziamento.classList.remove('show')
+            modaleRingraziamento.style.display = 'none';
+            if(this.user?.utente.ruolo===TipoRuolo.USER)
+            this.router.navigate(['/profile-user']);
+            if(this.user?.utente.ruolo===TipoRuolo.ADMIN)
+            this.router.navigate(['/profile-admin']);
+          }
     }
   }
 

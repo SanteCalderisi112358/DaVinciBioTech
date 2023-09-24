@@ -1,18 +1,22 @@
 
 
 
-<body *ngIf="!user">
+<body id="body_noUser" *ngIf="!user">
   <div class="container">
-    <main>
+    <main [class.blur-main]="isDonazione">
       <div class="container-fluid hero">
   <div class="hero_content container-fluid">
   <div class="donazione_section row">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-4">
-        <div class="d-flex justify-content-center align-items-center">
+        <div class="d-flex text-center flex-column justify-content-center align-items-center">
       <div class="m-1" style="width: 125px; height: 150px; background-size: cover; background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-20+222127.png');">
 
       </div>
+      <p>Vuoi fare una Donazione?</p>
+<p><a href="/registrazione">Registrati</a></p>
+<p>oppure</p>
+<a href="/login">Accedi</a>
         </div>
 
       </div>
@@ -65,7 +69,7 @@
           Immagina un mondo in cui la bellezza dell'arte e il potere della scienza si uniscono per creare progressi incredibili. La tua donazione non solo preserverà l'opera senza tempo di Leonardo, ma anche sosterrà ricerche all'avanguardia che potrebbero cambiare il futuro della medicina e dell'ingegneria. Ogni contributo conta, unisciti a noi in questa straordinaria missione!        </p>
       </div>
     </div>
-    <div class="col-lg-4 contact-right border ps-0 pe-0" style="background-color: #f9f9f9;">
+    <div *ngIf="!isDonazione" class="col-lg-4 contact-right border ps-0 pe-0" style="background-color: #f9f9f9;">
       <div class="row">
  <div class="mb-4 p-4 col-8 dati-utente">
         <div class="mb-2">{{user.utente.nome}}</div>
@@ -166,11 +170,7 @@
           <button type="submit" class="btn btn-primary w-100" [disabled]="donationForm.invalid">Invia</button>
         </div>
       </form>
-      <div *ngIf="isDonazione">
-<div class="modal-body">
-<h5 class="p-2">Grazie per la tua donazione, {{user.utente.nome}}. Riceverai una e-mail a breve.</h5>
-</div>
-      </div>
+
     </div>
   </div>
 </div>
@@ -178,5 +178,20 @@
 
   </div>
   </main>
+<!-- MODALE RINGRAZIAMENTO DONAZIONE-->
+<div *ngIf="isDonazione" class="modal fade" id="thanks" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="chiudiModaleRingraziamnto()">
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Grazie per la tua donazione, {{user.utente.nome}}.</p>
+        <p>Riceverai presto un' e-mail.</p>
+      </div>
 
+    </div>
+  </div>
+</div>
 </body>

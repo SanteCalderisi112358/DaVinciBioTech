@@ -21,9 +21,17 @@
               <input type="password" id="password" name="password" class="form-control" required ngModel>
             </div>
             <button type="submit" [disabled]="form.invalid" class="btn btn-primary mb-3">Registrati</button>
-            <div class="d-flex justify-content-center mb-1">
-                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"></span>
+            <div *ngIf="isLoading" class="d-flex justify-content-center mb-3">
 
+              <div class="spinner-grow text-warning spinner-grow-sm me-1" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+              <div class="spinner-grow text-warning spinner-grow-sm me-1" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+              <div class="spinner-grow text-warning spinner-grow-sm me-1" role="status">
+                <span class="visually-hidden"></span>
+              </div>
             </div>
             <div *ngIf="errori.length > 0" class="alert alert-danger mt-1">
             <ul>

@@ -1,22 +1,27 @@
 body{
   background: linear-gradient(-180deg,rgba(0,0,0,0.3),rgba(0,0,0,0.95)), url("https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-11+233133.png");
-    background-repeat: no-repeat;
-  background-size:cover;
-  position: relative;
-  height: 200vh;
+  background-repeat: no-repeat;
+  background-position-x: center;
+background-size:cover;
+position: relative;
+height: 100vh;
 }
+
+
 main{
   padding-top: 120px;
   //
-  height: 200%;
+  //height: 200%;
 }
-
+.blur-main {
+  filter: blur(5px);
+}
 h4 {
   color: #fff;
     font-size: 30px;
     font-weight: 700;
 }
-p{
+p, a{
   color: #bbb6b6;
 }
 button[type="submit"]{
@@ -56,3 +61,9 @@ form label{
 .dati-utente{
   color:#5b5858;
 }
+
+.modal-body p{
+  color: black;
+
+}
+
