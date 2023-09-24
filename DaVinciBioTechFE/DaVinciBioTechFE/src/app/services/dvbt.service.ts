@@ -107,4 +107,8 @@ export class DvbtService {
     return this.http.put<Utente>(`${this.baseUrl}auth/recupera-password`, email);
 
   }
+
+  getDonazioniFromUser(idUtente:string){
+    return this.http.get<Donazione[]>(`${this.baseUrl}donazioni/donazioni-user/${idUtente}`)
+  }
 }

@@ -1,7 +1,13 @@
 
-main{
-  padding-top: 50px;
+
+body{
+  margin: auto;
+  background-color: #EDEBE4;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  height: 100vh;
 }
+
 
 h1, h5{
 text-align: center;
@@ -11,21 +17,25 @@ h5{
   opacity: 0;
   transition: all .3s linear;
 }
-
+.gioconda{
+  background-image: url('https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-20+214847.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .remoBlock{
   transition: all 600ms linear;
   scale:0;
   rotate: 180deg;
 }
 .disabilita{
-  width: 854px;
+  width: 50%;
   height: 341px;
   position: absolute;
   z-index: 999;
-  background: rgba(0, 0, 0, 0.5);
   color: #fff;
   font-size: 2rem;
   text-align: center;
+  filter: blur(1.5px);
 }
 .scena{
   display: flex;
@@ -129,7 +139,25 @@ border-radius: 20px;
 }
 
 
+.dati{
+  width: 300px;
+  height: 250px;
+  top: 30px;
+  right: 10px;
+}
 
+i:hover{
+  animation: menu 1s linear infinite;
+}
+
+@keyframes menu{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(180deg);
+  }
+}
 @keyframes carta1{
   0%{
     transform: translate(0vmin);

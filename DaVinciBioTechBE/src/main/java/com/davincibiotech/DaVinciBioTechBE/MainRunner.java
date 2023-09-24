@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.davincibiotech.DaVinciBioTechBE.controllers.DonazioneController;
 import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
 import com.davincibiotech.DaVinciBioTechBE.payloads.DonazioneRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.payloads.TavolaRequestBody;
@@ -34,6 +35,8 @@ public class MainRunner implements CommandLineRunner {
 	DonazioneService donazioneSrv;
 	@Autowired
 	PasswordEncoder bcrypt;
+	@Autowired
+	DonazioneController donazioneCTRL;
 	@Override
 	public void run(String... args) throws Exception {
 		Faker faker = new Faker(Locale.ITALIAN);
@@ -143,7 +146,6 @@ public class MainRunner implements CommandLineRunner {
 
 		// List<Utente> lista = utenteSrv.getUtentiConDonazioni();
 		// lista.forEach(ut -> System.err.println(ut));
-		System.err.println(utentiDB.size());
 
 	}
 }

@@ -29,6 +29,7 @@ import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
 import com.davincibiotech.DaVinciBioTechBE.exceptions.BadRequestException;
 import com.davincibiotech.DaVinciBioTechBE.payloads.DonazioneRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.services.DonazioneService;
+import com.davincibiotech.DaVinciBioTechBE.services.UtenteService;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
@@ -47,6 +48,8 @@ public class DonazioneController {
 	private String key;
 
 	private final DonazioneService donazioneSrv;
+	@Autowired
+	private UtenteService utenteSrv;
 
 	@Autowired
 	public DonazioneController(DonazioneService donazioneSrv) {
@@ -65,6 +68,19 @@ public class DonazioneController {
 	public Donazione findById(@PathVariable UUID donazioneId) {
 		return donazioneSrv.findById(donazioneId);
 
+	}
+
+	@GetMapping("/donazioni-user/{userId}")
+	public List<Donazione> getDonazioniByUtente(@PathVariable UUID userId) {
+		List<Donazione> donazioni = utenteSrv.getDonazioniByUtenteId(userId);
+		Utente utente = utenteSrv.findById(userId);
+		if (!donazioni.isEmpty()) {
+			return donazioni;
+
+		} else {
+			throw new BadRequestException("Non hai effettutato nessuna donazione.");
+
+		}
 	}
 
 	@PostMapping
@@ -177,3 +193,30 @@ public class DonazioneController {
 	}
 
 }
+
+/*
+ * <!DOCTYPE html>\r\n" + "<html>\r\n" + "<head>\r\n" +
+ * "    <title>Grazie per la tua donazione</title>\r\n" + "</head>\r\n" +
+ * "<body>\r\n" +
+ * "    <table align=\"center\" width=\"600\" cellspacing=\"0\" cellpadding=\"0\" style=\"border: 1px solid #ccc; border-collapse: collapse;\">\r\n"
+ * + "        <tr>\r\n" +
+ * "            <td style=\"background-color: #f2f2f2; padding: 20px; text-align: center;\">\r\n"
+ * +
+ * "                <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Leonardo_self.jpg/220px-Leonardo_self.jpg\" alt=\"Logo\" width=\"150\">\r\n"
+ * + "            </td>\r\n" + "        </tr>\r\n" + "        <tr>\r\n" +
+ * "            <td style=\"padding: 20px;\">\r\n" +
+ * "                <h1>Grazie per la tua donazione, {NOME_UTENTE}</h1>\r\n" +
+ * "                <p>La tua donazione di {IMPORTO_DONAZIONE} € è un passo fondamentale per la conservazione e il restauro delle preziose tavole di Leonardo da Vinci.</p>\r\n"
+ * +
+ * "                <p>Il tuo sostegno ci permette di preservare non solo l'eredità artistica di Leonardo, ma anche la sua visione pionieristica nel campo delle artoprotesi e degli strumenti biomedici. È grazie a persone come te che possiamo rendere omaggio al genio di Leonardo e contribuire al progresso della scienza e della medicina.</p>"
+ * +
+ * "                <p>Grazie ancora per essere parte della nostra missione. Senza il tuo supporto, non sarebbe possibile.</p>\r\n"
+ * +
+ * "                <p>Con gratitudine,<br>Sante Calderisi<br>Fondatore, DaVinciBioTech</p>\r\n"
+ * + "            </td>\r\n" + "        </tr>\r\n" + "        <tr>\r\n" +
+ * "            <td style=\"background-color: #f2f2f2; padding: 20px; text-align: center;\">\r\n"
+ * +
+ * "                <p style=\"color: #888;\">© 2023 DaVinciBioTech. Tutti i diritti riservati.</p>\r\n"
+ * + "            </td>\r\n" + "        </tr>\r\n" + "    </table>\r\n" +
+ * "</body>\r\n" + "</html>
+ */

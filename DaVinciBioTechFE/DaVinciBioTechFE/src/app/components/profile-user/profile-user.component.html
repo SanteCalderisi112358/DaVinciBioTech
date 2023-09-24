@@ -1,56 +1,109 @@
 <body>
-<main>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8  row">
-      <div class="col-12 h-50" style="border: solid 1px black;">
-          <h1 class="titolo h2" #titolo>Ogni nostra cognizione principia dal cuore...</h1>
-<h5 class="sottoTitolo" #sottoTitolo>...trova il cuore, {{user?.utente?.nome}}</h5>
-<div class="row">
-  <div  class="no-play disabilita col-12 d-flex justify-content-center align-items-center" #noPlay></div>
-
-</div>
-<div class="carte d-flex justify-content-center align-items-center">
-          <div class="scena">
-            <div class="carta1" #carta1>
-              <div class="carta-face carta-face--front1"></div>
-              <div class="carta-face carta-face--back1"></div>
+  <main>
+    <div id="prova" class="d-flex justify-content-end" style="position: fixed; top: 55px; right: 0;">
+      <div class="d-inline-block">
+        <button class="btn btn-secondary border radius-circle" id="dropdownMenuButton" (click)="toggleDashboard()">
+          <i class="bi bi-gear"></i>
+        </button>
+      </div>
+    </div>
+    <div class="container">
+      <div class="d-flex justify-content-end">
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8  row">
+          <div class="col-12 h-50">
+            <h1 class="titolo h2" #titolo>Ogni nostra cognizione principia dal cuore...</h1>
+            <h5 class="sottoTitolo" #sottoTitolo>...trova il cuore, {{user?.utente?.nome}}</h5>
+            <div class="row">
+              <div class="no-play disabilita col-12 d-flex justify-content-center align-items-center" #noPlay></div>
             </div>
-            <div class="carta2" #carta2>
-              <div class="carta-face carta-face--front2"></div>
-              <div class="carta-face carta-face--back2"></div>
+            <div class="carte d-flex justify-content-center align-items-center">
+              <div class="scena">
+                <div class="carta1" #carta1>
+                  <div class="carta-face carta-face--front1"></div>
+                  <div class="carta-face carta-face--back1"></div>
+                </div>
+                <div class="carta2" #carta2>
+                  <div class="carta-face carta-face--front2"></div>
+                  <div class="carta-face carta-face--back2"></div>
+                </div>
+                <div class="carta3" #carta3>
+                  <div class="carta-face carta-face--front3"></div>
+                  <div class="carta-face carta-face--back3"></div>
+                </div>
+                <div class="carta4" #carta4>
+                  <div class="carta-face carta-face--front4"></div>
+                  <div class="carta-face carta-face--back4"></div>
+                </div>
+              </div>
             </div>
-            <div class="carta3" #carta3>
-              <div class="carta-face carta-face--front3"></div>
-              <div class="carta-face carta-face--back3"></div>
+            <div class="d-flex justify-content-center disabilitaButton" #disabilitaButton style="height: 20px;">
+              <div class="button" #button>Play</div>
             </div>
-            <div class="carta4" #carta4>
-              <div class="carta-face carta-face--front4"></div>
-              <div class="carta-face carta-face--back4"></div>
-            </div>
-
           </div>
+          <div class="col-12 h-50">
+          </div>
+        </div>
+        <div class="d-none d-lg-block col-lg-4 row justify-content-start align-items-start user-dati  gioconda">
 
 
-      </div>
-
-      <div class="d-flex justify-content-center disabilitaButton" #disabilitaButton style="height: 20px;">
-          <div class="button" #button>Play</div>
-
-      </div>
 
         </div>
-
-      <div class="col-12 h-50" style="border: solid 1px black;">
-
       </div>
+    </div>
+  </main>
+  <!--MODALE CAMBIO PASSWORD-->
+  <div class="modal" id="modalePassword" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="chiudiModalePassword()"></button>
+        </div>
+        <div class="modal-body">
+          <p>Inserire la tua attuale password</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
       </div>
-      <div class="col-lg-4 user-dati" style="background-color: blueviolet; opacity: 0.3; height: 100vh;"></div>
-
-
     </div>
   </div>
-</main>
+
+  <!--MODALE DONAZIONI-->
+  <div class="modal" id="modaleDonazioni" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="chiudiModaleDonazioni()"></button>
+        </div>
+        <div class="modal-body">
+          <p>Le tue donazioni:</p>
+          <div >
+            <ul>
+            <li *ngFor="let donazione of donazioniUtente">
+              {{ donazione.importo }} € eseguita il giorno {{ donazione.data }}
+            </li>
+          </ul>
+          </div>
+          <div *ngIf="isErrore">
+            <ul>
+              <li>{{erroreDonazioni}}</li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-dashboard [isOpen]="isDashboardOpen" (close)="toggleDashboard()"
+    (apriModalePasswordClicked)="apriModalePassword()"
+    (apriModaleDonazioniClicked)="apriModaleDonazioni()"></app-dashboard>
+
 </body>
-
-

@@ -1,0 +1,16 @@
+<main>
+  <div class="dashboard" [class.open]="isOpen">
+    <div class="dashboard-content">
+      <div class="menu mt-5">
+        <ul>
+          <li class="mb-2" (click)="modaleCambiaPassword()">Cambia password</li>
+          <li class="mb-2" (click)="getDonazioni()">Donazioni</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <button type="button" class="btn-close m-2" aria-label="Close" (click)="onClose()"></button>
+  </div>
+
+</main>

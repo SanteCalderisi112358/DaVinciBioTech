@@ -17,13 +17,9 @@ import { TavoleLeonardoComponent } from './components/tavole-leonardo/tavole-leo
 import { TokenInterceptor } from './auth/token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-import { Chart } from 'chart.js/dist';
-import {ChoroplethChart} from 'chartjs-chart-geo'
-import { BubbleController } from 'chart.js/dist/types/index';
 import { AuthGuard } from './auth/auth.guard';
-//import { TokenInterceptor } from './auth/token.interceptor';
-import * as AWS from 'aws-sdk';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 const routes: Routes= [
@@ -85,6 +81,7 @@ component: NotFoundComponent,
    NavbarComponent,
    FooterComponent,
    NotFoundComponent,
+   DashboardComponent,
 
 
 

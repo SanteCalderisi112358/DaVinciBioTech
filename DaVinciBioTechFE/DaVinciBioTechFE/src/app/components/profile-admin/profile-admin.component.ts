@@ -21,11 +21,7 @@ import * as AWS from 'aws-sdk'
 export class ProfileAdminComponent implements OnInit {
   /* VARIABILI GENERALI*/
 
-  uploadedImage: File | undefined;
-  dbImage: any;
-  postResponse: any;
-  successResponse: string | undefined;
-  image: any;
+
   isErroreUguale:boolean = false;
   errore: string = "";
   errori:string[]=[];
@@ -573,24 +569,17 @@ this.loadPageTavole(1)
 
   }
  }
- public onImageUpload(event:any) {
-  if(event){
-     console.log(event.target.files[0])
-     this.uploadedImage = event.target.files[0]
 
-  }
-
-}
  aggiungiTavola(form:NgForm){
   console.log(form)
   const imageFormData = new FormData();
-  if(this.uploadedImage){
+  /*if(this.uploadedImage){
       imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
 
-  }
-/*this.nuovaTavola.titolo = form.value.titoloUploadTavola;
+  }*/
+this.nuovaTavola.titolo = form.value.titoloUploadTavola;
 this.nuovaTavola.anno = form.value.annoUploadTavola;
-this.nuovaTavola.descrizione = form.value.descrizioneUploadTavola;*/
+this.nuovaTavola.descrizione = form.value.descrizioneUploadTavola;
 
 /*Devo vedere come trasformare url in path file*/
 /*this.nuovaTavola.url = form.value.urlUploadTavola;
