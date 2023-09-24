@@ -12,7 +12,8 @@ import { Utente } from 'src/app/models/utente.interface';
 import { UtenteModificato } from 'src/app/models/utenteModifica.interface';
 import { DvbtService } from 'src/app/services/dvbt.service';
 import { NuovaTavola } from 'src/app/models/nuova-tavola.interface';
-
+import { AwsServiceSDK } from 'src/app/services/aws.service';
+import * as AWS from 'aws-sdk'
 @Component({
   templateUrl: './profile-admin.component.html',
   styleUrls: ['./profile-admin.component.scss']
@@ -1195,14 +1196,12 @@ this.chartOptions = {
         { label: "Dicembre",  y: this.importo_dicembre  },
 
       ]
-    }],
-
+    }]
   };
 
 }
-loadDateWorld(){
 
-}
+
 
 }
 

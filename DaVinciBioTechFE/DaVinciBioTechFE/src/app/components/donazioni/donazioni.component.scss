@@ -67,3 +67,60 @@ form label{
 
 }
 
+.img1,.img2,.img3,.img4{
+
+  width: 150px;
+}
+
+.img1{
+  background: linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.9)), url("https://www.arte.it/foto/orig/07/55039-Da_Vinci_Vitruve.jpg");
+  animation: fromBottomToTop 1s linear;
+  background-size: cover;
+  background-position-x: -150px;
+
+}
+
+.img2{
+  background: linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.5)), url("https://davincibiotech.s3.eu-central-1.amazonaws.com/Screenshot+2023-09-20+214847.png");
+  animation: fromTopToDown 1s linear;
+  background-size: cover;
+}
+
+.img3{
+  background: linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.5)), url("https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_dito_piede.jpeg");
+  animation: fromBottomToTop 1s linear;
+  background-size: cover;
+
+
+}
+
+.img4{
+  background: linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.5)), url("https://toscana.uno/wp-content/uploads/2021/02/Leonardo_macchina_volante_1920x1280.jpg");
+  background-position-x: -300px;
+  animation: fromTopToDown 1s linear;
+  background-size: cover;
+
+}
+
+.invito-donazione p, .invito-donazione a{
+  color: white;
+  font-size: 20px;
+
+}
+@keyframes fromBottomToTop{
+  0%{
+    transform: translateY(-100%);
+  }
+  100%{
+    transform: translateX(0%);
+  }
+}
+
+@keyframes fromTopToDown{
+  0%{
+    transform: translateY(100%);
+  }
+  100%{
+    transform: translateX(0%);
+  }
+}

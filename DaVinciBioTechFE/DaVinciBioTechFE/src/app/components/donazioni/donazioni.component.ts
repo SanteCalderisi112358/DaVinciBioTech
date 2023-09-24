@@ -23,7 +23,7 @@ export class DonazioniComponent implements OnInit {
 constructor(private autSrv:AuthService, private dvbtSrv:DvbtService, private router:Router){}
   ngOnInit(): void {
 
-    this.invokeStripe();
+
     this.autSrv.user$.subscribe((_user)=>{
       this.user= _user
       if(this.user){
@@ -32,8 +32,7 @@ constructor(private autSrv:AuthService, private dvbtSrv:DvbtService, private rou
       }else{
         console.log("Nessun si è loggato")
       }
-
-
+      this.invokeStripe();
     })  }
 
     makePayment(amount: any) {
@@ -52,14 +51,7 @@ constructor(private autSrv:AuthService, private dvbtSrv:DvbtService, private rou
 
       });
 
-      //const cvcInput = window.document.getElementById('script').getEle;
-      const numeroCartaInput = document.getElementById('card_number') as HTMLInputElement;
-      const mm_aaInput = document.getElementById('cc-exp') as HTMLInputElement;
 
-      if (numeroCartaInput && mm_aaInput) {
-        numeroCartaInput.style.border = '10px solid black';
-        mm_aaInput.value = `ew/rw`;
-      }
 
       paymentHandler.open({
         name: 'DaVinciBioTech',
@@ -70,27 +62,6 @@ constructor(private autSrv:AuthService, private dvbtSrv:DvbtService, private rou
         nostyle: true,
         currency: 'eur',
         submit_type: 'donate',
-        payment_method_types: ['card'],
-        zipCode:true,
-        panelLabel: 'Dona adesso',
-        customText: {
-          submit: 'Dona adesso',
-          cancel: 'Annulla',
-          terms: 'Termini e condizioni',
-        },
-        prefill: {
-          email: this.donazioneBody.utente.email,
-          name: `${this.donazioneBody.utente.nome} ${this.donazioneBody.utente.cognome}`,
-        },
-        style: {
-          base: {
-            color: '#32325d',
-            fontFamily: 'Arial, sans-serif',
-            fontSize: '16px',
-          },
-        },
-        overlayColor: 'rgba(23, 23, 23, 0.7)',
-        note: `Grazie per ciò che stai per i ${this.donazioneBody.importo} che stai per donarci!`,
 
 
 
@@ -184,5 +155,7 @@ this.makePayment(this.donazioneBody.importo)
             this.router.navigate(['/profile-admin']);
           }
     }
+
+
   }
 
