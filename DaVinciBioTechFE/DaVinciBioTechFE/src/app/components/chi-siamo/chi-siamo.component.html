@@ -1,19 +1,19 @@
-
 <body>
   <main>
     <div class="container">
       <div class="titolo d-flex justify-content-start">
-      <h1>DaVinciBioTech</h1>
+        <h1>DaVinciBioTech</h1>
       </div>
       <div class="row align-items-center mb-5" style="height: 500px;">
         <div class="col-12 col-lg-8 d-flex flex-column" style="height: 500px;">
 
           <div class="row" style="height: 100%;  position: relative;">
-            <div class="col-4 img1" [style.transform]="'translateY(' + translateY + 'px)'" style="height: 400px; position: absolute; top: 90px;">
+            <div class="col-4 img1" [style.transform]="'translateY(' + translateY + 'px)'"
+              style="height: 400px; position: absolute; top: 90px;">
 
             </div>
             <div class="col-8" style="height: 100%; position: absolute; left: 164px;">
-              <div class="storia" >
+              <div class="storia">
                 <div class="d-flex justify-content-end">
                   <ul>
                     <li>
@@ -28,9 +28,13 @@
 
                   </div>
                   <div class="col-8">
-<p>DaVinciBioTech è molto più di una semplice startup; è un incontro tra l'ingegneria biomedica, l'arte e la visione futuristica di uno dei più grandi geni della storia, Leonardo da Vinci.</p>
+                    <p>DaVinciBioTech è molto più di una semplice startup; è un incontro tra l'ingegneria biomedica,
+                      l'arte e la visione futuristica di uno dei più grandi geni della storia, Leonardo da Vinci.</p>
 
-                <p>Questa avventura inizia con la scoperta eccezionale di tavole nascoste, risalenti all'epoca di Leonardo, che svelano i suoi progetti segreti nel campo delle artoprotesi e degli strumenti biomedici. Le tavole sono state rinvenute in un polveroso sottotetto di una casa in Francia nel 2019, un autentico tesoro di conoscenza e creatività.</p>
+                    <p>Questa avventura inizia con la scoperta eccezionale di tavole nascoste, risalenti all'epoca di
+                      Leonardo, che svelano i suoi progetti segreti nel campo delle artoprotesi e degli strumenti
+                      biomedici. Le tavole sono state rinvenute in un polveroso sottotetto di una casa in Francia nel
+                      2019, un autentico tesoro di conoscenza e creatività.</p>
 
                   </div>
                 </div>
@@ -50,15 +54,18 @@
     </div>
     <div class="video w-100 h-100 mt-5" style="height: 500px;">
       <div id="video-container" style="position: relative;">
-        <div  >
-          <video  autoplay loop muted id="background-video">
-            <source  src="https://davincibiotech.s3.eu-central-1.amazonaws.com/Sante+10sec.mp4" type="video/mp4">
+        <div>
+          <video autoplay loop muted id="background-video">
+            <source src="https://davincibiotech.s3.eu-central-1.amazonaws.com/Sante+10sec.mp4" type="video/mp4">
           </video>
         </div>
 
         <div id="content" style="position: absolute; top: 100px; width: 33.3%; right: 100px;">
           <p style="color: white; font-size: 25px; font-weight: 700; text-shadow: 3px 3px 8px black;
-          ">Nella sua genialità, Leonardo aveva già immaginato soluzioni per le sfide mediche del futuro. DaVinciBioTech è nata per portare avanti la sua eredità, dedicandosi alla conservazione e al restauro di queste tavole uniche, che gettano luce sulle intuizioni scientifiche di un uomo che ha davvero dato "uno sguardo nel futuro".</p>
+          ">Nella sua genialità, Leonardo aveva già immaginato soluzioni per le sfide mediche del futuro.
+            DaVinciBioTech è nata per portare avanti la sua eredità, dedicandosi alla conservazione e al restauro di
+            queste tavole uniche, che gettano luce sulle intuizioni scientifiche di un uomo che ha davvero dato "uno
+            sguardo nel futuro".</p>
         </div>
       </div>
     </div>
@@ -74,27 +81,28 @@
       </div>
 
 
-      <div class="row flex-column mb-5" style="position: relative;">
-        <div style="width: 100%; height: 100px; position: relative;">
-          <div style="width: 100%; height: 100px;padding: 10px; position: absolute; top: 200px; background-color: white; z-index: 100; opacity: 0.2; filter: blur(3px);">
+      <div class="row flex-column align-items-center mb-5" style="position: relative;">
+        <div class="col-8" style="backdrop-filter: blur(2.5px); position: absolute; top: 12%;padding: 10px; font-weight: 800;">
+          <p>Unendo la tua formazione in ingegneria biomedica, la passione per il disegno artistico e la scrittura
+            creativa, e il tuo amore per Leonardo e l'arte italiana, stai guidando questa straordinaria impresa per far
+            rivivere la visione di Leonardo nel mondo moderno.</p>
+        </div>
+        <div>
+          <div class=" col-12 row justify-content-around mb-5" style="height: 600px;">
+            <div #img3 class="col-2 h-100 img3 mx-2 img3-move d-flex justify-content-center align-items-center">
+              <div><i>Protesi Interna Ginocchio</i> <br><b>1497</b></div>
+            </div>
+            <div #img4 class="col-2 h-100 img4 mx-2 img4-move d-flex justify-content-center align-items-center">
+              <div><i>Protesi Interna Ginocchio</i> <br><b>1497</b></div>
+            </div>
+            <div #img5 class="col-2 h-100 img5 mx-2 img3-move d-flex justify-content-center align-items-center">
+              <div><i>Protesi Gamba</i> <br><b>1498</b></div>
+            </div>
+            <div #img6 class="col-2 h-100 img6 mx-2 img4-move d-flex justify-content-center align-items-center">
+              <div><i>Protesi Gamba</i> <br><b>1503</b></div>
+            </div>
 
           </div>
-          <div style="position: absolute;top: 400px; left: 200px; z-index: 200; font-size: 16px;"><i>Protesi Interna Ginocchio</i>  <br><b>1497</b></div>
-          <div style="position: absolute;top: 400px; left: 450px; z-index: 200; font-size: 16px;"><i>Protesi Interna Alluce</i>  <br><b>1502</b></div>
-          <div style="position: absolute; top: 400px; left: 700px; z-index: 200; font-size: 16px;"><i>Protesi Gamba</i>  <br><b>1498</b></div>
-          <div style="position: absolute; top: 400px; left: 1000px; z-index: 200; font-size: 16px;"><i>Protesi Gamba</i>  <br><b>1503</b></div>
-          <div class="col-12" style="position: absolute; top: 230px; z-index: 100;">
-
-          <p>Unendo la tua formazione in ingegneria biomedica, la passione per il disegno artistico e la scrittura creativa, e il tuo amore per Leonardo e l'arte italiana, stai guidando questa straordinaria impresa per far rivivere la visione di Leonardo nel mondo moderno.</p>
-
-        </div>
-        </div>
-
-        <div class=" col-12 row justify-content-center mb-5" style="height: 600px;">
-        <div #img3 class="col-2 h-100 img3 mx-2 img3-move"></div>
-        <div #img4 class="col-2 h-100 img4 mx-2 img4-move"></div>
-        <div #img5 class="col-2 h-100 img5 mx-2 img3-move"></div>
-        <div #img6 class="col-2 h-100 img6 mx-2 img4-move"></div>
 
         </div>
       </div>
@@ -111,7 +119,8 @@
       <div class="row justify-content-around mt-5">
         <div class="col-4 mb-5 img7" style="height: 200px; position: relative; background-size: cover; ">
           <div class="col-12" style="position: absolute; top:50%;">
-<i>Protesi Spalla</i> <br><b>1498</b>          </div>
+            <i>Protesi Spalla</i> <br><b>1498</b>
+          </div>
 
         </div>
         <div class="col-4 img1-noBio mb-4" style="height: 300px;">
@@ -125,30 +134,35 @@
 
       <div class="row container" style="height: 400px;">
 
-  <div class="col-8 d-flex h-100" style="position: relative;">
-<div class="col-4 img8" style=" position: absolute; height: 100%; width: 50%; ">
-</div>
-<div class="col-4 " style=" position: absolute; height: 100%; left: 140px;bottom: 118px;">
-</div>
+        <div class="col-8 d-flex h-100" style="position: relative;">
+          <div class="col-4 img8" style=" position: absolute; height: 100%; width: 50%; ">
+          </div>
+          <div class="col-4 " style=" position: absolute; height: 100%; left: 140px;bottom: 118px;">
+          </div>
 
-  </div>
-  <div class="col-4" style="height: 100%; position: relative;">
-    <div style="height: 33.3%; width:400px; position: absolute;" class="img2-noBio" ><p>DaVinciBioTech è destinata a cambiare il modo in cui concepiamo la medicina e l'innovazione, portando la genialità di Leonardo nel cuore della tecnologia medica contemporanea. Siamo pronti a scrivere il futuro con la penna di Leonardo.</p></div>
-    <div style="height: 33.3%;
+        </div>
+        <div class="col-4" style="height: 100%; position: relative;">
+          <div style="height: 33.3%; width:400px; position: absolute;" class="img2-noBio">
+            <p>DaVinciBioTech è destinata a cambiare il modo in cui concepiamo la medicina e l'innovazione, portando la
+              genialità di Leonardo nel cuore della tecnologia medica contemporanea. Siamo pronti a scrivere il futuro
+              con la penna di Leonardo.</p>
+          </div>
+          <div style="height: 33.3%;
     width: 400px;
     position: absolute;
     top: 100px;
-    right: 420px;" >
+    right: 420px;">
 
-<p>Le tavole segrete di Leonardo rivelano segreti straordinari nel campo delle artoprotesi e degli strumenti biomedici. Ogni donazione è un passo avanti nella conservazione di questo prezioso patrimonio. Unisciti a noi nel preservare la visione futuristica di Leonardo per il bene dell'umanità.</p>
-<a style="color: black;" href="/donazioni">Fai una Donazione</a>
+            <p>Le tavole segrete di Leonardo rivelano segreti straordinari nel campo delle artoprotesi e degli strumenti
+              biomedici. Ogni donazione è un passo avanti nella conservazione di questo prezioso patrimonio. Unisciti a
+              noi nel preservare la visione futuristica di Leonardo per il bene dell'umanità.</p>
+            <a style="color: black;" href="/donazioni">Fai una Donazione</a>
 
 
 
-</div>
-  </div>
+          </div>
+        </div>
       </div>
     </div>
-</main>
+  </main>
 </body>
-

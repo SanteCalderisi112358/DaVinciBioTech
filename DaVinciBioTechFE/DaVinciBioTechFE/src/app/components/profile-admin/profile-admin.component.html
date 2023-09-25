@@ -4,496 +4,543 @@
     <div class="container">
       <div class="d-flex justify-content-between sticky-div">
 
-          <p class=" rounded p-1 shadow-lg" style="font-size: large;">Numero donatori: <span style="color: green;">{{totalElementsDonatori}}</span> </p>
+        <p class=" rounded p-1 shadow-lg" style="font-size: large;">Numero donatori: <span
+            style="color: green;">{{totalElementsDonatori}}</span> </p>
 
-<p class=" rounded p-1 shadow-lg" style="font-size: large;">Donazioni raccolte: <span style="color: green;">{{donazioniTotaleImporto}} €</span> </p>
-  </div>
-
-  <!-- TABELLA DONAZIONI STATISTICHE-->
-<div id="donazioni" class="d-flex justify-content-center mb-5 mb-2">
-  <div class="border rounded p-3 shadow-lg">
-    <div class="d-flex justify-content-end">
-      <div style="font-size: 40px; cursor: pointer;" class="mb-2" title="Aggiungi Donazione" >
-        ➕
+        <p class=" rounded p-1 shadow-lg" style="font-size: large;">Donazioni raccolte: <span
+            style="color: green;">{{donazioniTotaleImporto}} €</span> </p>
       </div>
-    </div>
-    <div class="d-flex justify-content-between align-items-baseline mb-5">
-      <select id="meseSelect" class="form-select form-select-lg mb-3 me-3" aria-label="Large select example">
-        <option selected value="Seleziona Mese">Seleziona Mese</option>
-        <option value="1">Gennaio</option>
-        <option value="2">Febbraio</option>
-        <option value="3">Marzo</option>
-        <option value="4">Aprile</option>
-        <option value="5">Maggio</option>
-        <option value="6">Giugno</option>
-        <option value="7">Luglio</option>
-        <option value="8">Agosto</option>
-        <option value="9">Settembre</option>
-        <option value="10">Ottobre</option>
-        <option value="11">Novembre</option>
-        <option value="12">Dicembre</option>
 
-      </select>
-      <select id="annoSelect" class="form-select form-select-lg mb-3 ms-3" aria-label="Large select example">
-        <option selected value="Seleziona Anno">Seleziona Anno</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
-        <option value="2023">2023</option>
+      <!-- TABELLA DONAZIONI STATISTICHE-->
+      <div id="donazioni" class="d-flex justify-content-center mb-5 mb-2">
+        <div class="border rounded p-3 shadow-lg">
+          <div class="d-flex justify-content-between align-items-baseline mb-5">
+            <select id="meseSelect" class="form-select form-select-lg mb-3 me-3" aria-label="Large select example">
+              <option selected value="Seleziona Mese">Seleziona Mese</option>
+              <option value="1">Gennaio</option>
+              <option value="2">Febbraio</option>
+              <option value="3">Marzo</option>
+              <option value="4">Aprile</option>
+              <option value="5">Maggio</option>
+              <option value="6">Giugno</option>
+              <option value="7">Luglio</option>
+              <option value="8">Agosto</option>
+              <option value="9">Settembre</option>
+              <option value="10">Ottobre</option>
+              <option value="11">Novembre</option>
+              <option value="12">Dicembre</option>
 
-      </select>
-      <button type="button" (click)="ricercaImportoPeriodo()" class="btn btn-info  ms-4"><i class="bi bi-search" style="color: aliceblue;"></i>
-      </button>
+            </select>
+            <select id="annoSelect" class="form-select form-select-lg mb-3 ms-3" aria-label="Large select example">
+              <option selected value="Seleziona Anno">Seleziona Anno</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
 
-    </div>
-    <div *ngIf="erroreRicercaSelect!=''">
-      <div  class="d-flex justify-content-center alert alert-danger">
-        <ul>
-          <li>{{ erroreRicercaSelect }}</li>
-        </ul>
-     </div>
-    </div>
-    <div *ngIf="isErroreRicercaPeriodo!==undefined">
-      <div *ngIf="!isErroreRicercaPeriodo">
-      <div  class="d-flex flex-column alert alert-success">
-        <p class="text-center">Il totale delle donazioni nel periodo scelto è stato di:</p>
-      <div>
-        <p class="text-center" style="font-size: 30px; font-weight: bolder;"><i>{{importoPerPeriodo}} €</i></p>
+            </select>
+            <button type="button" (click)="ricercaImportoPeriodo()" class="btn btn-info  ms-4"><i class="bi bi-search"
+                style="color: aliceblue;"></i>
+            </button>
+
+          </div>
+          <div *ngIf="erroreRicercaSelect!=''">
+            <div class="d-flex justify-content-center alert alert-danger">
+              <ul>
+                <li>{{ erroreRicercaSelect }}</li>
+              </ul>
+            </div>
+          </div>
+          <div *ngIf="isErroreRicercaPeriodo!==undefined">
+            <div *ngIf="!isErroreRicercaPeriodo">
+              <div class="d-flex flex-column alert alert-success">
+                <p class="text-center">Il totale delle donazioni nel periodo scelto è stato di:</p>
+                <div>
+                  <p class="text-center" style="font-size: 30px; font-weight: bolder;"><i>{{importoPerPeriodo}} €</i>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="isErroreRicercaPeriodo">
+              <div class="d-flex justify-content-center alert alert-danger">
+                <ul>
+                  <li>{{ erroreRicercaPeriodo }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div id="canvas">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <select id="annoSelect_canvas" class="form-select form-select-lg" aria-label="Large select example">
+                <option selected value="Seleziona Anno">Seleziona Anno</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+
+              </select>
+              <button type="button" (click)="ricercaImportoPerAnno()" class="btn btn-info  ms-4"><i class="bi bi-search"
+                  style="color: aliceblue;"></i>
+              </button>
+
+            </div>
+            <div *ngIf="erroreCanvas!==''">
+              <div class="d-flex justify-content-center alert alert-danger">
+                <ul>
+                  <li>{{ erroreCanvas}}</li>
+                </ul>
+              </div>
+            </div>
+            <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+          </div>
+
+
+
+        </div>
       </div>
-    </div>
-    </div>
-    <div *ngIf="isErroreRicercaPeriodo">
-      <div  class="d-flex justify-content-center alert alert-danger">
-        <ul>
-          <li>{{ erroreRicercaPeriodo }}</li>
-        </ul>
-     </div>
-    </div>
-    </div>
-
-    <div id="canvas">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <select id="annoSelect_canvas" class="form-select form-select-lg" aria-label="Large select example">
-        <option selected value="Seleziona Anno">Seleziona Anno</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
-        <option value="2023">2023</option>
-
-      </select>
-      <button type="button" (click)="ricercaImportoPerAnno()" class="btn btn-info  ms-4"><i class="bi bi-search" style="color: aliceblue;"></i>
-      </button>
-
-      </div>
-<div *ngIf="erroreCanvas!==''">
-        <div  class="d-flex justify-content-center alert alert-danger">
-          <ul>
-            <li>{{ erroreCanvas}}</li>
-          </ul>
-       </div>
-      </div>
-      <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
-    </div>
-
-
-
-      </div>
-</div>
       <!-- TABELLA UTENTI-->
-<div id="utenti" class="d-flex justify-content-center mb-5 mb-2">
-  <div class="border rounded p-3 shadow-lg">
-    <div class="d-flex justify-content-end">
-      <div style="font-size: 40px; cursor: pointer;" title="Aggiungi Utente" (click)="apriModaleAggiungiUtente()">
-        ➕
-      </div>
-    </div>
-    <div class="d-flex justify-content-start">
-      <div id="checkDonatori" class="form-check form-check-inline">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="donatoriCheckbox"
-          [(ngModel)]="isDonatoriSelected"
-          (ngModelChange)="toggleDonatoriSelection()"
-        />
-        <label class="form-check-label" for="donatoriCheckbox">Donatori</label>
-      </div>
-    </div>
-    <!--TABELLA PER TUTTI I DONATORI-->
-  <div *ngIf="isDonatoriSelected">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Nome</th>
-          <th scope="col">Cognome</th>
-          <th scope="col">Email</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let donatore of donatori; let i = index">
-          <th scope="row">{{ i + 1 + (currentPageD - 1) * pageSizeD }}</th>
-          <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.nome }}</td>
-          <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.cognome }}</td>
-          <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.email }}</td>
-          <td>
-            <div class="d-flex justify-content-between">
-              <div><i class="bi bi-pencil me-2" style="cursor: pointer;" (click)="apriModaleModificaUtente(donatore)" data-toggle="modal" data-target="#modificaUtenteModale" title="Modifica"></i></div>
-              <div (click)="apriModaleEliminaUtente(donatore)" class="me-2" style="cursor: pointer;" title="Elimina">❌</div>
-              <div><i class="bi bi-eye me-2" style="cursor: pointer;" (click)="apriModaleDonatore(donatore)"></i></div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-
- <div class="d-flex justify-content-center">
-  <div >
-    <div class="paginazione">
-          <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" (click)="previousPageD()" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item" *ngFor="let pageNumberD of totalPagesArrayD">
-            <a class="page-link" (click)="setPageD(pageNumberD)">{{ pageNumberD }}</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" (click)="nextPageD()" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-        </div>
-        <div class="d-flex justify-content-center">
-          <div class="d-flex justify-content-between">
-          <div id="checkSize">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pageSizeRadioD1" id="pageSizeRadioD1" value="5" (change)="setPageSizeD(5)" [checked]="pageSizeD === 5">
-              <label class="form-check-label" for="pageSizeRadioD1">5</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="pageSizeRadioD2" id="pageSizeRadioD2" value="10" (change)="setPageSizeD(10)" [checked]="pageSizeD === 10">
-              <label class="form-check-label" for="pageSizeRadioD2">10</label>
+      <div id="utenti" class="d-flex justify-content-center mb-5 mb-2">
+        <div class="border rounded p-3 shadow-lg">
+          <div class="d-flex justify-content-end">
+            <div style="font-size: 40px; cursor: pointer;" title="Aggiungi Utente" (click)="apriModaleAggiungiUtente()">
+              ➕
             </div>
           </div>
-        </div>
+          <div class="d-flex justify-content-start">
+            <div id="checkDonatori" class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="donatoriCheckbox" [(ngModel)]="isDonatoriSelected"
+                (ngModelChange)="toggleDonatoriSelection()" />
+              <label class="form-check-label" for="donatoriCheckbox">Donatori</label>
+            </div>
+          </div>
+          <!--TABELLA PER TUTTI I DONATORI-->
+          <div *ngIf="isDonatoriSelected">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Cognome</th>
+                  <th scope="col">Email</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let donatore of donatori; let i = index">
+                  <th scope="row">{{ i + 1 + (currentPageD - 1) * pageSizeD }}</th>
+                  <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.nome }}</td>
+                  <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.cognome }}</td>
+                  <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;">{{ donatore.email }}</td>
+                  <td>
+                    <div class="d-flex justify-content-between">
+                      <div><i class="bi bi-pencil me-2" style="cursor: pointer;"
+                          (click)="apriModaleModificaUtente(donatore)" data-toggle="modal"
+                          data-target="#modificaUtenteModale" title="Modifica"></i></div>
+                      <div (click)="apriModaleEliminaUtente(donatore)" class="me-2" style="cursor: pointer;"
+                        title="Elimina">❌</div>
+                      <div><i class="bi bi-eye me-2" style="cursor: pointer;"
+                          (click)="apriModaleDonatore(donatore)"></i></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+            <div class="d-flex justify-content-center">
+              <div>
+                <div class="paginazione">
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li class="page-item">
+                        <a class="page-link" (click)="previousPageD()" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item" *ngFor="let pageNumberD of totalPagesArrayD">
+                        <a class="page-link" (click)="setPageD(pageNumberD)">{{ pageNumberD }}</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" (click)="nextPageD()" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="d-flex justify-content-between">
+                    <div id="checkSize">
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="pageSizeRadioD1" id="pageSizeRadioD1"
+                          value="5" (change)="setPageSizeD(5)" [checked]="pageSizeD === 5">
+                        <label class="form-check-label" for="pageSizeRadioD1">5</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="pageSizeRadioD2" id="pageSizeRadioD2"
+                          value="10" (change)="setPageSizeD(10)" [checked]="pageSizeD === 10">
+                        <label class="form-check-label" for="pageSizeRadioD2">10</label>
+                      </div>
+                    </div>
+                  </div>
 
 
 
-        </div></div>
-
-
-    </div>
-      </div>
-      <!--TABELLA PER TUTTI GLI UTENTI-->
-     <div *ngIf="!isDonatoriSelected">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Cognome</th>
-            <th scope="col">Email</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let utente of utenti; let i = index">
-            <th scope="row">{{ i + 1 + (currentPage - 1) * pageSize }}</th>
-            <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.nome }}</td>
-            <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.cognome }}</td>
-            <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.email }}</td>
-            <td>
-              <div class="d-flex justify-content-between">
-                <div><i class="bi bi-pencil me-2" style="cursor: pointer;" (click)="apriModaleModificaUtente(utente)" data-toggle="modal" data-target="#modificaUtenteModale" title="Modifica"></i></div>
-                <div (click)="apriModaleEliminaUtente(utente)" class="me-2" style="cursor: pointer;" title="Elimina">❌</div>
-                <div><i class="bi bi-eye me-2" style="cursor: pointer;" (click)="apriModaleDonatore(utente)"></i></div>
+                </div>
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
 
-<div class="d-flex justify-content-center">
-   <div>
-          <div class="paginazione">
-            <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" (click)="previousPage()" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item" *ngFor="let pageNumber of totalPagesArray">
-              <a class="page-link" (click)="setPage(pageNumber)">{{ pageNumber }}</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" (click)="nextPage()" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-          </div>
-          <div class="d-flex justify-content-center">
-             <div class="d-flex justify-content-between">
-            <div id="checkSize">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="pageSizeRadio1" id="pageSizeRadio1" value="5" (change)="setPageSize(5)" [checked]="pageSize === 5">
-                <label class="form-check-label" for="pageSizeRadio1">5</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="pageSizeRadio2" id="pageSizeRadio2" value="10" (change)="setPageSize(10)" [checked]="pageSize === 10">
-                <label class="form-check-label" for="pageSizeRadio2">10</label>
-              </div>
+
             </div>
           </div>
+          <!--TABELLA PER TUTTI GLI UTENTI-->
+          <div *ngIf="!isDonatoriSelected">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Cognome</th>
+                  <th scope="col">Email</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let utente of utenti; let i = index">
+                  <th scope="row">{{ i + 1 + (currentPage - 1) * pageSize }}</th>
+                  <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.nome }}</td>
+                  <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.cognome }}</td>
+                  <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;">{{ utente.email }}</td>
+                  <td>
+                    <div class="d-flex justify-content-between">
+                      <div><i class="bi bi-pencil me-2" style="cursor: pointer;"
+                          (click)="apriModaleModificaUtente(utente)" data-toggle="modal"
+                          data-target="#modificaUtenteModale" title="Modifica"></i></div>
+                      <div (click)="apriModaleEliminaUtente(utente)" class="me-2" style="cursor: pointer;"
+                        title="Elimina">❌</div>
+                      <div><i class="bi bi-eye me-2" style="cursor: pointer;" (click)="apriModaleDonatore(utente)"></i>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
+            <div class="d-flex justify-content-center">
+              <div>
+                <div class="paginazione">
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li class="page-item">
+                        <a class="page-link" (click)="previousPage()" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item" *ngFor="let pageNumber of totalPagesArray">
+                        <a class="page-link" (click)="setPage(pageNumber)">{{ pageNumber }}</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" (click)="nextPage()" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="d-flex justify-content-between">
+                    <div id="checkSize">
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="pageSizeRadio1" id="pageSizeRadio1" value="5"
+                          (change)="setPageSize(5)" [checked]="pageSize === 5">
+                        <label class="form-check-label" for="pageSizeRadio1">5</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="pageSizeRadio2" id="pageSizeRadio2"
+                          value="10" (change)="setPageSize(10)" [checked]="pageSize === 10">
+                        <label class="form-check-label" for="pageSizeRadio2">10</label>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+              </div>
+            </div>
 
 
           </div>
-
-      </div>
-</div>
-
-
         </div>
       </div>
-</div>
 
-          <div class="d-flex flex-column">
+      <div class="d-flex flex-column">
         <div class="d-flex justify-content-center mt-2 mb-2">
 
           <!--TABELLA TAVOLE-->
           <div id="tavole-leonardo" class="mb-5">
             <div class="border rounded p-3 shadow-lg">
               <div class="d-flex justify-content-end">
-                <div style="font-size: 40px; cursor: pointer;" title="Aggiungi Tavola" (click)="apriModaleAggiungiTavola()">
+                <div style="font-size: 40px; cursor: pointer;" title="Aggiungi Tavola"
+                  (click)="apriModaleAggiungiTavola()">
                   ➕
                 </div>
               </div>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-            <th scope="col">Titolo</th>
-            <th scope="col">Anno</th>
-            <th scope="col">Immagine</th>
-            <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let tavola of tavole; let i = index">
-                <th scope="row" class="align-middle">{{ i + 1 + (currentPageTavole - 1) * pageSizeTavole }}</th>
-                <td style="cursor: pointer;" (click)="apriModaleOsservaTavola(tavola)" class="align-middle">{{tavola.titolo}}</td>
-                <td style="cursor: pointer;" (click)="apriModaleOsservaTavola(tavola)" class="align-middle">{{tavola.anno}}</td>
-                <td style="cursor: pointer;" (click)="apriModaleOsservaTavola(tavola)" class="align-middle">
-                  <img [src]="tavola.url" alt="Immagine" width="100" height="100">
-                </td>
-                <td style="cursor: pointer;" class="w-100">
-                  <div class="d-flex justify-content-between " style="margin-top: 40px;">
-                    <i class="bi bi-pencil me-2" title="Modifica" style="cursor: pointer;" (click)="apriModaleModificaTavola(tavola)"></i>
-                    <div class="me-2" title="Elimina" style="cursor: pointer;" (click)="apriModaleEliminaTavola(tavola)">❌</div>
-                    <div><i class="bi bi-eye me-2" (click)="apriModaleOsservaTavola(tavola)" style="cursor: pointer;" title="Dai un'occhiata alla tavola" data-bs-toggle="modal"></i></div></div>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Titolo</th>
+                    <th scope="col">Anno</th>
+                    <th scope="col">Immagine</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let tavola of tavole; let i = index">
+                    <th scope="row" class="align-middle">{{ i + 1 + (currentPageTavole - 1) * pageSizeTavole }}</th>
+                    <td style="cursor: pointer;" (click)="apriModaleOsservaTavola(tavola)" class="align-middle">
+                      {{tavola.titolo}}</td>
+                    <td style="cursor: pointer;" (click)="apriModaleOsservaTavola(tavola)" class="align-middle">
+                      {{tavola.anno}}</td>
+                    <td style="cursor: pointer;" (click)="apriModaleOsservaTavola(tavola)" class="align-middle">
+                      <img [src]="tavola.url" alt="Immagine" width="100" height="100">
+                    </td>
+                    <td style="cursor: pointer;" class="w-100">
+                      <div class="d-flex justify-content-between " style="margin-top: 40px;">
+                        <i class="bi bi-pencil me-2" title="Modifica" style="cursor: pointer;"
+                          (click)="apriModaleModificaTavola(tavola)"></i>
+                        <div class="me-2" title="Elimina" style="cursor: pointer;"
+                          (click)="apriModaleEliminaTavola(tavola)">❌</div>
+                        <div><i class="bi bi-eye me-2" (click)="apriModaleOsservaTavola(tavola)"
+                            style="cursor: pointer;" title="Dai un'occhiata alla tavola" data-bs-toggle="modal"></i>
+                        </div>
+                      </div>
 
 
-                </td>
-              </tr>
+                    </td>
+                  </tr>
 
 
-            </tbody>
-          </table>
+                </tbody>
+              </table>
 
-    <div class="d-flex justify-content-center">
-       <div>
-              <div class="paginazione">
-                <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" style="cursor: pointer;" (click)="previousPageTavole()" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item" *ngFor="let pageNumber of totalPagesArrayTavole">
-                  <a class="page-link" style="cursor: pointer;" (click)="setPageTavole(pageNumber)">{{ pageNumber }}</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" style="cursor: pointer;" (click)="nextPageTavole()" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-              </div>
               <div class="d-flex justify-content-center">
-                 <div class="d-flex justify-content-between">
-                <div id="checkSizeTavole">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="pageSizeRadio1Tavole" id="pageSizeRadio1Tavole" value="5" (change)="setPageSizeTavole(5)" [checked]="pageSizeTavole === 5">
-                    <label class="form-check-label" for="pageSizeRadio1Tavole">5</label>
+                <div>
+                  <div class="paginazione">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li class="page-item">
+                          <a class="page-link" style="cursor: pointer;" (click)="previousPageTavole()"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li class="page-item" *ngFor="let pageNumber of totalPagesArrayTavole">
+                          <a class="page-link" style="cursor: pointer;" (click)="setPageTavole(pageNumber)">{{
+                            pageNumber }}</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" style="cursor: pointer;" (click)="nextPageTavole()" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
                   </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="pageSizeRadio2Tavole" id="pageSizeRadio2Tavole" value="10" (change)="setPageSizeTavole(10)" [checked]="pageSizeTavole === 10">
-                    <label class="form-check-label" for="pageSizeRadio2Tavole">10</label>
+                  <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-between">
+                      <div id="checkSizeTavole">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="pageSizeRadio1Tavole"
+                            id="pageSizeRadio1Tavole" value="5" (change)="setPageSizeTavole(5)"
+                            [checked]="pageSizeTavole === 5">
+                          <label class="form-check-label" for="pageSizeRadio1Tavole">5</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="pageSizeRadio2Tavole"
+                            id="pageSizeRadio2Tavole" value="10" (change)="setPageSizeTavole(10)"
+                            [checked]="pageSizeTavole === 10">
+                          <label class="form-check-label" for="pageSizeRadio2Tavole">10</label>
+                        </div>
+                      </div>
+                    </div>
+
+
+
                   </div>
+
                 </div>
               </div>
-
-
-
-              </div>
-
-          </div>
-    </div>
 
 
             </div>
           </div>
-    </div>
         </div>
+      </div>
 
-</div>
+    </div>
 
   </main>
-   <!-- MODALE DONATORE/UTENTE-->
-   <div class="modal fade" id="modaleDonatore" tabindex="-1" role="dialog" aria-labelledby="trailerModalLabel"
-   aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h5 *ngIf="!errore" class="modal-title">Donazioni di {{ utente.nome }} {{utente.cognome}}</h5>
-         <h5 *ngIf="errore" class="modal-title alert alert-danger">{{errore}}</h5>
-         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleDonatore()"></button>
+  <!-- MODALE DONATORE/UTENTE-->
+  <div class="modal fade" id="modaleDonatore" tabindex="-1" role="dialog" aria-labelledby="trailerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <ng-container *ngIf="!errore; else erroreContent">
 
-     </div>
-     <div class="modal-body">
 
-       <ul>
-           <li *ngFor="let donazione of donazioniDonatore">
-               {{ donazione.importo }} € eseguita il giorno {{ donazione.data }}
-           </li>
-       </ul>
-   </div>
-     </div>
-   </div>
- </div>
+            <h5 class="modal-title">Donazioni di {{ utente.nome }} {{utente.cognome}}</h5>
 
-   <!-- MODALE ELIMINAZIONE DONATORE/UTENTE-->
 
- <div class="modal" id="modaleDeleteUtente" tabindex="-1">
-   <div class="modal-dialog">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h5 *ngIf="!isUtenteEliminato||!isErroreUguale" class="modal-title alert alert-danger">Desideri eliminare l'utente {{utente.nome}} {{utente.cognome}}?</h5>
-         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleEliminaUtenti()"></button>
-       </div>
-       <div class="modal-body" *ngIf="errore">
-         <div  class="alert alert-danger">
-           <ul>
-             <li>{{ errore }}</li>
-           </ul>
-         </div>
-       </div>
-       <div>
-         <div *ngIf="!isUtenteEliminato">
-           <div *ngIf="!isErroreUguale">
-           <div class="modal-footer d-flex justify-content-between" >
-         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteUtente(utente)">SI</button>
-         <button type="button" class="btn btn-primary" (click)="chiudiModaleEliminaUtenti()">NO</button>
-       </div>
-         </div>
-<div *ngIf="isErroreUguale">
-         <div class="modal-footer d-flex justify-content-between" >
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteUtenteAndDonazioni(utente)">SI</button>
-        <button type="button" class="btn btn-primary" (click)="deleteJustUtente(utente)">NO</button>
+
+
+          </ng-container>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="chiudiModaleDonatore()"></button>
+        </div>
+        <div class="modal-body">
+          <ng-container *ngIf="!errore">
+            <ul>
+              <li *ngFor="let donazione of donazioniDonatore">
+                {{ donazione.importo }} € eseguita il giorno {{ donazione.data }}
+              </li>
+            </ul>
+          </ng-container>
+          <ng-template #erroreContent>
+            <div class="modal-body">
+              <p style="color: red;">{{errore}}</p>
+            </div>
+          </ng-template>
+        </div>
       </div>
+    </div>
+  </div>
+
+
+
+  <!-- MODALE ELIMINAZIONE DONATORE/UTENTE-->
+
+  <div class="modal" id="modaleDeleteUtente" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 *ngIf="!isUtenteEliminato||!isErroreUguale" class="modal-title alert alert-danger">Desideri eliminare
+            l'utente {{utente.nome}} {{utente.cognome}}?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="chiudiModaleEliminaUtenti()"></button>
+        </div>
+        <div class="modal-body" *ngIf="errore">
+          <div class="alert alert-danger">
+            <ul>
+              <li>{{ errore }}</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div *ngIf="!isUtenteEliminato">
+            <div *ngIf="!isErroreUguale">
+              <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                  (click)="deleteUtente(utente)">SI</button>
+                <button type="button" class="btn btn-primary" (click)="chiudiModaleEliminaUtenti()">NO</button>
+              </div>
+            </div>
+            <div *ngIf="isErroreUguale">
+              <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                  (click)="deleteUtenteAndDonazioni(utente)">SI</button>
+                <button type="button" class="btn btn-primary" (click)="deleteJustUtente(utente)">NO</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
       </div>
-       </div>
+    </div>
+  </div>
 
-         </div>
-
-
-     </div>
-   </div>
- </div>
-
-<!-- MODALE MODIFICA UTENTE-->
- <div class="modal" id="modaleModificaUtente" tabindex="-1">
-   <div class="modal-dialog">
-     <div class="modal-content">
-       <div  class="modal-header">
-         <h5 *ngIf="!isUtenteModificato" class="modal-title">Modifica l'utente {{utente.nome}} {{utente.cognome}}</h5>
-         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleModificaUtente()"></button>
-       </div>
-       <div class="modal-body">
-         <div *ngIf="!isUtenteModificato">
+  <!-- MODALE MODIFICA UTENTE-->
+  <div class="modal" id="modaleModificaUtente" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 *ngIf="!isUtenteModificato" class="modal-title">Modifica l'utente {{utente.nome}} {{utente.cognome}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="chiudiModaleModificaUtente()"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="!isUtenteModificato">
             <form #form="ngForm" (ngSubmit)="modificaUtente(form)">
-           <div class="form-group">
-             <label for="nome">Nome</label>
-             <input type="text" class="form-control" id="nome" [(ngModel)]="utente.nome" name="nome" ngModel>
-           </div>
-           <div class="form-group">
-             <label for="cognome">Cognome</label>
-             <input type="text" class="form-control" id="cognome" [(ngModel)]="utente.cognome" name="cognome" ngModel>
-           </div>
-           <div class="form-group">
-             <label for="email">Email</label>
-             <input type="email" class="form-control" id="email" [(ngModel)]="utente.email" name="email" ngModel>
-           </div>
-           <div class="form-group">
-             <div class="d-flex justify-content-between">
-               <label for="ruolo">Ruolo</label>
-               <div class="form-check">
-                 <input class="form-check-input" type="radio" name="ruolo" id="USER" [(ngModel)]="isUtenteUser" [value]="true">
-                 <label class="form-check-label" for="USER">User</label>
-               </div>
-               <div class="form-check">
-                 <input class="form-check-input" type="radio" name="ruolo" id="ADMIN" [(ngModel)]="isUtenteUser" [value]="false">
-                 <label class="form-check-label" for="ADMIN">Admin</label>
-               </div>
-             </div>
-           </div>
-           <div class="modal-footer">
-         <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center">Salva</button>
-       </div>
-         </form>
-         </div>
-<div class="modal-body" *ngIf="isUtenteModificato">
- <h5 class="modal-title alert alert-success">Utente modificato con successo!</h5>
-</div>
+              <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" [(ngModel)]="utente.nome" name="nome" ngModel>
+              </div>
+              <div class="form-group">
+                <label for="cognome">Cognome</label>
+                <input type="text" class="form-control" id="cognome" [(ngModel)]="utente.cognome" name="cognome"
+                  ngModel>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" [(ngModel)]="utente.email" name="email" ngModel>
+              </div>
+              <div class="form-group">
+                <div class="d-flex justify-content-between">
+                  <label for="ruolo">Ruolo</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ruolo" id="USER" [(ngModel)]="isUtenteUser"
+                      [value]="true">
+                    <label class="form-check-label" for="USER">User</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ruolo" id="ADMIN" [(ngModel)]="isUtenteUser"
+                      [value]="false">
+                    <label class="form-check-label" for="ADMIN">Admin</label>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit"
+                  class="btn btn-primary d-flex justify-content-center align-items-center">Salva</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-body" *ngIf="isUtenteModificato">
+            <h5 class="modal-title alert alert-success">Utente modificato con successo!</h5>
+          </div>
 
-       </div>
+        </div>
 
-     </div>
-   </div>
- </div>
+      </div>
+    </div>
+  </div>
 
 
 
- <!-- MODALE OSSERVAZIONE TAVOLA-->
- <div class="modal" tabindex="-1" id="tavola-eye">
-   <div class="modal-dialog">
-     <div class="modal-content" >
-       <div class="modal-body" style="background-image: url({{tavola.url}}); height: 600px; background-size: cover;">
+  <!-- MODALE OSSERVAZIONE TAVOLA-->
+  <div class="modal" tabindex="-1" id="tavola-eye">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body" style="background-image: url({{tavola.url}}); height: 600px; background-size: cover;">
 
-       </div>
-       <div class="modal-header">
-         <h5 class="modal-title">{{tavola.titolo}}</h5>
-         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleOsservaTavola()"></button>
-       </div>
-       <div class="modal-body">
-         <p>{{tavola.descrizione}}</p>
-       </div>
+        </div>
+        <div class="modal-header">
+          <h5 class="modal-title">{{tavola.titolo}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="chiudiModaleOsservaTavola()"></button>
+        </div>
+        <div class="modal-body">
+          <p>{{tavola.descrizione}}</p>
+        </div>
 
-     </div>
-   </div>
- </div>
+      </div>
+    </div>
+  </div>
 
 
   <!-- MODALE ELIMINAZIONE TAVOLA-->
@@ -502,11 +549,13 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 *ngIf="!isTavolaEliminata" class="modal-title alert alert-danger">Desideri eliminare la tavola '{{tavola.titolo}}'?</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleEliminaTavola()"></button>
+          <h5 *ngIf="!isTavolaEliminata" class="modal-title alert alert-danger">Desideri eliminare la tavola
+            '{{tavola.titolo}}'?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="chiudiModaleEliminaTavola()"></button>
         </div>
         <div class="modal-body" *ngIf="errore">
-          <div  class="alert alert-danger">
+          <div class="alert alert-danger">
             <ul>
               <li>{{ errore }}</li>
             </ul>
@@ -514,31 +563,33 @@
         </div>
         <div>
           <div *ngIf="!isTavolaEliminata">
-        <div class="modal-footer d-flex justify-content-between" >
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteTavola(tavola)">SI</button>
-          <button type="button" class="btn btn-primary" (click)="chiudiModaleEliminaTavola()">NO</button>
-        </div>
-        </div>
-
+            <div class="modal-footer d-flex justify-content-between">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                (click)="deleteTavola(tavola)">SI</button>
+              <button type="button" class="btn btn-primary" (click)="chiudiModaleEliminaTavola()">NO</button>
+            </div>
           </div>
+
+        </div>
 
 
       </div>
     </div>
   </div>
 
-<!-- MODALE CREA TAVOLA-->
-<div class="modal" id="modaleCreaTavola" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div  class="modal-header">
-        <h5  class="modal-title">Riempi i campi</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleAggiungiTavola()"></button>
-      </div>
-      <div class="modal-body">
-        <div >
-          <form #formUploadTavola ="ngForm" action="/upload" method="post" enctype="multipart/form-data">
-          <!--<label for="titoloUploadTavola" class="me-2">Titolo:</label>
+  <!-- MODALE CREA TAVOLA-->
+  <div class="modal" id="modaleCreaTavola" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Riempi i campi</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="chiudiModaleAggiungiTavola()"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <form #formUploadTavola="ngForm" action="/upload" method="post" enctype="multipart/form-data">
+              <!--<label for="titoloUploadTavola" class="me-2">Titolo:</label>
             <input type="text" name="titoloUploadTavola" id="titoloUploadTavola" required [(ngModel)]="nuovaTavola.titolo"><br><br>
 
             <label for="annoUploadTavola" class="me-2">Anno:</label>
@@ -546,69 +597,75 @@
 
             <label for="descrizione">Descrizione:</label>
             <textarea name="descrizioneUploadTavola" id="descrizioneUploadTavola" rows="4" cols="50" required [(ngModel)]="nuovaTavola.descrizione"></textarea><br><br>-->
-            <p>CHANGE</p>
-            <input type="file" >
-<p>CLICK</p>
-            <input  type="file" name="fileUploadTavola" id="urlUploadTavola" accept=".jpg, .jpeg, .png" required [(ngModel)]="nuovaTavola.url"><br><br>
+              <p>CHANGE</p>
+              <input type="file">
+              <p>CLICK</p>
+              <input type="file" name="fileUploadTavola" id="urlUploadTavola" accept=".jpg, .jpeg, .png" required
+                [(ngModel)]="nuovaTavola.url"><br><br>
 
-<div class="modal-body d-flex justify-content-center">
-   <button type="button" style="width: 85px;" class="btn btn-primary " data-bs-dismiss="modal" [disabled]="formUploadTavola.invalid" (click)="aggiungiTavola(formUploadTavola)"><p class="p-0 m-0">Carica</p></button>
-</div>
-          </form>
+              <div class="modal-body d-flex justify-content-center">
+                <button type="button" style="width: 85px;" class="btn btn-primary " data-bs-dismiss="modal"
+                  [disabled]="formUploadTavola.invalid" (click)="aggiungiTavola(formUploadTavola)">
+                  <p class="p-0 m-0">Carica</p>
+                </button>
+              </div>
+            </form>
+
+          </div>
 
         </div>
 
       </div>
-
     </div>
   </div>
-</div>
   <!-- MODALE MODIFICA TAVOLA-->
   <div class="modal" id="modaleModificaTavola" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div  class="modal-header">
+        <div class="modal-header">
           <h5 *ngIf="!isTavolaModificata" class="modal-title">Modifica la tavola {{tavola.titolo}}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleModificaTavola()"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="chiudiModaleModificaTavola()"></button>
         </div>
         <div class="modal-body">
           <div *ngIf="!isTavolaModificata&&!isErroreUguale">
-             <form #form="ngForm" (ngSubmit)="modificaTavola(form)">
-            <div class="form-group">
-              <label for="nome">Titolo</label>
-              <input type="text" class="form-control" id="titolo" [(ngModel)]="tavola.titolo" name="titolo" ngModel>
-            </div>
-            <div class="form-group">
-              <label for="descrizione" class="col-form-label">Descrizione:</label>
-              <textarea class="form-control" id="descrizione" [(ngModel)]="tavola.descrizione" name="descrizione" ngModel></textarea>
-            </div>
-            <div class="form-group">
-              <label for="anno">Anno</label>
-              <input type="anno" class="form-control" id="anno" [(ngModel)]="tavola.anno" name="anno" ngModel>
-            </div>
-            <div class="form-group d-flex justify-content-between">
-              <label for="immagine">Immagine</label>
-              <input type="file" class="form-control-file" id="immagine" name="immagine"
-              accept="image/*" required>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary">Salva le modifiche</button>
-        </div>
-          </form>
+            <form #form="ngForm" (ngSubmit)="modificaTavola(form)">
+              <div class="form-group">
+                <label for="nome">Titolo</label>
+                <input type="text" class="form-control" id="titolo" [(ngModel)]="tavola.titolo" name="titolo" ngModel>
+              </div>
+              <div class="form-group">
+                <label for="descrizione" class="col-form-label">Descrizione:</label>
+                <textarea class="form-control" id="descrizione" [(ngModel)]="tavola.descrizione" name="descrizione"
+                  ngModel></textarea>
+              </div>
+              <div class="form-group">
+                <label for="anno">Anno</label>
+                <input type="anno" class="form-control" id="anno" [(ngModel)]="tavola.anno" name="anno" ngModel>
+              </div>
+              <div class="form-group d-flex justify-content-between">
+                <label for="immagine">Immagine</label>
+                <input type="file" class="form-control-file" id="immagine" name="immagine" accept="image/*" required>
+              </div>
+              <div class="modal-footer d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Salva le modifiche</button>
+              </div>
+            </form>
           </div>
-        <div class="modal-body" *ngIf="isTavolaModificata">
-           <h5 class="modal-title alert alert-success">Tavola modificata con successo!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleModificaTavola()"></button>
-        </div>
-        <div class="modal-body" *ngIf="isErroreUguale">
+          <div class="modal-body" *ngIf="isTavolaModificata">
+            <h5 class="modal-title alert alert-success">Tavola modificata con successo!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+              (click)="chiudiModaleModificaTavola()"></button>
+          </div>
+          <div class="modal-body" *ngIf="isErroreUguale">
 
-            <div  class="alert alert-danger">
+            <div class="alert alert-danger">
               <ul>
                 <li>{{ errore }}</li>
               </ul>
 
+            </div>
           </div>
-       </div>
         </div>
       </div>
     </div>
@@ -621,60 +678,68 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Riempi i campi</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="chiudiModaleAggiungiUtente()"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="chiudiModaleAggiungiUtente()"></button>
         </div>
         <div class="modal-body">
           <div *ngIf="!isUtenteCreato">
-             <form #form="ngForm" (ngSubmit)="creaUtente(form)">
-            <div class="form-group">
-              <label for="nome">Nome</label>
-              <input type="text" class="form-control" id="nome_nuovoUtente"  name="nome_nuovoUtente" required ngModel>
-            </div>
-            <div class="form-group">
-              <label for="cognome">Cognome</label>
-              <input type="text" class="form-control" id="cognome_nuovoUtente"  name="cognome_nuovoUtente" required ngModel>
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" id="email_nuovoUtente"  name="email_nuovoUtente" required ngModel>
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" id="password_nuovoUtente" name="password_nuovoUtente" class="form-control" required ngModel>
-            </div>
-            <div class="form-group">
-              <div class="d-flex justify-content-between">
-                <label for="ruolo">Ruolo</label>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="ruolo_nuovoUtente" [(ngModel)]="nuovoUtenteRuolo"  value='USER' required ngModel>
-                  <label class="form-check-label" for="USER">User</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="ruolo_nuovoUtente" [(ngModel)]="nuovoUtenteRuolo" value='ADMIN' required ngModel>
-                  <label class="form-check-label" for="ADMIN">Admin</label>
+            <form #form="ngForm" (ngSubmit)="creaUtente(form)">
+              <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome_nuovoUtente" name="nome_nuovoUtente" required ngModel>
+              </div>
+              <div class="form-group">
+                <label for="cognome">Cognome</label>
+                <input type="text" class="form-control" id="cognome_nuovoUtente" name="cognome_nuovoUtente" required
+                  ngModel>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email_nuovoUtente" name="email_nuovoUtente" required
+                  ngModel>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password_nuovoUtente" name="password_nuovoUtente" class="form-control"
+                  required ngModel>
+              </div>
+              <div class="form-group">
+                <div class="d-flex justify-content-between">
+                  <label for="ruolo">Ruolo</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ruolo_nuovoUtente" [(ngModel)]="nuovoUtenteRuolo"
+                      value='USER' required ngModel>
+                    <label class="form-check-label" for="USER">User</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ruolo_nuovoUtente" [(ngModel)]="nuovoUtenteRuolo"
+                      value='ADMIN' required ngModel>
+                    <label class="form-check-label" for="ADMIN">Admin</label>
+                  </div>
                 </div>
               </div>
-            </div>
-          <div *ngIf="errori.length > 0" class="alert alert-danger">
-              <ul>
-                <li *ngFor="let err of errori">{{ err }}</li>
-              </ul>
-            </div>
-            <div *ngIf="errore" class="alert alert-danger">
-              <ul>
-                <li>{{errore}}</li>
-              </ul>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-          <button type="submit" [disabled]="form.invalid" style="width: 85px;" class="btn btn-primary"><p class="m-0">Carica</p></button>
-        </div>
-          </form>
+              <div *ngIf="errori.length > 0" class="alert alert-danger">
+                <ul>
+                  <li *ngFor="let err of errori">{{ err }}</li>
+                </ul>
+              </div>
+              <div *ngIf="errore" class="alert alert-danger">
+                <ul>
+                  <li>{{errore}}</li>
+                </ul>
+              </div>
+              <div class="modal-footer d-flex justify-content-center">
+                <button type="submit" [disabled]="form.invalid" style="width: 85px;" class="btn btn-primary">
+                  <p class="m-0">Carica</p>
+                </button>
+              </div>
+            </form>
           </div>
-<div class="modal-body" *ngIf="isUtenteCreato">
-  <h5 class="modal-title alert alert-success">Utente creato con successo!</h5>
+          <div class="modal-body" *ngIf="isUtenteCreato">
+            <h5 class="modal-title alert alert-success">Utente creato con successo!</h5>
 
 
-</div>
+          </div>
 
         </div>
 
@@ -690,4 +755,4 @@
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
- </body>
+</body>

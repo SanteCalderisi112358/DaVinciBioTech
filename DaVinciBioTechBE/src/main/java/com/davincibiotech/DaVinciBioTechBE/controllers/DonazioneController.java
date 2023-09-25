@@ -78,7 +78,7 @@ public class DonazioneController {
 			return donazioni;
 
 		} else {
-			throw new BadRequestException("Non hai effettutato nessuna donazione.");
+			throw new BadRequestException("Non hai effettuato nessuna donazione.");
 
 		}
 	}

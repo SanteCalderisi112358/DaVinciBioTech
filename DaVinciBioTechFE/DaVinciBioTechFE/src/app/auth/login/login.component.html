@@ -49,7 +49,7 @@
       </div>
 
   </main>
-  <!-- recovery-password-modal.component.html -->
+  <!-- MODALE RECUPERO PASSWORD -->
 <div class="modal" id="recupero-password" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -64,7 +64,7 @@
         <form id="recupero-password-form" #passwordForm="ngForm" (ngSubmit)="cambioPassword(passwordForm)">
           <div class="form-group">
             <label for="recoveryEmail">Email</label>
-            <input type="email" id="recoveryEmail" class="form-control" name="recoveryEmail" [(ngModel)]="recuperoPasswordData.recoveryEmail" required >
+            <input type="email" id="recoveryEmail" class="form-control" name="recoveryEmail" style="color: black;" [(ngModel)]="recuperoPasswordData.recoveryEmail" required >
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary mb-3" [disabled]="passwordForm.invalid">Invia</button>

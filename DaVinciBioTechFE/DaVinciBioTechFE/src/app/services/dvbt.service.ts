@@ -4,11 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { Tavola } from '../models/tavola.interface';
 import { Utente } from '../models/utente.interface';
 import { Donazione } from '../models/donazione.interface';
-import { UtenteModificato } from '../models/utenteModifica.interface';
+import { UtenteModificato } from '../models/utente-modifica-from-admin.interface';
 import { TavolaModifica } from '../models/tavolaModifica.interface';
 import { UtenteNuovo } from '../models/utente-nuovo.interface';
 import { RecuperoPassword } from '../models/recupero-password.interface';
 import { DonazioneBody } from '../models/donazione-body.interface';
+import { UtenteModifica } from '../models/utente-modifica-from-user.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -110,5 +111,11 @@ export class DvbtService {
 
   getDonazioniFromUser(idUtente:string){
     return this.http.get<Donazione[]>(`${this.baseUrl}donazioni/donazioni-user/${idUtente}`)
+  }
+
+  putUtenteFromUtente(idUtente:string, utente:UtenteModifica){
+    return this.http.put<Utente>(`${this.baseUrl}utenti/utente/${idUtente}`, utente);
+
+
   }
 }

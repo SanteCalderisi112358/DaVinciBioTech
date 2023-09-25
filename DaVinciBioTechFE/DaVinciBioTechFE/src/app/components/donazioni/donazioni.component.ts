@@ -23,7 +23,7 @@ export class DonazioniComponent implements OnInit {
 constructor(private autSrv:AuthService, private dvbtSrv:DvbtService, private router:Router){}
   ngOnInit(): void {
 
-
+console.log("Donazione Fatta?"+this.isDonazione)
     this.autSrv.user$.subscribe((_user)=>{
       this.user= _user
       if(this.user){
@@ -108,6 +108,8 @@ const today = new Date();
         console.log(this.donazione)
         setTimeout(() => {
           this.isDonazione = true;
+          console.log("Donazione Fatta?"+this.isDonazione)
+
         }, 2000);
       }
     },

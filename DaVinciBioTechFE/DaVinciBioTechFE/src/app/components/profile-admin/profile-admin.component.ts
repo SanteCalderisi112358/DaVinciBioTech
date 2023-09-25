@@ -9,7 +9,7 @@ import { TavolaModifica } from 'src/app/models/tavolaModifica.interface';
 import { TipoRuolo } from 'src/app/models/tipo-utente.enum';
 import { UtenteNuovo } from 'src/app/models/utente-nuovo.interface';
 import { Utente } from 'src/app/models/utente.interface';
-import { UtenteModificato } from 'src/app/models/utenteModifica.interface';
+import { UtenteModificato } from 'src/app/models/utente-modifica-from-admin.interface';
 import { DvbtService } from 'src/app/services/dvbt.service';
 import { NuovaTavola } from 'src/app/models/nuova-tavola.interface';
 import { AwsServiceSDK } from 'src/app/services/aws.service';

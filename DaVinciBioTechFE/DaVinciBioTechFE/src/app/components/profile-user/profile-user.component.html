@@ -1,8 +1,8 @@
 <body>
-  <main>
+  <main [class.blur-main]="isModaleOpen">
     <div id="prova" class="d-flex justify-content-end" style="position: fixed; top: 55px; right: 0;">
       <div class="d-inline-block">
-        <button class="btn btn-secondary border radius-circle" id="dropdownMenuButton" (click)="toggleDashboard()">
+        <button class="btn btn-secondary border radius-circle m-2" id="dropdownMenuButton" (click)="toggleDashboard()">
           <i class="bi bi-gear"></i>
         </button>
       </div>
@@ -19,7 +19,7 @@
               <div class="no-play disabilita col-12 d-flex justify-content-center align-items-center" #noPlay></div>
             </div>
             <div class="carte d-flex justify-content-center align-items-center">
-              <div class="scena">
+              <div class="scena blur" #scena>
                 <div class="carta1" #carta1>
                   <div class="carta-face carta-face--front1"></div>
                   <div class="carta-face carta-face--back1"></div>
@@ -38,7 +38,7 @@
                 </div>
               </div>
             </div>
-            <div class="d-flex justify-content-center disabilitaButton" #disabilitaButton style="height: 20px;">
+            <div class="d-flex justify-content-center" #disabilitaButton style="height: 20px;">
               <div class="button" #button>Play</div>
             </div>
           </div>
@@ -53,22 +53,62 @@
       </div>
     </div>
   </main>
-  <!--MODALE CAMBIO PASSWORD-->
+  <!--MODALE CAMBIO DATI-->
   <div class="modal" id="modalePassword" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="chiudiModalePassword()"></button>
+        <div>
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn-close m-2" data-bs-dismiss="modal" aria-label="Close"
+              (click)="chiudiModalePassword()"></button>
+          </div>
+
+          <h5 *ngIf="!isUtenteModificato" class="modal-title" style="opacity: 1;">Modifica i tuoi dati</h5>
+
         </div>
-        <div class="modal-body">
-          <p>Inserire la tua attuale password</p>
+        <div class="modal-body p-0">
+          <div *ngIf="isUtenteModificato" class="m-2">
+            <p style="color: green;">Le tue modifiche sono avvenute con successo. Riceverai una email con i nuovi dati
+            </p>
+          </div>
+          <form *ngIf="!isUtenteModificato" #form="ngForm" (ngSubmit)="putUtente(form)">
+            <div class="form-group">
+              <label for="nome">Nuovo Nome</label>
+              <input type="text" id="nome" class="form-control" name="nome" [(ngModel)]="utente.nome" required ngModel>
+              <label for="cognome">Nuovo Cognome</label>
+              <input type="text" id="cognome" class="form-control" name="cognome" [(ngModel)]="utente.cognome" required
+                ngModel>
+            </div>
+            <div class="form-group">
+              <label for="email">Nuova e-mail</label>
+              <input type="email" id="email" class="form-control" name="email" [(ngModel)]="utente.email" required
+                ngModel>
+            </div>
+            <div class="form-group">
+              <label for="password">Nuova password</label>
+              <input type="password" id="password" name="password" class="form-control" required ngModel>
+            </div>
+            <button type="submit" [disabled]="form.invalid" class="btn btn-primary mb-3">Registrati</button>
+            <div *ngIf="isErrore" class="d-flex justify-content-center mb-3">
+
+              <div class="spinner-grow text-warning spinner-grow-sm me-1" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+              <div class="spinner-grow text-warning spinner-grow-sm me-1" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+              <div class="spinner-grow text-warning spinner-grow-sm me-1" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+            </div>
+            <div *ngIf="errori.length > 0" class="alert alert-danger mt-1">
+              <ul>
+                <li *ngFor="let errore of errori">{{ errore }}</li>
+              </ul>
+            </div>
+          </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+
       </div>
     </div>
   </div>
@@ -77,18 +117,17 @@
   <div class="modal" id="modaleDonazioni" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn-close m-2" data-bs-dismiss="modal" aria-label="Close"
             (click)="chiudiModaleDonazioni()"></button>
         </div>
         <div class="modal-body">
-          <p>Le tue donazioni:</p>
-          <div >
+          <div>
             <ul>
-            <li *ngFor="let donazione of donazioniUtente">
-              {{ donazione.importo }} € eseguita il giorno {{ donazione.data }}
-            </li>
-          </ul>
+              <li *ngFor="let donazione of donazioniUtente">
+                {{ donazione.importo }} € eseguita il giorno {{ donazione.data }}
+              </li>
+            </ul>
           </div>
           <div *ngIf="isErrore">
             <ul>
@@ -98,12 +137,13 @@
 
         </div>
         <div class="modal-footer">
+          <div class="text-center"><a href="/donazioni">Vuoi fare una donazione?</a></div>
         </div>
       </div>
     </div>
   </div>
   <app-dashboard [isOpen]="isDashboardOpen" (close)="toggleDashboard()"
-    (apriModalePasswordClicked)="apriModalePassword()"
+    (apriModalePasswordClicked)="apriModalePutDati()"
     (apriModaleDonazioniClicked)="apriModaleDonazioni()"></app-dashboard>
 
 </body>

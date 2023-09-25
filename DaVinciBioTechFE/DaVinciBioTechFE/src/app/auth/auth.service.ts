@@ -50,6 +50,10 @@ export class AuthService {
     );
   }
 
+  loginAfterPut(data:Utente){
+    localStorage.setItem('utente', JSON.stringify(data));
+  }
+
   restore() {
      this.utenteLoggato = localStorage.getItem('utente');
     if (!this.utenteLoggato) {

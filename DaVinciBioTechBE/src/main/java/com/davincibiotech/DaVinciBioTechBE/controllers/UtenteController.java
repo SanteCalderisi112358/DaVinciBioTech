@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.davincibiotech.DaVinciBioTechBE.entities.Donazione;
+import com.davincibiotech.DaVinciBioTechBE.entities.TipoUtente;
 import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
 import com.davincibiotech.DaVinciBioTechBE.exceptions.BadRequestException;
 import com.davincibiotech.DaVinciBioTechBE.payloads.UtenteRequestBody;
@@ -33,6 +35,9 @@ public class UtenteController {
 	@Autowired
 	DonazioneService donazioneSrv;
 	private final UtenteService utenteSrv;
+
+	@Autowired
+	PasswordEncoder bcrypt;
 
 	@Autowired
 	public UtenteController(UtenteService utenteSrv) {
@@ -56,7 +61,15 @@ public class UtenteController {
 
 	@PutMapping("/{userId}")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public Utente updateUtente(@PathVariable UUID userId, @RequestBody UtenteRequestBody body) {
+	public Utente updateUtenteAdmin(@PathVariable UUID userId, @RequestBody UtenteRequestBody body) {
+		return utenteSrv.findByIdAndUpdate(userId, body);
+
+	}
+
+	@PutMapping("/utente/{userId}")
+	public Utente updateUtenteUser(@PathVariable UUID userId, @RequestBody @Validated UtenteRequestBody body) {
+		body.setPassword(bcrypt.encode(body.getPassword()));
+		body.setRuolo(TipoUtente.USER);
 		return utenteSrv.findByIdAndUpdate(userId, body);
 
 	}

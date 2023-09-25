@@ -3,7 +3,7 @@
   <main [class.blur-main]="modalIsOpen">
     <div class="d-flex justify-content-around">
       <section style="position: absolute;" class="d-flex justify-content-between flex-wrap container">
-      <div *ngFor="let tavola of tavole; let i = index">
+      <div *ngFor="let tavola of tavole; let i = index" (click)="apriModaleOsservaTavola(tavola)">
         <div class="container">
           <div class="row">
             <div class="col-12 text-center mt-5">
@@ -15,7 +15,6 @@
                  <div class="shadow-top"></div>
                     <div class="card-body">
                       <h5 class="card-title">{{tavola.titolo}}</h5>
-                     <a class="btn btn-warning" (click)="apriModaleOsservaTavola(tavola)">Clicca</a>
                     </div>
                   </div>
               </div>
@@ -42,8 +41,8 @@
   </main>
 
   <!-- MODALE OSSERVAZIONE TAVOLA-->
-  <div class="modal" tabindex="-1" id="tavola-eye">
-    <div class="modal-dialog">
+  <div class="modal fade" tabindex="-1"   role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
       <div class="modal-content" >
         <div class="modal-body p-0" style="overflow: hidden;">
           <img [src]="tavola.url" width="500px" alt="">
@@ -61,7 +60,26 @@
     </div>
   </div>
 
-
+  <!-- Modal -->
+<div class="modal fade" id="tavola-eye" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 </body>
