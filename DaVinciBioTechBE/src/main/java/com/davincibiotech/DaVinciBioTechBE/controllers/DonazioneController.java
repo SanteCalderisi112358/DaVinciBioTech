@@ -60,6 +60,7 @@ public class DonazioneController {
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public Page<Donazione> getDonazioni(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String sortBy) {
+		System.err.println("ciao");
 		return donazioneSrv.find(page, size, sortBy);
 	}
 
@@ -191,6 +192,16 @@ public class DonazioneController {
 					"Tra il " + dataInizio + " e il " + dataFine + " non ci sono state donazioni!");
 		}
 	}
+
+	@GetMapping("/importo-donazioni-utente/{idUtente}")
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public BigDecimal getImportoDonazioniPerUtente(@PathVariable UUID idUtente) {
+		System.out.println("ID Utente ricevuto: " + idUtente.toString());
+		BigDecimal importo = donazioneSrv.getImportoDonazioniFromUser(idUtente);
+		System.err.println(importo);
+		return importo;
+	}
+
 
 }
 

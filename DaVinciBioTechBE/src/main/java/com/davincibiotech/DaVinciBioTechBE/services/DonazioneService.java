@@ -70,4 +70,8 @@ public class DonazioneService {
 		return donazioneRepo.getSommaAllDonazioni();
 	}
 
+	public BigDecimal getImportoDonazioniFromUser(UUID idUtente) {
+		return donazioneRepo.getImportoDonazioniPerUtente(idUtente);
+	}
+
 }

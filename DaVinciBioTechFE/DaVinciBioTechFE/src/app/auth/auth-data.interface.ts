@@ -7,6 +7,6 @@ export interface AuthData {
   nome:string,
   cognome:string,
   ruolo: TipoRuolo,
-  id?:string
+  id:string
   };
 }

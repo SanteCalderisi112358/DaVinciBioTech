@@ -24,4 +24,8 @@ public interface DonazioneRepository extends JpaRepository<Donazione, UUID> {
 	@Query("SELECT d FROM Donazione d WHERE d.data BETWEEN :dataInizio AND :dataFine ORDER BY d.data ASC")
 	List<Donazione> getDonazioniPerPeriodo(@Param("dataInizio") LocalDate dataInizio,
 			@Param("dataFine") LocalDate dataFine);
+
+	@Query("SELECT COALESCE(SUM(d.importo), 0) FROM Donazione d WHERE d.utente.id = :idUtente")
+	BigDecimal getImportoDonazioniPerUtente(@Param("idUtente") UUID idUtente);
+
 }

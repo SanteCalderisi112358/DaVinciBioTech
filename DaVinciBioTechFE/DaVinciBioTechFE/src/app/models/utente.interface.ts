@@ -7,5 +7,5 @@ export interface Utente {
   nome:string,
   cognome:string,
   ruolo: TipoRuolo;
-  id?:string
+  id:string
 }

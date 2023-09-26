@@ -16,10 +16,12 @@
             <h1 class="titolo h2" #titolo>Ogni nostra cognizione principia dal cuore...</h1>
             <h5 class="sottoTitolo" #sottoTitolo>...trova il cuore, {{user?.utente?.nome}}</h5>
             <div class="row">
-              <div class="no-play disabilita col-12 d-flex justify-content-center align-items-center" #noPlay></div>
+              <div class="no-play disabilita col-12 d-flex justify-content-center align-items-center" #noPlay>
+              </div>
             </div>
             <div class="carte d-flex justify-content-center align-items-center">
               <div class="scena blur" #scena>
+                <div #heart class="heart">CIAO</div>
                 <div class="carta1" #carta1>
                   <div class="carta-face carta-face--front1"></div>
                   <div class="carta-face carta-face--back1"></div>
@@ -60,29 +62,26 @@
         <div>
           <div class="d-flex justify-content-end">
             <button type="button" class="btn-close m-2" data-bs-dismiss="modal" aria-label="Close"
-              (click)="chiudiModalePassword()"></button>
+            (click)="chiudiModalePassword()"></button>
           </div>
 
           <h5 *ngIf="!isUtenteModificato" class="modal-title" style="opacity: 1;">Modifica i tuoi dati</h5>
 
         </div>
         <div class="modal-body p-0">
-          <div *ngIf="isUtenteModificato" class="m-2">
-            <p style="color: green;">Le tue modifiche sono avvenute con successo. Riceverai una email con i nuovi dati
-            </p>
+          <div *ngIf="isUtenteModificato">
+<p style="color: green;">Le tue modificato sono avvenute con successo. Riceverai una email con i nuovi dati</p>
           </div>
-          <form *ngIf="!isUtenteModificato" #form="ngForm" (ngSubmit)="putUtente(form)">
+          <form *ngIf="!isUtenteModificato"  #form="ngForm" (ngSubmit)="putUtente(form)">
             <div class="form-group">
               <label for="nome">Nuovo Nome</label>
-              <input type="text" id="nome" class="form-control" name="nome" [(ngModel)]="utente.nome" required ngModel>
+              <input type="text" id="nome" class="form-control" name="nome" [(ngModel)]="utente.nome" required ngModel >
               <label for="cognome">Nuovo Cognome</label>
-              <input type="text" id="cognome" class="form-control" name="cognome" [(ngModel)]="utente.cognome" required
-                ngModel>
+              <input type="text" id="cognome" class="form-control" name="cognome" [(ngModel)]="utente.cognome" required ngModel >
             </div>
             <div class="form-group">
               <label for="email">Nuova e-mail</label>
-              <input type="email" id="email" class="form-control" name="email" [(ngModel)]="utente.email" required
-                ngModel>
+              <input type="email" id="email" class="form-control" name="email" [(ngModel)]="utente.email" required ngModel >
             </div>
             <div class="form-group">
               <label for="password">Nuova password</label>
@@ -102,12 +101,11 @@
               </div>
             </div>
             <div *ngIf="errori.length > 0" class="alert alert-danger mt-1">
-              <ul>
-                <li *ngFor="let errore of errori">{{ errore }}</li>
-              </ul>
-            </div>
-          </form>
-        </div>
+            <ul>
+              <li *ngFor="let errore of errori">{{ errore }}</li>
+            </ul>
+          </div>
+           </form>        </div>
 
       </div>
     </div>
@@ -122,12 +120,12 @@
             (click)="chiudiModaleDonazioni()"></button>
         </div>
         <div class="modal-body">
-          <div>
+          <div >
             <ul>
-              <li *ngFor="let donazione of donazioniUtente">
-                {{ donazione.importo }} € eseguita il giorno {{ donazione.data }}
-              </li>
-            </ul>
+            <li *ngFor="let donazione of donazioniUtente">
+              {{ donazione.importo }} € eseguita il giorno {{ donazione.data }}
+            </li>
+          </ul>
           </div>
           <div *ngIf="isErrore">
             <ul>
@@ -137,7 +135,7 @@
 
         </div>
         <div class="modal-footer">
-          <div class="text-center"><a href="/donazioni">Vuoi fare una donazione?</a></div>
+<div class="text-center"><a href="/donazioni">Vuoi fare una donazione?</a></div>
         </div>
       </div>
     </div>

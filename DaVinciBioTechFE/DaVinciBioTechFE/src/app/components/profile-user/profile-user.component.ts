@@ -15,6 +15,8 @@ import { UtenteModifica } from 'src/app/models/utente-modifica-from-user.interfa
   styleUrls: ['./profile-user.component.scss']
 })
 export class ProfileUserComponent implements OnInit, AfterViewInit {
+  idUser:string = ''
+  importoDonazioni:number =0
   user!: AuthData | null
   areDonazioni: boolean = false;
   donazioniUtente: Donazione[] = []
@@ -64,27 +66,27 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
 
     this.autSrv.user$.subscribe((_user) => {
       this.user = _user
+
       if (this.user) {
         this.utente = this.user?.utente
         console.log(this.user?.utente)
+
       } else {
         console.log("Nessun si è loggato")
       }
 
 
     })
-
   }
 
   ngAfterViewInit(): void {
     console.log(this.carta1)
     console.log(this.scena.nativeElement)
     this.button.nativeElement.addEventListener('click', () => {
+
       this.sottoTitolo.nativeElement.classList.add('opacity-on');
       this.noPlay.nativeElement.classList.remove('disabilita');
-
       this.scena.nativeElement.classList.remove('blur')
-      //this.noPlay.nativeElement.classList.add('removeBlock');
       this.noPlay.nativeElement.innerHTML = ""
       this.carta1.nativeElement.classList.toggle('avvia1');
       this.carta2.nativeElement.classList.toggle('avvia2');
@@ -101,7 +103,6 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
       console.log('Background-image:', backgroundImage);
       if (backgroundImage === 'url("https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_valvole_cardiache.jpeg")') {
         console.log(true)
-        this.noPlay.nativeElement.innerText = '❤️';
         this.scena.nativeElement.classList.add('blur')
         this.button.nativeElement.style.opacity = '1'
 
@@ -117,7 +118,6 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
       console.log('Background-image:', backgroundImage);
       if (backgroundImage === 'url("https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_valvole_cardiache.jpeg")') {
         console.log(true)
-        this.noPlay.nativeElement.innerText = '❤️';
         this.noPlay.nativeElement.classList.add('disabilita');
         this.button.nativeElement.style.opacity = '1'
 
@@ -132,7 +132,6 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
       console.log('Background-image:', backgroundImage);
       if (backgroundImage === 'url("https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_valvole_cardiache.jpeg")') {
         console.log(true)
-        this.noPlay.nativeElement.innerText = '❤️';
         this.noPlay.nativeElement.classList.add('disabilita');
         this.scena.nativeElement.classList.add('blur')
         this.button.nativeElement.style.opacity = '1'
@@ -147,7 +146,6 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
       console.log('Background-image:', backgroundImage);
       if (backgroundImage === 'url("https://davincibiotech.s3.eu-central-1.amazonaws.com/DVBT_protesi_valvole_cardiache.jpeg")') {
         console.log(true)
-        this.noPlay.nativeElement.innerText = '❤️';
         this.noPlay.nativeElement.classList.add('disabilita');
         this.scena.nativeElement.classList.add('blur')
         this.button.nativeElement.style.opacity = '1'
@@ -217,7 +215,7 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
 
             }
 
-        localStorage.setItem('utente', JSON.stringify(utenteToke));
+        localStorage.setItem('utente', JSON.stringify(utente));
 
           }
 

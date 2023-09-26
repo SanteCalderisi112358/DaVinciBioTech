@@ -10,6 +10,14 @@ main{
 
 }
 
+.donatori {
+  background-color: greenyellow;
+  color: black;
+}
+
+.non-donatori{
+  border: red;
+}
 .blur-main {
   filter: blur(5px);
 }

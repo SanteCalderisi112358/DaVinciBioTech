@@ -10,6 +10,7 @@ import { UtenteNuovo } from '../models/utente-nuovo.interface';
 import { RecuperoPassword } from '../models/recupero-password.interface';
 import { DonazioneBody } from '../models/donazione-body.interface';
 import { UtenteModifica } from '../models/utente-modifica-from-user.interface';
+import { NuovaTavola } from '../models/nuova-tavola.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -75,6 +76,10 @@ export class DvbtService {
     return this.http.put<Tavola>(`${this.baseUrl}tavole-leonardo/${idTavola}`,tavolaModificata)
 
   }
+
+  postTavola(nuovaTavola:NuovaTavola){
+    return this.http.post<Tavola>(`${this.baseUrl}tavole-leonardo/`,nuovaTavola)
+  }
   /* CRUD DONAZIONI */
 
   getAllDonazioniAdmin(page:number, size:number, sortBy:String){
@@ -111,6 +116,10 @@ export class DvbtService {
 
   getDonazioniFromUser(idUtente:string){
     return this.http.get<Donazione[]>(`${this.baseUrl}donazioni/donazioni-user/${idUtente}`)
+  }
+
+  getImportoDonazioniFromUser(idUtente:string){
+    return this.http.get<number>(`${this.baseUrl}donazioni/importo-donazioni-utente/${idUtente}`)
   }
 
   putUtenteFromUtente(idUtente:string, utente:UtenteModifica){
