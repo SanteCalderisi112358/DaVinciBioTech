@@ -31,7 +31,7 @@ utente!: Utente;
   ngOnInit(): void {
     setTimeout(() => {
       this.isLoading = false;
-    }, 2000);
+    }, 3000);
     this.subTavole = this.dvbtSrv.getAllTavoleHome().subscribe((response) => {
       this.tavole = response;
     });
