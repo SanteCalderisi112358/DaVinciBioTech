@@ -100,7 +100,12 @@ isModificataTavola:boolean = false
   totalPagesArrayTavole: number[] = [];
   isTavolaEliminata: boolean = false;
   isTavolaModificata: boolean = false;
-  tavolaModificata!: TavolaModifica;
+  tavolaModificata: TavolaModifica = {
+    titolo: '',
+    descrizione: '',
+    anno: 0,
+    url: '',
+  };
 
   nuovaTavola: NuovaTavola = {
     titolo: '',
@@ -326,8 +331,12 @@ isModificataTavola:boolean = false
     }
   }
   highlightRow(importoDonazioni: number): string {
-    return importoDonazioni !== 0 ? 'donatori' : 'non-donatori';
+    return importoDonazioni !== 0 ? 'donatori' : '';
   }
+  highlightRowDonation(importoDonazioni: number): string {
+    return importoDonazioni !== 0 ? 'donazione' : '';
+  }
+
   chiudiModaleDonatore(): void {
     this.isModaleOpen = false;
     const modal = document.getElementById('modaleDonatore');
@@ -645,16 +654,20 @@ console.log(error)
   }
 
   modificaTavola(form: NgForm) {
-    this.tavolaModificata.titolo = form.value.titolo
     this.tavolaModificata.anno = form.value.anno
+    this.tavolaModificata.titolo = form.value.titolo
     this.tavolaModificata.descrizione = form.value.descrizione
-    this.tavolaModificata.url = form.value.url
+    this.tavolaModificata.url = this.nuovaTavola.url
+    console.log("Tavola aggiornata",this.tavolaModificata)
 
-    this.idTavola = this.tavola.id;
-    if (this.idTavola) {
+   if (this.idTavola) {
       this.dvbtSrv.putTavola(this.idTavola, this.tavolaModificata).subscribe(
-        () => {
-          this.isTavolaModificata = true;
+        (response) => {
+          if(response){
+           this.isTavolaModificata = true;
+           this.loadPageTavole(1)
+
+          }
 
         },
         (error: any) => {
@@ -709,12 +722,14 @@ console.log(error)
       this.dvbtSrv.deleteTavola(this.idTavola).subscribe(
         () => {
           console.log('Richiesta HTTP DELETE inviata con successo');
+           this.loadPageTavole(this.currentPageTavole);
         },
         (error: any) => {
           this.errore = error.error.message;
           this.isTavolaEliminata = true;
           console.log(this.errore)
-          this.loadPageTavole(this.currentPage);
+          this.loadPageTavole(this.currentPageTavole);
+
 
         }
       );

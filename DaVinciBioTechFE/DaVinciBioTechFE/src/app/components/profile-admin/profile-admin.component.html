@@ -123,6 +123,7 @@
                   <th scope="col">Nome</th>
                   <th scope="col">Cognome</th>
                   <th scope="col">Email</th>
+                  <th scope = "col">Donazioni</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
@@ -135,7 +136,7 @@
                     [ngClass]="highlightRow(importoDonazioniDonatoriMap[donatore.id])">{{ donatore.cognome }}</td>
                   <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;"
                     [ngClass]="highlightRow(importoDonazioniDonatoriMap[donatore.id])">{{ donatore.email }}</td>
-                  <td>{{ importoDonazioniDonatoriMap[donatore.id] || 0 }} €</td>
+                  <td [ngClass]="highlightRowDonation(importoDonazioniDonatoriMap[donatore.id])" class="d-flex justify-content-center">{{ importoDonazioniDonatoriMap[donatore.id] || 0 }} €</td>
                   <td>
                     <div class="d-flex justify-content-between">
                       <div><i class="bi bi-pencil me-2" style="cursor: pointer;"
@@ -220,7 +221,7 @@
                     [ngClass]="highlightRow(importoDonazioniAllUtentiMap[utente.id])">{{ utente.cognome }}</td>
                   <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;"
                     [ngClass]="highlightRow(importoDonazioniAllUtentiMap[utente.id])">{{ utente.email }}</td>
-                  <td>{{ importoDonazioniAllUtentiMap[utente.id] || 0 }} €</td>
+                  <td [ngClass]="highlightRowDonation(importoDonazioniAllUtentiMap[utente.id])" class="d-flex justify-content-center">{{ importoDonazioniAllUtentiMap[utente.id] || 0 }} €</td>
                   <td>
                     <div class="d-flex justify-content-between">
                       <div><i class="bi bi-pencil me-2" style="cursor: pointer;"
@@ -514,9 +515,9 @@
                   </div>
                 </div>
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer d-flex justify-content-center">
                 <button type="submit"
-                  class="btn btn-primary d-flex justify-content-center align-items-center">Salva</button>
+                  class="btn btn-primary d-flex justify-content-center align-items-center">Modifica</button>
               </div>
             </form>
           </div>
@@ -664,17 +665,17 @@
               </div>
               <div class="form-group d-flex justify-content-between">
                 <label for="immagine">Immagine</label>
-                <input type="file" class="form-control-file" id="immagine" name="immagine" accept="image/*" required>
+                <input (change)="onFileChanged($event)" type="file" class="form-control-file" id="immagine" name="immagine" accept="image/*" [(ngModel)]="tavola.url" required>
+                <input type="text" class="form-control" [value]="tavola.url" readonly>
               </div>
               <div class="modal-footer d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">Salva le modifiche</button>
+                <button type="submit" class="btn btn-primary">Modifica</button>
               </div>
             </form>
           </div>
           <div class="modal-body" *ngIf="isTavolaModificata">
             <h5 class="modal-title alert alert-success">Tavola modificata con successo!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-              (click)="chiudiModaleModificaTavola()"></button>
+
           </div>
           <div class="modal-body" *ngIf="isErroreUguale">
 
