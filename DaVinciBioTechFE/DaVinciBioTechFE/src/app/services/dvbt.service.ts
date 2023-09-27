@@ -78,7 +78,7 @@ export class DvbtService {
   }
 
   postTavola(nuovaTavola:NuovaTavola){
-    return this.http.post<Tavola>(`${this.baseUrl}tavole-leonardo/`,nuovaTavola)
+    return this.http.post<Tavola>(`${this.baseUrl}tavole-leonardo`,nuovaTavola)
   }
   /* CRUD DONAZIONI */
 

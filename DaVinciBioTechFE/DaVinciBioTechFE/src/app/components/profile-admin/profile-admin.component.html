@@ -123,16 +123,18 @@
                   <th scope="col">Nome</th>
                   <th scope="col">Cognome</th>
                   <th scope="col">Email</th>
-                  <th scope="col">Donazioni</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let donatore of donatori; let i = index">
                   <th scope="row">{{ i + 1 + (currentPageD - 1) * pageSizeD }}</th>
-                  <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;" [ngClass]="highlightRow(importoDonazioniDonatoriMap[donatore.id])">{{ donatore.nome }}</td>
-                  <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;" [ngClass]="highlightRow(importoDonazioniDonatoriMap[donatore.id])">{{ donatore.cognome }}</td>
-                  <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;" [ngClass]="highlightRow(importoDonazioniDonatoriMap[donatore.id])">{{ donatore.email }}</td>
+                  <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;"
+                    [ngClass]="highlightRow(importoDonazioniDonatoriMap[donatore.id])">{{ donatore.nome }}</td>
+                  <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;"
+                    [ngClass]="highlightRow(importoDonazioniDonatoriMap[donatore.id])">{{ donatore.cognome }}</td>
+                  <td (click)="apriModaleDonatore(donatore)" style="cursor: pointer;"
+                    [ngClass]="highlightRow(importoDonazioniDonatoriMap[donatore.id])">{{ donatore.email }}</td>
                   <td>{{ importoDonazioniDonatoriMap[donatore.id] || 0 }} €</td>
                   <td>
                     <div class="d-flex justify-content-between">
@@ -142,13 +144,12 @@
                       <div (click)="apriModaleEliminaUtente(donatore)" class="me-2" style="cursor: pointer;"
                         title="Elimina">❌</div>
                       <div><i class="bi bi-eye me-2" style="cursor: pointer;"
-                          (click)="apriModaleDonatore(donatore)"></i></div>
+                          (click)="apriModaleDonatore(donatore)"></i>
+                      </div>
                     </div>
                   </td>
                 </tr>
               </tbody>
-
-
             </table>
 
 
@@ -213,9 +214,12 @@
               <tbody>
                 <tr *ngFor="let utente of utenti; let i = index">
                   <th scope="row">{{ i + 1 + (currentPage - 1) * pageSize }}</th>
-                  <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;" [ngClass]="highlightRow(importoDonazioniAllUtentiMap[utente.id])">{{ utente.nome }}</td>
-                  <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;" [ngClass]="highlightRow(importoDonazioniAllUtentiMap[utente.id])">{{ utente.cognome }}</td>
-                  <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;" [ngClass]="highlightRow(importoDonazioniAllUtentiMap[utente.id])">{{ utente.email }}</td>
+                  <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;"
+                    [ngClass]="highlightRow(importoDonazioniAllUtentiMap[utente.id])">{{ utente.nome }}</td>
+                  <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;"
+                    [ngClass]="highlightRow(importoDonazioniAllUtentiMap[utente.id])">{{ utente.cognome }}</td>
+                  <td (click)="apriModaleDonatore(utente)" style="cursor: pointer;"
+                    [ngClass]="highlightRow(importoDonazioniAllUtentiMap[utente.id])">{{ utente.email }}</td>
                   <td>{{ importoDonazioniAllUtentiMap[utente.id] || 0 }} €</td>
                   <td>
                     <div class="d-flex justify-content-between">
@@ -593,29 +597,41 @@
             (click)="chiudiModaleAggiungiTavola()"></button>
         </div>
         <div class="modal-body">
-          <div>
-            <form #formUploadTavola="ngForm" action="/upload" method="post" enctype="multipart/form-data">
-              <!--<label for="titoloUploadTavola" class="me-2">Titolo:</label>
-            <input type="text" name="titoloUploadTavola" id="titoloUploadTavola" required [(ngModel)]="nuovaTavola.titolo"><br><br>
+          <div *ngIf="!isNuovaTavola">
+            <form #form="ngForm" (submit)="creaTavola(form)">
+              <div class="form-group">
+                <label for="titoloUploadTavola" class="me-2">Titolo:</label>
+                <input class="form-control" type="text" name="titoloUploadTavola" id="titoloUploadTavola" required ngModel>
+              </div>
+              <div class="form-group">
+                <label for="annoUploadTavola" class="me-2">Anno:</label>
+                <input class="form-control" type="number" name="annoUploadTavola" id="annoUploadTavola" required ngModel><br><br>
+              </div>
 
-            <label for="annoUploadTavola" class="me-2">Anno:</label>
-            <input type="text" name="annoUploadTavola" id="annoUploadTavola" required [(ngModel)]="nuovaTavola.anno"><br><br>
+              <div class="form-group">
+                <label for="descrizione">Descrizione:</label>
+                <textarea class="form-control" name="descrizioneUploadTavola" id="descrizioneUploadTavola" rows="4" cols="50" required
+                  ngModel></textarea><br><br>
+              </div>
 
-            <label for="descrizione">Descrizione:</label>
-            <textarea name="descrizioneUploadTavola" id="descrizioneUploadTavola" rows="4" cols="50" required [(ngModel)]="nuovaTavola.descrizione"></textarea><br><br>-->
+              <div class="form-group">
+                <input class="form-control" type="file" (change)="onFileChanged($event)" name="fileUploadTavola" id="urlCreateTavola"
+                  accept=".jpg, .jpeg, .png" required ngModel>
 
-              <input type="file" (change)="onFileChanged($event)" name="fileUploadTavola" id="urlUploadTavola" accept=".jpg, .jpeg, .png" required>
+              </div>
 
               <div class="modal-body d-flex justify-content-center">
-                <button type="button" style="width: 85px;" class="btn btn-primary " data-bs-dismiss="modal"
-                  [disabled]="formUploadTavola.invalid" (click)="onUpload(formUploadTavola)">
+                <button type="submit" style="width: 85px;" class="btn btn-primary " data-bs-dismiss="modal"
+                  [disabled]="form.invalid">
                   <p class="p-0 m-0">Carica</p>
                 </button>
               </div>
             </form>
 
           </div>
-
+<div *ngIf="isNuovaTavola">
+  <h5 class="modal-title alert alert-success">Tavola '{{nuovaTavola.titolo}}' aggiunta con successo!</h5>
+</div>
         </div>
 
       </div>

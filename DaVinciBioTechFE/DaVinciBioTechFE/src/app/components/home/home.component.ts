@@ -37,6 +37,8 @@ utente!: Utente;
     });
 
   }
+
+
   @HostListener('window:scroll', ['$event'])
   onScrollHero(event: Event): void {
     const scrollPosition = window.scrollY;

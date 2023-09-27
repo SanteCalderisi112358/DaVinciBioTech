@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import { Observable, Subscription, catchError } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Donazione } from 'src/app/models/donazione.interface';
 import { Tavola } from 'src/app/models/tavola.interface';
@@ -19,7 +19,7 @@ import { NuovaTavola } from 'src/app/models/nuova-tavola.interface';
 export class ProfileAdminComponent implements OnInit {
   /* VARIABILI GENERALI*/
 
-
+  @ViewChild('urlCreateTavola') urlCreateTavola: ElementRef | undefined;
   isErroreUguale: boolean = false;
   errore: string = "";
   errori: string[] = [];
@@ -79,12 +79,9 @@ export class ProfileAdminComponent implements OnInit {
   };
   /*VARIABILI TAVOLE*/
   selectedFile!: File;
-  retrievedImage: any;
-  base64Data: any;
-  retrieveResonse: any;
   message: string = '';
-  imageName: any;
-  image: any;
+isNuovaTavola:boolean = false
+isModificataTavola:boolean = false
   tavole: Tavola[] = [];
   tavola: Tavola = {
     id: "",
@@ -105,11 +102,15 @@ export class ProfileAdminComponent implements OnInit {
   isTavolaModificata: boolean = false;
   tavolaModificata!: TavolaModifica;
 
-  nuovaTavola!: NuovaTavola;
+  nuovaTavola: NuovaTavola = {
+    titolo: '',
+    descrizione: '',
+    anno: 0,
+    url: '',
+  };
 
 
   /*VARIABILI DONAZIONI*/
-  importoDonazioni:number =0
   donazioniTotaleImporto: number = 0;
   donazione: Donazione | undefined;
   donazioni: Donazione[] = [];
@@ -199,29 +200,31 @@ export class ProfileAdminComponent implements OnInit {
       // Chiamata per ottenere solo i donatori
       this.subUtenti = this.dvbtSrv.getAllUtentiDonatori(page - 1, this.pageSizeD, "cognome").subscribe((response: any) => {
         this.donatori = response['content'];
-        this.totalPagesArrayD = Array.from({ length: response['totalPages'] }, (_, i) => i + 1);
-        this.totalElementsDonatori = response['totalElements'];
-
-        // Recupera l'importo delle donazioni per ciascun donatore
         this.donatori.forEach((donatore: any) => {
           this.getImportoDonazioniByDonatore(donatore.id);
-        });
+        })
+        this.totalPagesArrayD = Array.from({ length: response['totalPages'] }, (_, i) => i + 1);
+        this.totalElementsDonatori = response['totalElements']
+
       });
     } else {
       // Chiamata per ottenere tutti gli utenti
+
       this.subUtenti = this.dvbtSrv.getAllUtenti(page - 1, this.pageSize, "cognome").subscribe((response: any) => {
         this.utenti = response['content'];
+        this.utenti.forEach((utente_: any) => {
+          this.getImportoDonazioniByUtente(utente_.id);
+        })
+        console.log(response['content'])
+        console.log("utenti" + this.utenti)
         this.totalPagesArray = Array.from({ length: response['totalPages'] }, (_, i) => i + 1);
-        this.totalElementsUtenti = response['totalElements'];
+        this.totalElementsUtenti = response['totalElements']
 
-        // Recupera l'importo delle donazioni per ciascun utente
-        this.utenti.forEach((utente: any) => {
-          this.getImportoDonazioniByUtente(utente.id);
-        });
+
+
       });
     }
   }
-
 
   setPage(page: number): void {
     this.currentPage = page;
@@ -325,8 +328,6 @@ export class ProfileAdminComponent implements OnInit {
   highlightRow(importoDonazioni: number): string {
     return importoDonazioni !== 0 ? 'donatori' : 'non-donatori';
   }
-
-
   chiudiModaleDonatore(): void {
     this.isModaleOpen = false;
     const modal = document.getElementById('modaleDonatore');
@@ -575,45 +576,51 @@ export class ProfileAdminComponent implements OnInit {
 
   onFileChanged(event: any) {
     if (event.target.files && event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-
-
-      this.nuovaTavola.url = this.selectedFile;
+      this.selectedFile = <File>event.target.files[0];
+      let nameTavola = this.selectedFile.name
+      const baseUrl = 'assets/DaVinciBioTech_Tavole/'
+      const url = baseUrl + nameTavola
+      this.nuovaTavola.url = url
+      console.log("Url nuovaTavola: "+this.nuovaTavola.url)
     }
   }
 
 
 
-  onUpload(form: NgForm) {
-    const imageFormData = new FormData();
-    const formData = new FormData();
-    formData.append('url', this.nuovaTavola.url, this.nuovaTavola.url.name);
-    formData.append('titolo', this.nuovaTavola.titolo);
-    formData.append('anno', this.nuovaTavola.anno);
-    formData.append('descrizione', this.nuovaTavola.descrizione);
-    /*this.httpClient.post('http://localhost:8080/upload/image/', imageFormData, { observe: 'response' })
-      .subscribe((response) => {
-        if (response.status === 200) {
-          this.postResponse = response;
-          this.successResponse = this.postResponse.body.message;
-        } else {
-          this.successResponse = 'Image not uploaded due to some error!';
+  creaTavola(form: NgForm) {
+    if (form.valid) {
+      const formValue = form.value;
+      console.log('Dati del form:', formValue);
+      this.nuovaTavola.titolo = form.value.titoloUploadTavola
+      this.nuovaTavola.anno = form.value.annoUploadTavola
+      this.nuovaTavola.descrizione = form.value.descrizioneUploadTavola
+
+      console.log("Nuova Tavola: ", this.nuovaTavola)
+      this.dvbtSrv.postTavola(this.nuovaTavola).subscribe((tavola_resp:Tavola)=>{
+        if(tavola_resp){
+          console.log(tavola_resp);
+          this.isNuovaTavola = true
+          this.loadPageTavole(1)
+          form.reset()
         }
+      },
+      (error:any)=>{
+console.log(error)
       }
-      );*/
+      )
+
+
+
+
+    }
   }
 
-  /*viewImage() {
-    this.httpClient.get('http://localhost:8080/get/image/info/' + this.image)
-      .subscribe(
-        res => {
-          this.postResponse = res;
-          this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
-        }
-      );
-  }*/
   chiudiModaleAggiungiTavola() {
+    this.isNuovaTavola = false
     this.isModaleOpen = false;
+    if (this.urlCreateTavola && this.urlCreateTavola.nativeElement) {
+      this.urlCreateTavola.nativeElement.value = '';
+    }
     const modal = document.getElementById('modaleCreaTavola');
     if (modal) {
       modal.classList.remove('show');
@@ -657,6 +664,7 @@ export class ProfileAdminComponent implements OnInit {
 
           } else {
             this.errore = error.error.message;
+            console.log(this.errore)
           }
 
 
@@ -690,18 +698,22 @@ export class ProfileAdminComponent implements OnInit {
       document.body.classList.remove('modal-open');
       this.tavola = tavola;
       this.idTavola = tavola.id;
-
+      console.log(this.tavola)
+      console.log(this.idTavola)
     }
   }
   deleteTavola(tavola: Tavola) {
     this.tavola = tavola;
+    console.log(this.tavola)
     if (this.idTavola) {
       this.dvbtSrv.deleteTavola(this.idTavola).subscribe(
         () => {
+          console.log('Richiesta HTTP DELETE inviata con successo');
         },
         (error: any) => {
           this.errore = error.error.message;
           this.isTavolaEliminata = true;
+          console.log(this.errore)
           this.loadPageTavole(this.currentPage);
 
         }
@@ -723,6 +735,7 @@ export class ProfileAdminComponent implements OnInit {
   apriModaleAggiungiUtente() {
     this.isModaleOpen = true
     const modal = document.getElementById('modaleAggiungiUtente');
+    console.log(this.errori)
     if (modal) {
       modal.classList.add('show');
       modal.style.display = 'block';
@@ -749,9 +762,11 @@ export class ProfileAdminComponent implements OnInit {
     this.dvbtSrv.postUtente(this.utenteNuovo).subscribe(
       (nuovoUtenteCreato) => {
         if (nuovoUtenteCreato) {
+          console.log('Richiesta HTTP POST inviata con successo');
           this.isUtenteCreato = true;
           this.errore = "";
           this.errori = [];
+          console.log("Utente Creato?: " + this.isUtenteCreato)
           this.loadPageUtenti(1)
           form.reset()
         }
@@ -766,6 +781,7 @@ export class ProfileAdminComponent implements OnInit {
           form.reset()
 
         } else if (error.error.message) {
+          console.log(error.error.message)
           this.errore = error.error.message
           this.isUtenteCreato = false;
           form.reset()
@@ -773,6 +789,9 @@ export class ProfileAdminComponent implements OnInit {
         }
 
       });
+
+    console.log("Dati nuovoUtente: ")
+    console.log(this.utenteNuovo)
 
 
   }
@@ -808,9 +827,11 @@ export class ProfileAdminComponent implements OnInit {
       this.donazioni = response['content'];
       /* this.totalPagesArrayTavole = Array.from({ length: response['totalPages'] }, (_, i) => i + 1);
         this.totalElementsTavole = response['totalElements']*/
-
+      console.log("Donazioni")
+      console.log(this.donazioni)
       this.donazioni.forEach(don => this.dataDonazioni.push(don.data))
-
+      console.log("Data donazioni:")
+      console.log(this.dataDonazioni)
 
     });
 
@@ -819,21 +840,22 @@ export class ProfileAdminComponent implements OnInit {
 
   ricercaImportoPeriodo() {
     this.erroreRicercaPeriodo = "";
+    console.log("errore: " + this.erroreRicercaPeriodo)
     this.importoPerPeriodo = 0;
     const meseSelect = document.getElementById('meseSelect') as HTMLSelectElement;
     const annoSelect = document.getElementById('annoSelect') as HTMLSelectElement;
     if (meseSelect.value === 'Seleziona Mese' && annoSelect.value === 'Seleziona Anno') {
       this.erroreRicercaSelect = 'Si prega di selezionare mese e anno prima di effettuare la ricerca.';
-
+      console.log(this.erroreRicercaSelect)
     } else if (meseSelect.value === 'Seleziona Mese' && annoSelect.value !== 'Seleziona Anno') {
       this.erroreRicercaSelect = 'Si prega di selezionare un mese prima di effettuare la ricerca.';
-
+      console.log(this.erroreRicercaSelect)
     } else if (meseSelect.value !== 'Seleziona Mese' && annoSelect.value === 'Seleziona Anno') {
       this.erroreRicercaSelect = 'Si prega di selezionare un anno prima di effettuare la ricerca.';
-
+      console.log(this.erroreRicercaSelect)
     } else if (meseSelect.value !== 'Seleziona Mese' && annoSelect.value !== 'Seleziona Anno') {
       this.erroreRicercaSelect = '';
-
+      console.log(this.erroreRicercaSelect)
       switch (meseSelect.value) {
         case "1":
           this.selectedMonthStart = "01-01";

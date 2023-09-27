@@ -1,10 +1,5 @@
 package com.davincibiotech.DaVinciBioTechBE.controllers;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.davincibiotech.DaVinciBioTechBE.entities.Tavola;
 import com.davincibiotech.DaVinciBioTechBE.exceptions.BadRequestException;
@@ -54,33 +48,23 @@ public class TavoleController {
 	}
 
 	/* UTILIZZO L'URL DA AWS */
-//	@PostMapping
-//	@PreAuthorize("hasAuthority('ADMIN')")
-//	public Tavola createTavola(@RequestBody TavolaRequestBody body) {
-//		return tavolaSrv.create(body);
-//	}
-
-	/* PROVA PERCORSO E NON URL */
 	@PostMapping
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public Tavola create(TavolaRequestBody body, MultipartFile file) throws BadRequestException {
-
-		TavolaRequestBody nuovaTavola = new TavolaRequestBody(body.getDescrizione(), body.getAnno(), body.getUrl(),
-				body.getTitolo());
-
-		try {
-			String fileName = file.getOriginalFilename();
-			Path path = Paths.get("uploads/tavola", fileName);
-			Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-			nuovaTavola.setUrl(path.toString());
-
-			return tavolaSrv.create(nuovaTavola);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new BadRequestException("Upload Immagine errato");
-		}
+	public Tavola createTavola(@RequestBody TavolaRequestBody body) {
+		return tavolaSrv.create(body);
 	}
+
+//	@PostMapping
+//	@PreAuthorize("hasAuthority('ADMIN')")
+//	public Tavola create(@RequestBody TavolaRequestBody body) {
+//		System.err.println(body);
+//		TavolaRequestBody nuovaTavola = new TavolaRequestBody(body.getDescrizione(), body.getAnno(), body.getUrl(),
+//				body.getTitolo());
+//
+//
+//			return tavolaSrv.create(nuovaTavola);
+//		}
+
 	@PutMapping("/{tavolaId}")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public Tavola updateTavola(@PathVariable UUID tavolaId, @RequestBody TavolaRequestBody body) {
