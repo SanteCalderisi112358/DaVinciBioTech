@@ -16,6 +16,10 @@ Questo progetto si basa fondamentalmente sulle **passioni** e le caratteristiche
 
 
 
+https://github.com/SanteCalderisi112358/DaVinciBioTech/assets/129219943/c37f6b4e-6d5b-4852-a0dc-4e0da0b65eb7
+
+
+
 ### Struttura
 - *Home*: Rapida biografia su Leonardo
 - *Chi siamo*: Veduta d'insieme sulla DVBTech
