@@ -62,7 +62,7 @@ console.log("Donazione Fatta?"+this.isDonazione)
         nostyle: true,
         currency: 'eur',
         submit_type: 'donate',
-
+        panelLabel: 'Dona',
 
 
       });

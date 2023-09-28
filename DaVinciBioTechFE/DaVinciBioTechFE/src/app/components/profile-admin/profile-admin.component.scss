@@ -3,6 +3,30 @@ body{
   margin: auto;
 
 }
+
+.logo{
+  background-image: url('https://trehyus.com/wp-content/uploads/2019/04/Leonardo.png');
+  width: 150px;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: rotazione_vetruvio 3s;
+
+}
+h3{
+  font-size: 20px;
+    font-weight: 200;
+}
+
+@keyframes rotazione_vetruvio {
+  0% {
+    transform: translateX(-100px) rotateY(0deg);
+  }
+
+  100% {
+    transform: translateX(100px) rotateY(-180deg);
+  }
+}
 main{
   padding-top: 50px;
   margin-bottom: 150px;

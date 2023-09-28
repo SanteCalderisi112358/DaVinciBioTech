@@ -19,10 +19,14 @@ main{
   animation: rotazione_vetruvio 3s;
 
 }
-h3{
+
+#bioingenere{
+  h3{
   font-size: 20px;
     font-weight: 200;
 }
+}
+
 @keyframes rotazione_vetruvio {
   0% {
     transform: translateX(-100px) rotateY(0deg);
