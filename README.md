@@ -10,13 +10,19 @@ Questo progetto si basa fondamentalmente sulle **passioni** e le caratteristiche
 3. ✍️La mia passione per la **scrittura** creativa e la lettura;
 4. Il mio amore per il **Genio** e l'Arte italiana e che trova in Leonardo la sua massima espressione.
 ## Guarda:
+
+Clicca sull'immagine:
+
 [![Guarda il video di presentazione](https://davincibiotech.s3.eu-central-1.amazonaws.com/home.png)](https://www.youtube.com/watch?v=B6ZgLZU937U&ab_channel=SanteCalderisi)
-[![Guarda il video di presentazione](https://davincibiotech.s3.eu-central-1.amazonaws.com/tavole.png)](https://www.youtube.com/watch?v=B6ZgLZU937U&ab_channel=SanteCalderisi)
-[![Guarda il video di presentazione](https://davincibiotech.s3.eu-central-1.amazonaws.com/registrati.png)](https://www.youtube.com/watch?v=B6ZgLZU937U&ab_channel=SanteCalderisi)
+
+https://github.com/SanteCalderisi112358/DaVinciBioTech/assets/129219943/2a37a54c-a4fa-495d-aa7c-64bd2a922bb4
 
 
 
-https://github.com/SanteCalderisi112358/DaVinciBioTech/assets/129219943/c37f6b4e-6d5b-4852-a0dc-4e0da0b65eb7
+
+
+
+
 
 
 
@@ -31,4 +37,11 @@ https://github.com/SanteCalderisi112358/DaVinciBioTech/assets/129219943/c37f6b4e
 
 ### Tecnologie utilizzate
 - *Front-end*: **Angular CLI: 16.2.0**
-- *Back-end*: **Java Spring Boot Strap**
+- *Back-end*: **JavaSpring - SpringBoot**
+
+### Installazione
+Prima di iniziare assicurati di aver installato **Node.js** sul tuo sistema. 
+- Clona questa repository con il comando comando: `gh repo clone SanteCalderisi112358/DaVinciBioTech`
+- Installa tutte le dipende necessarie affinché il progetto funzioni con: `npm install`
+- Run con `ng serve` e naviga in `http://localhost:4200/`.
+
