@@ -15,12 +15,9 @@ Clicca sull'immagine:
 
 [![Guarda il video di presentazione](https://davincibiotech.s3.eu-central-1.amazonaws.com/home.png)](https://www.youtube.com/watch?v=B6ZgLZU937U&ab_channel=SanteCalderisi)
 
+<img src="https://davincibiotech.s3.eu-central-1.amazonaws.com/tavole.png" alt="Tavole Image" width="400"/>                  <img src="https://davincibiotech.s3.eu-central-1.amazonaws.com/registrati.png" alt="Registrati Image" width="400"/>
 
-https://github.com/SanteCalderisi112358/DaVinciBioTech/assets/129219943/1d4f3b72-38dd-460c-9ac5-f190dd873f85
-
-
-
-
+---
 
 
 
