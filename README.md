@@ -2,8 +2,8 @@
 Progetto finale per il mio percorso di studi come 'Full Stack Web Developer' presso l'Academy EPICODE.
 ## DaVinciBioTech
 DVBTech parte da un **WHAT IF....?**
-E se Leonardo da Vinci, che come sappiamo ha dato "uno sguardo nel futuro" nelle sue tavole (dal carro armato all'elicottero) , avesse anche progettato e abbozzato gli schemi di artoprotesi e strumenti biomedici?
-Ed è così che nasce DaVinciBioTech (DVBTech), una Fondazione italiana nata per la conservazione e restaurazione di queste tavole ritrovate nel 2020.
+E se Leonardo da Vinci, che come sappiamo, nelle sue tavole ha dato "uno sguardo al futuro" (dal carro armato all'elicottero), avesse anche progettato e abbozzato gli schemi di artoprotesi e strumenti biomedici?
+Ed è così che nasce **DaVinciBioTech** (**DVBTech**), una Fondazione italiana nata per la conservazione e restaurazione di queste tavole ritrovate nel 2020.
 Questo progetto si basa fondamentalmente sulle **passioni** e le caratteristiche che contraddistinguono me come persona:
 1. 👨‍🎓Le mie conoscenze circa il mondo delle artoprotesi grazie al mio percorso di studi in **Ingegneria Biomedica**;
 2. 🎨La mia passione nel **disegno artistico**;
