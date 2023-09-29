@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "utenti")
 @NoArgsConstructor
 @JsonIgnoreProperties({
-		"password",
+		// "password",
 		"accountNonExpired", "authorities", "credentialsNonExpired", "accountNonLocked",
 		"username", "enabled" })
 public class Utente implements UserDetails {

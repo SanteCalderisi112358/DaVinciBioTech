@@ -7,16 +7,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CambioNomePayload {
-	private String nome;
+public class CambioDatoPayload {
+	private String dato;
 
-	public CambioNomePayload(String nome) {
-		this.nome = nome;
+	public CambioDatoPayload(String dato) {
+		this.dato = dato;
 	}
 
 	@Override
 	public String toString() {
-		return "CambioNome [nome=" + nome + "]";
+		return "CambioNome [nome=" + dato + "]";
 	}
 
 }

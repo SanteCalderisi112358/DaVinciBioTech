@@ -86,7 +86,7 @@ public class UtenteService {
 		found.setEmail(body.getEmail());
 		found.setNome(body.getNome());
 		found.setCognome(body.getCognome());
-		found.setRuolo(TipoUtente.USER);
+		found.setRuolo(body.getRuolo());
 		found.setPassword(body.getPassword());
 		return usersRepo.save(found);
 	}

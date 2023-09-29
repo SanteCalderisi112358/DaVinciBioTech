@@ -24,7 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.davincibiotech.DaVinciBioTechBE.entities.Donazione;
 import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
 import com.davincibiotech.DaVinciBioTechBE.exceptions.BadRequestException;
-import com.davincibiotech.DaVinciBioTechBE.payloads.CambioNomePayload;
+import com.davincibiotech.DaVinciBioTechBE.payloads.CambioDatoPayload;
+import com.davincibiotech.DaVinciBioTechBE.payloads.CambioPasswordPayload;
 import com.davincibiotech.DaVinciBioTechBE.payloads.UtenteRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.services.DonazioneService;
 import com.davincibiotech.DaVinciBioTechBE.services.UtenteService;
@@ -66,13 +67,39 @@ public class UtenteController {
 
 	}
 
+	// PUT NOME UTENTE BY USER
 	@PutMapping("/utente-cambio-nome/{userId}")
-	public Utente updateUtenteNome(@PathVariable UUID userId, @RequestBody CambioNomePayload nome) {
+	public Utente updateUtenteNome(@PathVariable UUID userId, @RequestBody CambioDatoPayload nome) {
 
 		Utente utente = utenteSrv.findById(userId);
-		UtenteRequestBody body = new UtenteRequestBody(nome.getNome(), utente.getCognome(), utente.getEmail(),
+		UtenteRequestBody body = new UtenteRequestBody(nome.getDato(), utente.getCognome(), utente.getEmail(),
 				utente.getPassword(), utente.getRuolo());
 		return utenteSrv.findByIdAndUpdate(userId, body);
+
+	}
+
+	// PUT COGNOME UTENTE BY USER
+	@PutMapping("/utente-cambio-cognome/{userId}")
+	public Utente updateUtenteCognome(@PathVariable UUID userId, @RequestBody CambioDatoPayload nome) {
+
+		Utente utente = utenteSrv.findById(userId);
+		UtenteRequestBody body = new UtenteRequestBody(utente.getNome(), nome.getDato(), utente.getEmail(),
+				utente.getPassword(), utente.getRuolo());
+		return utenteSrv.findByIdAndUpdate(userId, body);
+
+	}
+
+	// PUT PASSWORD UTENTE BY USER
+	@PutMapping("/utente-cambio-password/{userId}")
+	public Utente updateUtentepassword(@PathVariable UUID userId,
+			@RequestBody @Validated CambioPasswordPayload password) {
+		System.err.println("Vecchia password" + password.getPassword().toString());
+		Utente utente = utenteSrv.findById(userId);
+		String passwordCript = bcrypt.encode(password.getPassword());
+		System.err.println("Nuova password" + passwordCript);
+		UtenteRequestBody body = new UtenteRequestBody(utente.getNome(), utente.getCognome(), utente.getEmail(),
+				passwordCript, utente.getRuolo());
+		return utenteSrv.findByIdAndUpdateForNewPassword(userId, body);
 
 	}
 

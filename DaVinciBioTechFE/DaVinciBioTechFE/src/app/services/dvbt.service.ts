@@ -122,7 +122,15 @@ export class DvbtService {
     return this.http.get<number>(`${this.baseUrl}donazioni/importo-donazioni-utente/${idUtente}`)
   }
 
-  putNomeFromUser(idUtente:string,cambioNomePayload:{nome:string}){
+  putNomeFromUser(idUtente:string,cambioNomePayload:{dato:string}){
     return this.http.put<Utente>(`${this.baseUrl}utenti/utente-cambio-nome/${idUtente}`, cambioNomePayload)
+  }
+
+  putCognomeFromUser(idUtente:string,cambioCognomePayload:{dato:string}){
+    return this.http.put<Utente>(`${this.baseUrl}utenti/utente-cambio-cognome/${idUtente}`, cambioCognomePayload)
+  }
+
+  putPasswordFromUser(idUtente:string,cambioPasswordpayload:{password:string}){
+    return this.http.put<Utente>(`${this.baseUrl}utenti/utente-cambio-password/${idUtente}`, cambioPasswordpayload)
   }
 }

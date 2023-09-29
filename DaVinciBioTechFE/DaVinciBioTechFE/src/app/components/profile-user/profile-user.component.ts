@@ -206,25 +206,25 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
       modal.style.display = 'block'
     }
   }
-  cambiaNome(form:NgForm){
+  cambiaNome(form: NgForm) {
     let nuovoNome = form.value.nome
-    if(this.user?.utente.id){
-      this.dvbtSrv.putNomeFromUser(this.user?.utente.id,{nome:nuovoNome}).subscribe((utenteAggiornato:Utente)=>{
-this.isUtenteModificato = true
-this.utente.nome = utenteAggiornato.nome
-this.utente.cognome = utenteAggiornato.cognome
-this.utente.email = utenteAggiornato.email
-this.utente.ruolo = utenteAggiornato.ruolo
-if(this.user?.utente&&this.user?.accessToken){
-  this.user.utente = this.utente
-  let token = this.user?.accessToken
-  let data: AuthData = {
-    accessToken:token,
-    utente:this.user.utente
-  }
-  localStorage.setItem('utente', JSON.stringify(data));
+    if (this.user?.utente.id) {
+      this.dvbtSrv.putNomeFromUser(this.user?.utente.id, { dato: nuovoNome }).subscribe((utenteAggiornato: Utente) => {
+        this.isUtenteModificato = true
+        this.utente.nome = utenteAggiornato.nome
+        this.utente.cognome = utenteAggiornato.cognome
+        this.utente.email = utenteAggiornato.email
+        this.utente.ruolo = utenteAggiornato.ruolo
+        if (this.user?.utente && this.user?.accessToken) {
+          this.user.utente = this.utente
+          let token = this.user?.accessToken
+          let data: AuthData = {
+            accessToken: token,
+            utente: this.user.utente
+          }
+          localStorage.setItem('utente', JSON.stringify(data));
 
-}
+        }
 
       })
 
@@ -234,6 +234,107 @@ if(this.user?.utente&&this.user?.accessToken){
     this.isUtenteModificato = false
     this.isModaleOpen = false
     const modal = document.getElementById('modaleCambioNome')
+    if (modal) {
+      modal.classList.remove('show')
+      modal.style.display = 'none'
+    }
+  }
+
+  apriModaleModificaCognome() {
+    this.chiudiModaleDati()
+    this.isModaleOpen = true
+    const modal = document.getElementById('modaleCambioCognome')
+    if (modal) {
+      modal.classList.add('show')
+      modal.style.display = 'block'
+    }
+  }
+
+  cambiaCognome(form: NgForm) {
+    let nuovoCognome = form.value.cognome
+    if (this.user?.utente.id) {
+      this.dvbtSrv.putCognomeFromUser(this.user?.utente.id, { dato: nuovoCognome }).subscribe((utenteAggiornato: Utente) => {
+        console.log(utenteAggiornato)
+        this.isUtenteModificato = true
+        this.utente.nome = utenteAggiornato.nome
+        this.utente.cognome = utenteAggiornato.cognome
+        this.utente.email = utenteAggiornato.email
+        this.utente.ruolo = utenteAggiornato.ruolo
+        if (this.user?.utente && this.user?.accessToken) {
+          this.user.utente = this.utente
+          let token = this.user?.accessToken
+          let data: AuthData = {
+            accessToken: token,
+            utente: this.user.utente
+          }
+          localStorage.setItem('utente', JSON.stringify(data));
+
+        }
+
+      })
+
+    }
+  }
+
+  chiudiModaleModificaCognome() {
+    this.isUtenteModificato = false
+    this.isModaleOpen = false
+    const modal = document.getElementById('modaleCambioCognome')
+    if (modal) {
+      modal.classList.remove('show')
+      modal.style.display = 'none'
+    }
+  }
+
+
+  apriModaleModificaPassword(){
+    this.chiudiModaleDati()
+    this.isModaleOpen = true
+    const modal = document.getElementById('modaleCambioPassword')
+    if (modal) {
+      modal.classList.add('show')
+      modal.style.display = 'block'
+    }
+  }
+
+  cambiaPassword(form:NgForm){
+    let nuovaPassword = form.value.password
+    if (this.user?.utente.id) {
+      this.dvbtSrv.putPasswordFromUser(this.user?.utente.id, { password: nuovaPassword }).subscribe((utenteAggiornato: Utente) => {
+        console.log(utenteAggiornato)
+        this.isUtenteModificato = true
+        this.utente.nome = utenteAggiornato.nome
+        this.utente.cognome = utenteAggiornato.cognome
+        this.utente.email = utenteAggiornato.email
+        this.utente.ruolo = utenteAggiornato.ruolo
+        if (this.user?.utente && this.user?.accessToken) {
+          this.user.utente = this.utente
+          let token = this.user?.accessToken
+          let data: AuthData = {
+            accessToken: token,
+            utente: this.user.utente
+          }
+          localStorage.setItem('utente', JSON.stringify(data));
+
+        }
+
+      },
+      (error:any)=>{
+        console.log(error)
+        this.isLoading = true
+        this.isErrore = true
+        this.errori = error.error.errorsList
+      })
+
+    }
+  }
+
+  chiudiModaleModificaPassword(){
+    this.isErrore = false
+    this.isLoading = false
+    this.isUtenteModificato = false
+    this.isModaleOpen = false
+    const modal = document.getElementById('modaleCambioPassword')
     if (modal) {
       modal.classList.remove('show')
       modal.style.display = 'none'
