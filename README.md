@@ -9,7 +9,7 @@ Questo progetto si basa fondamentalmente sulle **passioni** e le caratteristiche
 2. 🎨La mia passione nel **disegno artistico**;
 3. ✍️La mia passione per la **scrittura** creativa e la lettura;
 4. Il mio amore per il **Genio** e l'Arte italiana e che trova in Leonardo la sua massima espressione.
-## Guarda:
+## 👀 Guarda:
 
 Clicca sull'immagine:
 
@@ -26,7 +26,7 @@ Clicca sull'immagine:
 
 
 
-### Struttura
+### 🏯 Struttura
 - *Home*: Rapida biografia su Leonardo
 - *Chi siamo*: Veduta d'insieme sulla DVBTech
 - *Donazioni*: Possibilità di fare una donazione attraverso un' API esterna  (**Stripe**) a cui seguirà una email custom di ringraziamento. (Ho utilizzato l'API di **SendGrid**)
@@ -35,14 +35,14 @@ Clicca sull'immagine:
 - *Profilo-User*: Gioco delle carte, possibilità di modificare i propri dati e di visualizzare le donazioni fatte
 - *Profilo-Admin*: Traccia sulle donazioni fatte con grafici (**ChartJs**), operazioni **CRUD** sulle tavole e sugli utenti
 
-### Tecnologie utilizzate
+### 💻 Tecnologie utilizzate
 - *Front-end*: **Angular CLI: 16.2.0**
 - *Back-end*: **JavaSpring - SpringBoot**
 - *Database*: **PostGreSQL**
 //TEST
 //COLLECTION POSTMAN JSON (EXPORT->CARTELLA STATIC IN RESOURCES)
 //backup del db 
-### Installazione
+### 📦 Installazione
 Prima di iniziare assicurati di aver installato **Node.js** sul tuo sistema. 
 - Clona questa repository con il comando comando: `gh repo clone SanteCalderisi112358/DaVinciBioTech`
 - Installa tutte le dipende necessarie affinché il progetto funzioni con: `npm install`
@@ -55,3 +55,13 @@ Prima di iniziare assicurati di aver installato **Node.js** sul tuo sistema.
   - JWT_SECRET= (sequenza alfanumerica per la creazione dei token)
   - SENDGRID_API_KEY= (la propria chiave sendgrid ottenuta dopo essersi aperti un account su sendgrid.com)
   - STRIPE_API_JEY= (la propria chiave stripe ottenuta dopo essersi aperti un account su stripe.com
+  - ...per maggiori informazioni, contattatemi.
+
+### 📧 Contatti
+santecalderisi@gmail.com
+
+### 🖊️ Autore
+
+Sante Calderisi
+
+
