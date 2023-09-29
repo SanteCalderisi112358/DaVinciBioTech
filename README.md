@@ -46,5 +46,12 @@ Clicca sull'immagine:
 Prima di iniziare assicurati di aver installato **Node.js** sul tuo sistema. 
 - Clona questa repository con il comando comando: `gh repo clone SanteCalderisi112358/DaVinciBioTech`
 - Installa tutte le dipende necessarie affinché il progetto funzioni con: `npm install`
-- Run con `ng serve` e naviga in `http://localhost:4200/`.
-
+- Run con `ng serve` e naviga in `http://localhost:4200/`
+- Nella cartella "DaVinciBioTechBE" creare un file "env.properties" così strutturato:
+  - SECRET=mysupersecret
+  - PG_USERNAME=postgres
+  - PG_PASSWORD= (password utilizzata)
+  - PORT=3001
+  - JWT_SECRET= (sequenza alfanumerica per la creazione dei token)
+  - SENDGRID_API_KEY= (la propria chiave sendgrid ottenuta dopo essersi aperti un account su sendgrid.com)
+  - STRIPE_API_JEY= (la propria chiave stripe ottenuta dopo essersi aperti un account su stripe.com
