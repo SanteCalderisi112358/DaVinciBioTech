@@ -56,38 +56,38 @@
     </div>
   </main>
   <!--MODALE CAMBIO DATI-->
-  <div class="modal" id="modalePassword" tabindex="-1">
+  <div class="modal" id="modaleDati" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div>
           <div class="d-flex justify-content-end">
             <button type="button" class="btn-close m-2" data-bs-dismiss="modal" aria-label="Close"
-            (click)="chiudiModalePassword()"></button>
+              (click)="chiudiModaleDati()"></button>
           </div>
 
-          <h5 *ngIf="!isUtenteModificato" class="modal-title" style="opacity: 1;">Modifica i tuoi dati</h5>
+          <h5 class="modal-title" style="opacity: 1;">Modifica i tuoi dati</h5>
 
         </div>
         <div class="modal-body p-0">
-          <div *ngIf="isUtenteModificato">
-<p style="color: green;">Le tue modificato sono avvenute con successo. Riceverai una email con i nuovi dati</p>
-          </div>
-          <form *ngIf="!isUtenteModificato"  #form="ngForm" (ngSubmit)="putUtente(form)">
+          <form>
             <div class="form-group">
-              <label for="nome">Nuovo Nome</label>
-              <input type="text" id="nome" class="form-control" name="nome" [(ngModel)]="utente.nome" required ngModel >
-              <label for="cognome">Nuovo Cognome</label>
-              <input type="text" id="cognome" class="form-control" name="cognome" [(ngModel)]="utente.cognome" required ngModel >
+              <div class="d-flex justify-content-between">
+                <label for="nome">Nome</label>
+                <i class="bi bi-pencil" style="cursor: pointer;" (click)="apriModaleModificaNome()"></i>
+              </div>
+              <input type="text" id="nome" class="form-control" name="nome" [(ngModel)]="utente.nome" required ngModel
+                readonly>
+            </div>
+            <!--<div class="form-group">
+              <label for="cognome">Cognome</label>
+              <input type="text" id="cognome" class="form-control" name="cognome" [(ngModel)]="utente.cognome" required
+                ngModel readonly>
             </div>
             <div class="form-group">
-              <label for="email">Nuova e-mail</label>
-              <input type="email" id="email" class="form-control" name="email" [(ngModel)]="utente.email" required ngModel >
-            </div>
-            <div class="form-group">
-              <label for="password">Nuova password</label>
-              <input type="password" id="password" name="password" class="form-control" required ngModel>
-            </div>
-            <button type="submit" [disabled]="form.invalid" class="btn btn-primary mb-3">Modifica</button>
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" class="form-control" placeholder="**********"
+                required ngModel readonly>
+            </div>-->
             <div *ngIf="isErrore" class="d-flex justify-content-center mb-3">
 
               <div class="spinner-grow text-warning spinner-grow-sm me-1" role="status">
@@ -101,11 +101,12 @@
               </div>
             </div>
             <div *ngIf="errori.length > 0" class="alert alert-danger mt-1">
-            <ul>
-              <li *ngFor="let errore of errori">{{ errore }}</li>
-            </ul>
-          </div>
-           </form>        </div>
+              <ul>
+                <li *ngFor="let errore of errori">{{ errore }}</li>
+              </ul>
+            </div>
+          </form>
+        </div>
 
       </div>
     </div>
@@ -120,12 +121,12 @@
             (click)="chiudiModaleDonazioni()"></button>
         </div>
         <div class="modal-body">
-          <div >
+          <div>
             <ul>
-            <li *ngFor="let donazione of donazioniUtente">
-              {{ donazione.importo }} € eseguita il giorno {{ donazione.data }}
-            </li>
-          </ul>
+              <li *ngFor="let donazione of donazioniUtente">
+                {{ donazione.importo }} € eseguita il giorno {{ donazione.data }}
+              </li>
+            </ul>
           </div>
           <div *ngIf="isErrore">
             <ul>
@@ -135,13 +136,58 @@
 
         </div>
         <div class="modal-footer">
-<div class="text-center"><a href="/donazioni">Vuoi fare una donazione?</a></div>
+          <div class="text-center"><a href="/donazioni">Vuoi fare una donazione?</a></div>
         </div>
       </div>
     </div>
   </div>
-  <app-dashboard [isOpen]="isDashboardOpen" (close)="toggleDashboard()"
-    (apriModalePasswordClicked)="apriModalePutDati()"
+  <!-- MODALE CAMBIO NOME-->
+  <div class="modal" id="modaleCambioNome" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="chiudiModaleModificaNome()"></button>
+        </div>
+        <div class="modal-body">
+          <form *ngIf="!isUtenteModificato" #form="ngForm" (submit)="cambiaNome(form)">
+            <div class="form-group">
+              <input type="text" id="nome" class="form-control" name="nome" placeholder="Nome" required ngModel>
+            </div>
+            <button type="submit" [disabled]="form.invalid" class="btn btn-primary mb-3">Modifica</button>
+            <div *ngIf="isLoading" class="d-flex justify-content-center mb-3">
+
+              <div class="spinner-grow text-warning spinner-grow-sm me-1" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+              <div class="spinner-grow text-warning spinner-grow-sm me-1" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+              <div class="spinner-grow text-warning spinner-grow-sm me-1" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+            </div>
+            <div *ngIf="errori.length > 0" class="alert alert-danger mt-1">
+              <ul>
+                <li *ngFor="let errore of errori">{{ errore }}</li>
+              </ul>
+            </div>
+
+            <div *ngIf="errore" class="alert alert-danger mt-1">
+              <ul>
+                <li>{{errore}}</li>
+              </ul>
+            </div>
+          </form>
+          <div *ngIf="isUtenteModificato" class="d-flex justify-content-center">
+              <p class="m-3" style="color: green;">Hai cambiato con successo il tuo nome in '{{user?.utente?.nome}}'</p>
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <app-dashboard [isOpen]="isDashboardOpen" (close)="toggleDashboard()" (apriModalePasswordClicked)="apriModaleDati()"
     (apriModaleDonazioniClicked)="apriModaleDonazioni()"></app-dashboard>
 
 </body>

@@ -15,8 +15,8 @@ import { UtenteModifica } from 'src/app/models/utente-modifica-from-user.interfa
   styleUrls: ['./profile-user.component.scss']
 })
 export class ProfileUserComponent implements OnInit, AfterViewInit {
-  idUser:string = ''
-  importoDonazioni:number =0
+  idUser: string = ''
+  importoDonazioni: number = 0
   user!: AuthData | null
   areDonazioni: boolean = false;
   donazioniUtente: Donazione[] = []
@@ -25,7 +25,7 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
   isModaleOpen: boolean = false;
   erroreDonazioni: string = ''
   isErrore: boolean = false
-  isUtenteModificato:boolean = false
+  isUtenteModificato: boolean = false
   @ViewChild('scena') scena!: ElementRef;
   @ViewChild('carta1') carta1!: ElementRef;
   @ViewChild('carta2') carta2!: ElementRef;
@@ -47,7 +47,7 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
     cognome: '',
     email: '',
     ruolo: TipoRuolo.USER,
-    password:''
+    password: ''
 
   }
 
@@ -80,8 +80,6 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.carta1)
-    console.log(this.scena.nativeElement)
     this.button.nativeElement.addEventListener('click', () => {
 
       this.sottoTitolo.nativeElement.classList.add('opacity-on');
@@ -175,80 +173,72 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
     this.carta4.nativeElement.id = 'id-4';
 
   }
-
-
   toggleDashboard() {
     this.isDashboardOpen = !this.isDashboardOpen;
   }
 
 
-  apriModalePutDati() {
-
-
-
-    const modal = document.getElementById('modalePassword')
+  apriModaleDati() {
+    this.isModaleOpen = true
+    const modal = document.getElementById('modaleDati')
     if (modal) {
       modal.classList.add('show')
       modal.style.display = 'block'
     }
   }
-  putUtente(form: NgForm) {
-    this.isErrore = false
-    this.errori = []
-    this.utenteModidicato.nome = form.value.nome
-    this.utenteModidicato.cognome = form.value.cognome
-    this.utenteModidicato.email = form.value.email
-    this.utenteModidicato.password = form.value.password
-
-    if(this.user?.utente.id){
-       this.dvbtSrv.putUtenteFromUtente(this.user?.utente?.id, this.utenteModidicato).subscribe((utente:Utente)=>{
-        if(utente){
-          this.isErrore = false
-          this.isUtenteModificato = true
-          if(this.user){
-            this.user.utente = utente
-            console.log(this.user.utente)
-            const accesstokenPost = this.user.accessToken
-            const utenteToke = {
-              accessToken: accesstokenPost,
-              utente: this.user.utente
-
-            }
-
-        localStorage.setItem('utente', JSON.stringify(utente));
-
-          }
 
 
-        }
-
-
-       },
-       (error:any)=>{
-this.errori = error.error.errorsList
-console.log(this.errori)
-console.log(this.errori.length)
-if(this.errori){
-
-  this.isErrore = true
-}
-})
-
-
-    }
-
-
-      }
-
-  chiudiModalePassword() {
+  chiudiModaleDati() {
     this.isModaleOpen = false;
-    const modal = document.getElementById('modalePassword')
+    const modal = document.getElementById('modaleDati')
     if (modal) {
       modal.classList.remove('show')
       modal.style.display = 'none'
     }
   }
 
+  apriModaleModificaNome() {
+    this.chiudiModaleDati()
+    this.isModaleOpen = true
+    const modal = document.getElementById('modaleCambioNome')
+    if (modal) {
+      modal.classList.add('show')
+      modal.style.display = 'block'
+    }
+  }
+  cambiaNome(form:NgForm){
+    let nuovoNome = form.value.nome
+    if(this.user?.utente.id){
+      this.dvbtSrv.putNomeFromUser(this.user?.utente.id,{nome:nuovoNome}).subscribe((utenteAggiornato:Utente)=>{
+this.isUtenteModificato = true
+this.utente.nome = utenteAggiornato.nome
+this.utente.cognome = utenteAggiornato.cognome
+this.utente.email = utenteAggiornato.email
+this.utente.ruolo = utenteAggiornato.ruolo
+if(this.user?.utente&&this.user?.accessToken){
+  this.user.utente = this.utente
+  let token = this.user?.accessToken
+  let data: AuthData = {
+    accessToken:token,
+    utente:this.user.utente
+  }
+  localStorage.setItem('utente', JSON.stringify(data));
+
+}
+
+      })
+
+    }
+  }
+  chiudiModaleModificaNome() {
+    this.isUtenteModificato = false
+    this.isModaleOpen = false
+    const modal = document.getElementById('modaleCambioNome')
+    if (modal) {
+      modal.classList.remove('show')
+      modal.style.display = 'none'
+    }
+  }
   apriModaleDonazioni() {
     this.isModaleOpen = true;
     console.log(this.isModaleOpen)

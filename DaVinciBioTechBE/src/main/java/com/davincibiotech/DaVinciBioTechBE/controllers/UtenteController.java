@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.davincibiotech.DaVinciBioTechBE.entities.Donazione;
-import com.davincibiotech.DaVinciBioTechBE.entities.TipoUtente;
 import com.davincibiotech.DaVinciBioTechBE.entities.Utente;
 import com.davincibiotech.DaVinciBioTechBE.exceptions.BadRequestException;
+import com.davincibiotech.DaVinciBioTechBE.payloads.CambioNomePayload;
 import com.davincibiotech.DaVinciBioTechBE.payloads.UtenteRequestBody;
 import com.davincibiotech.DaVinciBioTechBE.services.DonazioneService;
 import com.davincibiotech.DaVinciBioTechBE.services.UtenteService;
@@ -66,14 +66,28 @@ public class UtenteController {
 
 	}
 
-	@PutMapping("/utente/{userId}")
-	public Utente updateUtenteUser(@PathVariable UUID userId, @RequestBody @Validated UtenteRequestBody body) {
-		body.setPassword(bcrypt.encode(body.getPassword()));
-		body.setRuolo(TipoUtente.USER);
+	@PutMapping("/utente-cambio-nome/{userId}")
+	public Utente updateUtenteNome(@PathVariable UUID userId, @RequestBody CambioNomePayload nome) {
+
+		Utente utente = utenteSrv.findById(userId);
+		UtenteRequestBody body = new UtenteRequestBody(nome.getNome(), utente.getCognome(), utente.getEmail(),
+				utente.getPassword(), utente.getRuolo());
 		return utenteSrv.findByIdAndUpdate(userId, body);
 
 	}
 
+	/*
+	 * @PutMapping("/utente-cambio-nome/{userId}/{nome}") public Utente
+	 * updateUtenteUser(@PathVariable UUID userId, @PathVariable String nome) {
+	 * 
+	 * Utente utente = utenteSrv.findById(userId); UtenteRequestBody body = new
+	 * UtenteRequestBody(nome, utente.getCognome(), utente.getEmail(),
+	 * utente.getPassword(), utente.getRuolo());
+	 * System.err.println(utente.getPassword()); return
+	 * utenteSrv.findByIdAndUpdate(userId, body);
+	 * 
+	 * }
+	 */
 	@DeleteMapping("/{userId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasAuthority('ADMIN')")
