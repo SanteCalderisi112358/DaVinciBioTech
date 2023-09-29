@@ -238,6 +238,7 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
       modal.classList.remove('show')
       modal.style.display = 'none'
     }
+    this.apriModaleDati()
   }
 
   apriModaleModificaCognome() {
@@ -284,6 +285,7 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
       modal.classList.remove('show')
       modal.style.display = 'none'
     }
+    this.apriModaleDati()
   }
 
 
@@ -339,6 +341,7 @@ export class ProfileUserComponent implements OnInit, AfterViewInit {
       modal.classList.remove('show')
       modal.style.display = 'none'
     }
+    this.apriModaleDati()
   }
   apriModaleDonazioni() {
     this.isModaleOpen = true;
