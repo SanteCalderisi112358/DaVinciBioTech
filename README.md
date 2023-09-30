@@ -30,6 +30,7 @@ Clicca sull'immagine:
 - *Home*: Rapida biografia su Leonardo
 - *Chi siamo*: Veduta d'insieme sulla DVBTech
 - *Donazioni*: Possibilità di fare una donazione attraverso un' API esterna  (**Stripe**) a cui seguirà una email custom di ringraziamento. (Ho utilizzato l'API di **SendGrid**)
+- *Le tavole*: Visione, senza registrazione e login, delle tavole biomediche di leonardo. (Ovviamente tali tavole non esistono ma sono il frutto della mia creatività)
 - *Registrati*: Form per registrarsi (con validazione sul formato email e sulla password). Di default un utente che si registra viene creato come USER
 - *Accedi*: Form per l'accesso (con validazione). Solo dopo aver effettuato il login sarà possibili fare donazioni e accedere alla propria pagina profilo (User o Admin). Nel form c'è la possibilità di **Recuperare la password** attraverso la propria email. Verrà inviata una password criptata che potrà essere modificata in seguito.
 - *Profilo-User*: Gioco delle carte, possibilità di modificare i propri dati e di visualizzare le donazioni fatte
@@ -39,9 +40,7 @@ Clicca sull'immagine:
 - *Front-end*: **Angular CLI: 16.2.0**
 - *Back-end*: **JavaSpring - SpringBoot**
 - *Database*: **PostGreSQL**
-//TEST
-//COLLECTION POSTMAN JSON (EXPORT->CARTELLA STATIC IN RESOURCES)
-//backup del db 
+ 
 ### 📦 Installazione
 Prima di iniziare assicurati di aver installato **Node.js** sul tuo sistema. 
 - Clona questa repository con il comando comando: `gh repo clone SanteCalderisi112358/DaVinciBioTech`
