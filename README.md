@@ -8,7 +8,7 @@ Questo progetto si basa fondamentalmente sulle **passioni** e le caratteristiche
 1. 👨‍🎓Le mie conoscenze circa il mondo delle artoprotesi grazie al mio percorso di studi in **Ingegneria Biomedica**;
 2. 🎨La mia passione nel **disegno artistico**;
 3. ✍️La mia passione per la **scrittura** creativa e la lettura;
-4. Il mio amore per il **Genio** e l'Arte italiana e che trova in Leonardo la sua massima espressione.
+4. ❤️Il mio amore per il **Genio** e l'Arte italiana e che trova in **Leonardo** la sua massima espressione.
 ## 👀 Guarda:
 
 Clicca sull'immagine:
