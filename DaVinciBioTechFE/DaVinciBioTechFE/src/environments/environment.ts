@@ -7,15 +7,7 @@ export const environment = {
   baseURL: 'http://localhost:3001/'
 };
 
-export const environment_AWS = {
-  production: true,
-  aws: {
-    accessKeyId: 'AKIAWPP5CJI2F72BRP53',
-    secretAccessKey: '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',
-    region: 'eu-central-1',
-    bucketName: 'davincibiotech',
-  },
-};
+
 
 
 export const environment_STRIPE = {
